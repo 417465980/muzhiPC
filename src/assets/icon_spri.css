@@ -1,0 +1,70 @@
+.bg-m {
+    width: 19px; height: 15px;
+    background: url('css_sprites.png') -48px -112px;
+}
+
+x
+.bg-phone {
+    width: 11px; height: 21px;
+    background: url('css_sprites.png') -168px -82px;
+}
+
+x
+.bg-head {
+    width: 18px; height: 18px;
+    background: url('css_sprites.png') -10px -112px;
+}
+
+x
+.bg-gmHandle {
+    width: 31px; height: 24px;
+    background: url('css_sprites.png') -117px -10px;
+}
+
+x
+.bg-star {
+    width: 30px; height: 29px;
+    background: url('css_sprites.png') -10px -63px;
+}
+
+x
+.bg-balloon {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -65px -10px;
+}
+
+x
+.bg-search {
+    width: 16px; height: 14px;
+    background: url('css_sprites.png') -87px -112px;
+}
+
+x
+.bg-handle {
+    width: 35px; height: 33px;
+    background: url('css_sprites.png') -10px -10px;
+}
+
+x
+.bg-newIcon {
+    width: 24px; height: 26px;
+    background: url('css_sprites.png') -117px -54px;
+}
+
+x
+.bg-lb_box {
+    width: 28px; height: 28px;
+    background: url('css_sprites.png') -60px -63px;
+}
+
+x
+.bg-lb_btn01 {
+    width: 16px; height: 16px;
+    background: url('css_sprites.png') -168px -10px;
+}
+
+x
+.bg-lb_btn02 {
+    width: 16px; height: 16px;
+    background: url('css_sprites.png') -168px -46px;
+}

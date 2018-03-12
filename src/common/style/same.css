@@ -1,0 +1,64 @@
+html, body, div, span, applet, object, iframe, table, caption, 
+tbody, tfoot, thead, tr, th, td, del, dfn, em, font, img, ins, 
+kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, 
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, 
+acronym, address, big, cite, code, dl, dt, dd, ol, ul, li, 
+fieldset, form, label, legend,figure,figcaption {  vertical-align: baseline; font-size: 100%; outline: 0; padding: 0; margin: 0; border: 0; } 
+:focus { outline: 0; } 
+a{text-decoration: none;color: #000000;cursor: pointer;}
+ol, ul {list-style: none; } 
+body{font-family:"微软雅黑","microsoft yahei",'Avenir', Helvetica, Arial, sans-serif;}
+a:focus,button:focus,input:focus{outline: none;}
+.fl{float: left;}
+.fr{float: right;}
+.clearfix::after{display: block;font-size: 0;clear: both;height: 0;content: "";}
+.gradient{
+	background: -moz-linear-gradient(left,#4782c2,#bc427d); 
+		background: -o-linear-gradient(left,#4782c2,#bc427d); 
+		background: -webkit-gradient(linear,0 0,100% 100%,from(#4782c2), to(#bc427d)); /*Old gradient for webkit*/
+		background:-webkit-linear-gradient(left,#4782c2,#bc427d);   /*new gradient for Webkit*/
+		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#4782c2, endColorstr=#bc427d);/*IE<9>*/
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=1, startColorstr=#4782c2, endColorstr=#bc427d)";/*IE8+*/
+}
+.icon_spri{background-image: url('../../assets/images/icon_spri.png');background-repeat:no-repeat;}
+.user_spri{background-image: url('../../assets/images/user_spri.png');background-repeat:no-repeat;}
+.gmCen_spri{background-image: url('../../assets/images/gmCen_spri.png'); background-repeat: no-repeat;}
+.cont_box{width: 1200px;margin: 0 auto;}
+.gmCen_left,.activeCen_left{width:350px;}
+.news_gift{margin-top: 30px;}	
+
+.hot_icon,.hot_more{display: flex;align-items: center;}
+.hot_icon span{font-size: 20px;}
+.hot_more{height: 32px;}
+.hot_more a,.info_pro a{font-size:20px; width: 20px;height: 20px;display: block;text-align: center;line-height: 17px;border-radius: 50%;border:1px solid #767676;color: #767676;}
+.gmListWrap .hotGame_tit,.gmListWrap .hotGift_tit{padding-left:30px;border-bottom:1px solid #e9e9e9;padding-bottom: 10px;}
+.gmListWrap,.gmListWrap .game_list{width:100%;}
+.game_list ul li{float: left;/*width:195px;*/height: 85px;/*margin-left:30px;*/width: 25%;padding-left: 30px;box-sizing: border-box;-webkit-box-sizing: border-box;-ms-box-sizing: border-box;-o-box-sizing: border-box;-moz-box-sizing: border-box;}
+.game_list li .gm_icon{border-radius:5px; width: 83px;height: 83px;display: flex;justify-content: center;align-items: center;margin-right: 15px;}
+.game_list li .gm_icon img,.acBox li .ac_img,.new_list li .new_img img{height: auto;max-height: 100%;max-width: 100%;}
+.game_list .item_title{margin-top: 8px;/*width: 95px;*/}
+.game_list .item_title p{font-size: 16px;}
+.game_list .item_title > span{font-size: 13px;color:#b0b0b0;}
+.game_list .item_title .hotGmBtn:hover,.clsifi_list li .listTitle a:hover{ background: -moz-linear-gradient(left,#6461a5,#cf2878); 
+		background: -o-linear-gradient(left,#6461a5,#cf2878); background: -webkit-gradient(linear,0 0,100% 100%,from(#6461a5), to(#cf2878)); /*Old gradient for webkit*/
+		background:-webkit-linear-gradient(left,#6461a5,#cf2878);   /*new gradient for Webkit*/
+		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#6461a5, endColorstr=#cf2878);/*IE<9>*/
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=1, startColorstr=#6461a5, endColorstr=#cf2878)";/*IE8+*/
+}
+.game_list .item_title .hotGmBtn:hover span,.clsifi_list li .listTitle a:hover span{color: #fff;}
+
+.play_gm .title,.gm_clsifi .clsifi_title .clsifi_icon,.acBox .acIcon{display: flex;align-items: center;}
+.play_gm .title i,.gm_center .clsifi_title .clsifi_icon i{ width: 31px; height: 24px;display:block;background-position: -117px -10px;margin-right: 10px;}
+.topBorder{width: 100%;border-top: 1px solid #e9e9e9;padding-top: 20px;}
+.newsHotActive{margin-top: 20px;width:350px;}
+.newsHotActive .end_icon{position:absolute;bottom: 0;right: 0;}
+.acBox .acIcon:before,.acBox .acIcon:after,.info_pro div:before,.info_pro div:after{
+	content:'';width: 0; height: 0;display: block;position: absolute;z-index: 5;overflow: hidden;
+		border-bottom: 2px transparent dashed;border-left: 6px transparent dashed;border-right: 6px transparent dashed;
+	}
+	.acBox .acIcon:before,.info_pro div:before{border-top: 6px solid rgba(153,153,153,0.5);}
+	.acBox .acIcon:after,.info_pro div:after{border-top: 6px white solid;}
+
+
+
+

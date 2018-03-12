@@ -1,0 +1,70 @@
+.bg-userlb_a {
+    width: 78px; height: 78px;
+    background: url('css_sprites.png') -10px -10px;
+}
+
+x
+.bg-userlb {
+    width: 78px; height: 78px;
+    background: url('css_sprites.png') -206px -108px;
+}
+
+x
+.bg-userjuan_a {
+    width: 78px; height: 78px;
+    background: url('css_sprites.png') -108px -10px;
+}
+
+x
+.bg-userjuan {
+    width: 78px; height: 78px;
+    background: url('css_sprites.png') -10px -108px;
+}
+
+x
+.bg-usermoney_a {
+    width: 78px; height: 78px;
+    background: url('css_sprites.png') -108px -108px;
+}
+
+x
+.bg-usermoney {
+    width: 78px; height: 78px;
+    background: url('css_sprites.png') -206px -10px;
+}
+
+x
+.bg-giftbox_a {
+    width: 24px; height: 24px;
+    background: url('css_sprites.png') -10px -206px;
+}
+
+x
+.bg-giftbox {
+    width: 24px; height: 24px;
+    background: url('css_sprites.png') -54px -206px;
+}
+
+x
+.bg-juan_a {
+    width: 26px; height: 20px;
+    background: url('css_sprites.png') -192px -206px;
+}
+
+x
+.bg-juan {
+    width: 26px; height: 20px;
+    background: url('css_sprites.png') -238px -206px;
+}
+
+x
+.bg-mzMoney_a {
+    width: 27px; height: 20px;
+    background: url('css_sprites.png') -98px -206px;
+}
+
+x
+.bg-mzMoney {
+    width: 27px; height: 20px;
+    background: url('css_sprites.png') -145px -206px;
+}

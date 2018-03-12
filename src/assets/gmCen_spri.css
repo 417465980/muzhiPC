@@ -1,0 +1,46 @@
+.bg-get_lb {
+    width: 28px; height: 28px;
+    background: url('css_sprites.png') -10px -10px;
+}
+
+x
+.bg-project {
+    width: 26px; height: 25px;
+    background: url('css_sprites.png') -10px -58px;
+}
+
+x
+.bg-rank_load {
+    width: 28px; height: 28px;
+    background: url('css_sprites.png') -58px -10px;
+}
+
+x
+.bg-clsifi_get {
+    width: 12px; height: 12px;
+    background: url('css_sprites.png') -106px -10px;
+}
+
+x
+.bg-clsifi_get_a {
+    width: 12px; height: 12px;
+    background: url('css_sprites.png') -106px -42px;
+}
+
+x
+.bg-clsifi_load {
+    width: 12px; height: 12px;
+    background: url('css_sprites.png') -10px -103px;
+}
+
+x
+.bg-clsifi_load_a {
+    width: 12px; height: 12px;
+    background: url('css_sprites.png') -42px -103px;
+}
+
+x
+.bg-mor_icon {
+    width: 17px; height: 17px;
+    background: url('css_sprites.png') -56px -58px;
+}
