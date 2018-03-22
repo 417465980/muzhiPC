@@ -5,7 +5,7 @@
 			<span>全部活动</span>
 		</div>
 		<ul class="clearfix">
-			<li v-for="item in allActive" @click="selectActive(item)">
+			<li v-for="item in allActive" @click="selectActive(item)" :key='item.id'>
 				<div class="ac_img">
 					<img :src="item.imgUrl" />
 				</div>
@@ -21,7 +21,7 @@
 							<span>剩余时间：0天0小时0分0秒</span>
 						</div>
 					</div>
-					<img class="end_icon fr" src="../assets/images/big_acEnd.png" />
+					<img class="end_icon fr" src="../../assets/images/big_acEnd.png" />
 				</div>
 			</li>
 		</ul>
@@ -31,7 +31,7 @@
 	</div>
 </template>
 <script>
-	import LoadMore from 'base/load-more'
+	import LoadMore from '../../base/load-more'
 	export default{
 		components:{
 			LoadMore
@@ -40,27 +40,27 @@
 			return{
 				allActive:[
 					{
-						imgUrl:require('../assets/images/ac-img.jpg'),
+						imgUrl:require('../../assets/images/ac-img.jpg'),
 						title:'七夕约鹊桥，情人终眷属'
 					},
 					{
-						imgUrl:require('../assets/images/ac-img.jpg'),
+						imgUrl:require('../../assets/images/ac-img.jpg'),
 						title:'七夕约鹊桥，情人终眷属'
 					},
 					{
-						imgUrl:require('../assets/images/ac-img.jpg'),
+						imgUrl:require('../../assets/images/ac-img.jpg'),
 						title:'七夕约鹊桥，情人终眷属'
 					},
 					{
-						imgUrl:require('../assets/images/ac-img.jpg'),
+						imgUrl:require('../../assets/images/ac-img.jpg'),
 						title:'七夕约鹊桥，情人终眷属'
 					},
 					{
-						imgUrl:require('../assets/images/ac-img.jpg'),
+						imgUrl:require('../../assets/images/ac-img.jpg'),
 						title:'七夕约鹊桥，情人终眷属'
 					},
 					{
-						imgUrl:require('../assets/images/ac-img.jpg'),
+						imgUrl:require('../../assets/images/ac-img.jpg'),
 						title:'七夕约鹊桥，情人终眷属'
 					}
 				]

@@ -5,7 +5,7 @@
 			<span>热门游戏榜</span>
 		</div>
 		<ul>
-			<li v-for="(item,index) in rankList" @mouseover="rankShow(index)" @mouseout="rankHide(index)">
+			<li v-for="(item,index) in rankList" @mouseover="rankShow(index)" @mouseout="rankHide(index)" :key="item.id">
 				<div class="showRankGm clearfix" v-if="index == isShow">
 					<div class="rankGmIcon fl">
 						<img :src="item.gmIcon" />

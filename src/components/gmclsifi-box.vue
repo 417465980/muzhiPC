@@ -1,7 +1,7 @@
 <template>
 	<div class="clsifi_list">
 		<ul class="clearfix">
-			<li v-for="item in leisureList">
+			<li v-for="item in leisureList" :key="item.id">
 				<div class="listIcon fl">
 					<img :src="item.gmIcon" />
 				</div>

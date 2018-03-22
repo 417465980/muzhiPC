@@ -5,7 +5,7 @@
 			<span>精品游戏推荐</span>
 		</div>
 		<ul class="clearfix">
-			<li v-for="(item,index) in recomdList"  @mouseover="showCode(index)" @mouseout="hideCode(index)">
+			<li v-for="(item,index) in recomdList"  @mouseover="showCode(index)" @mouseout="hideCode(index)" :key="index">
 				<a href="#"><img :src="item.imgUrl" /></a>
 				<div class="load" v-if="index == isShow">
 					<div class="code">
@@ -27,26 +27,26 @@
 				isShow:null,
 				recomdList:[
 					{
-						imgUrl:require('../assets/images/ddt.png'),
-						wxCode:require('../assets/images/wx.png'),
+						imgUrl:require('../../assets/images/ddt.png'),
+						wxCode:require('../../assets/images/wx.png'),
 						title:'百战斗斗堂',
 						describ:'角色扮演100M'
 					},
 					{
-						imgUrl:require('../assets/images/ddt.png'),
-						wxCode:require('../assets/images/wx.png'),
+						imgUrl:require('../../assets/images/ddt.png'),
+						wxCode:require('../../assets/images/wx.png'),
 						title:'还珠格格',
 						describ:'角色扮演100M'
 					},
 					{
-						imgUrl:require('../assets/images/ddt.png'),
-						wxCode:require('../assets/images/wx.png'),
+						imgUrl:require('../../assets/images/ddt.png'),
+						wxCode:require('../../assets/images/wx.png'),
 						title:'倒霉熊',
 						describ:'角色扮演100M'
 					},
 					{
-						imgUrl:require('../assets/images/ddt.png'),
-						wxCode:require('../assets/images/wx.png'),
+						imgUrl:require('../../assets/images/ddt.png'),
+						wxCode:require('../../assets/images/wx.png'),
 						title:'官居一品',
 						describ:'角色扮演100M'
 					}

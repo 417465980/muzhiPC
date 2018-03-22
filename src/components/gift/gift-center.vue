@@ -29,11 +29,11 @@
 	</div>
 </template>
 <script>
-	import LoadApp from 'base/load-app'
-	import GameRank from 'base/game-rank'
-	import ClsifiType from 'base/clsifi-type'
-	import HotGift from 'base/hot-gift'
-	import LoadMore from 'base/load-more'
+	import LoadApp from '../../base/load-app'
+	import GameRank from '../../base/game-rank'
+	import ClsifiType from '../../base/clsifi-type'
+	import HotGift from '../../base/hot-gift'
+	import LoadMore from '../../base/load-more'
 	export default{
 		components:{
 			LoadApp,
@@ -48,153 +48,153 @@
 					{
 						title:'正统三国',
 						type:'新手礼包1',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包2',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包3',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包4',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包5',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包6',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包7',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包8',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包9',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'新手礼包10',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					}
 				],
 				typeFields:['全部','最新礼包','新手礼包','专属礼包','特权礼包','首发礼包','白金礼包','豪华礼包','节日礼包','其他'],
 				hotGift:[
 					{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		},
 			  		{
-			  			gmIcon: require('../assets/images/gmIcon.png'),
+			  			gmIcon: require('../../assets/images/gmIcon.png'),
 			  			title:'坦克警戒',
 			  			size:'拇指特权礼包'
 			  		}

@@ -8,7 +8,7 @@
 				</game-rank>
 				<div class="newsHotActive">
 					<hot-active>
-						<img slot="index" slot-scope="props" class="end_icon fr" src="../assets/images/big_acEnd.png" />
+						<img slot="index" slot-scope="props" class="end_icon fr" src="../../assets/images/big_acEnd.png" />
 					</hot-active>
 				</div>
 			</div>
@@ -34,8 +34,8 @@
 	</div>
 </template>
 <script>
-	import GameRank from 'base/game-rank'
-	import HotActive from 'base/hot-active'
+	import GameRank from '../../base/game-rank'
+	import HotActive from '../../base/hot-active'
 	export default{
 		components:{
 			GameRank,
@@ -48,61 +48,61 @@
 						title:'正统三国',
 						type:'角色1',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色2',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色3',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色4',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色5',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色6',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色7',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色8',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色9',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					},
 					{
 						title:'正统三国',
 						type:'角色10',
 						appSize:'113',
-						gmIcon:require('../assets/images/gmIcon.png')
+						gmIcon:require('../../assets/images/gmIcon.png')
 					}
 				]
 			}

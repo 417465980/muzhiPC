@@ -10,9 +10,9 @@
 			</div>
 		</div>
 		<div class="new_content">
-			<h2><<还珠格格>>手游今日首发！</h2>
+			<h2>&gt;&gt;还珠格格&lt;&lt;手游今日首发！</h2>
 			<ul>
-				<li v-for="item in newList" @click="homeNews(item)">
+				<li v-for="item in newList" @click="homeNews(item)" v-bind:key="item.id" >
 					<a>{{item.type}}</a>
 					<span>{{item.title}}</span>
 				</li>

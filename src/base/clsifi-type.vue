@@ -5,7 +5,7 @@
 				<slot></slot>
 			</div>
 			<div class="type_wrap">
-				<div class="clsifi_type clearfix"  v-for="item in typeFields">
+				<div class="clsifi_type clearfix"  v-for="item in typeFields" :key="item.id">
 					<a class="fl">
 						{{item}}
 						<b><i></i><i></i></b>

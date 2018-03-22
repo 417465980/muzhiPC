@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<ul>
-			<li v-for="(item,index) in hotActive" @click="hotAc(item)">
+			<li v-for="item in hotActive" @click="hotAc(item)" :key="item.id">
 				<figure>
 					<img :src="item.imgUrl" :style="imgHeight"/>
 					<figcaption>

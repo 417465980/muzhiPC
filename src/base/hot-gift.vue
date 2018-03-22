@@ -3,7 +3,7 @@
 		<slot name="hotLb_Tit"></slot>
 		<div class="game_list">
 			<ul class="clearfix">
-				<li v-for="(item,index) in hotGift">
+				<li v-for="item in hotGift" :key="item.id">
 					<a class="gm_icon fl">
 						<img :src="item.gmIcon"/>
 					</a>

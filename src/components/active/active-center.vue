@@ -15,9 +15,9 @@
 	</div>
 </template>
 <script>
-	import LoadApp from 'base/load-app'
-	import GameRank from 'base/game-rank'
-	import ActiveBox from 'components/active-box'
+	import LoadApp from '../../base/load-app'
+	import GameRank from '../../base/game-rank'
+	import ActiveBox from './active-box'
 	export default{
 		components:{
 			LoadApp,
@@ -30,52 +30,52 @@
 				{
 					title:'正统三国',
 					type:'新手礼包1',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包2',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包3',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包4',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包5',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包6',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包7',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包8',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包9',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				},
 				{
 					title:'正统三国',
 					type:'新手礼包10',
-					gmIcon:require('../assets/images/gmIcon.png')
+					gmIcon:require('../../assets/images/gmIcon.png')
 				}
 			]
 			}

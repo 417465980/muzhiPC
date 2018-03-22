@@ -11,7 +11,7 @@
 		</div>
 		<div class="game_list">
 			<ul class="clearfix">
-				<li v-for="item in hotGame">
+				<li v-for="item in hotGame" :key="item.id">
 					<a class="gm_icon fl">
 						<img :src="item.gmIcon"/>
 					</a>
@@ -35,7 +35,7 @@
 		},
 		data(){
 			return{
-				
+		
 			}
 		}
 		
