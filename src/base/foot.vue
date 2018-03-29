@@ -14,7 +14,7 @@
 	}
 </script>
 <style scoped>
-	.footer{width: 100%;padding: 30px 0 55px;background-color:#1e2023;margin-top: 70px;}
+	.footer{width: 100%;min-width:1200px;padding: 30px 0 55px;background-color:#1e2023;}
 	.footer div p{color: #fff;margin-top: 25px;text-align: center;}
 	.footer div p:first-child,.footer div p:last-child{font-size: 14px;}
 	.footer div p:nth-of-type(2),.footer div p:nth-of-type(3){font-size: 12px;}

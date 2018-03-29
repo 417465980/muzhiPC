@@ -17,9 +17,10 @@
 					</a>
 					<li class="count fr">
 						<i class="icon_spri"></i>
-						<span>
+						<!-- <span>
 							花卉&nbsp;&nbsp;|&nbsp;&nbsp;退出
-						</span>
+						</span> -->
+						<router-link to="/login" tag="span">登录</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/register" tag="span">注册</router-link>
 					</li>
 				</ul>
 			</div>
@@ -28,7 +29,7 @@
 			<div class="log fl"></div>
 			<div class="fl">
 				<ul class="clearfix">
-					<router-link to="/" tag="li">首页</router-link>
+					<router-link to="/home" tag="li">首页</router-link>
 					<router-link to="/user" tag="li">用户中心</router-link>
 					<router-link to="/gameCneter" tag="li">游戏中心</router-link>
 					<router-link to="/giftCenter" tag="li">礼包中心</router-link>
@@ -52,7 +53,7 @@
 	}
 </script>
 <style scoped>
-	.head{width: 100%;height: 40px;}
+	.head{width: 100%;height: 40px;min-width:1200px;}
 	.head .content,.nav{width: 1200px;margin: 0 auto;}
 	.head ul li{height: 40px;color: #fff;font-size: 13px;display: flex;align-items: center;}
 	.head li.muzhi,.head li.mobile{width: 87px;}

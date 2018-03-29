@@ -1,7 +1,7 @@
 <template>
 	<div id="account">
 		<div :class="{'edit':true}">
-			<a href="javascript:;" @click="editable">编辑</a></div>
+			<a href="javascript:;" ref="editable" @click="editable">编辑</a></div>
 		<div class="account-wrap">
 			<form action="" method="post">
 				<ul>
@@ -41,7 +41,7 @@
 						<span name="nickname" class="font-s-color333">127.0.0.1</span></li>
 				</ul>
 				<div :class="{'accout-submit':true}">
-					<input type="submit" value="提交">
+					<input ref="sub" type="submit" value="提交">
 				</div>
 			</form>
 		</div>
@@ -58,88 +58,97 @@ export default {
   methods: {
     editable() {
       this.readonly = !this.readonly;
+	  if(!this.readonly){
+		  this.$refs.editable.className = "background";
+	  }else{
+		  this.$refs.editable.className = "";
+	  }
     }
-  }
+  },
+
 };
 </script>
 <style scoped lang="stylus">
-@import '../../common/style/same.css';
-
-#account {
-	position: relative;
-}
-
-.edit {
-	position: absolute;
-	right: 0;
-	top: 0;
-	z-index: 9;
-	text-align: right;
-
-	a {
-		dispaly: inline-block;
-		padding: 10px 20px;
-		border: 1px solid #999;
-		border-radius: 6px;
-		font-size: 14px;
-		color: #666;
-		background: none;
-
-		&:hover {
-			background: linear-gradient(left, #6461a5, #cf2878);
-			background: -webkit-linear-gradient(left, #6461a5, #cf2878);
-			color: #fff;
-		}
+	
+	#account {
+		position: relative;
 	}
-}
-.account-wrap {
-	width: auto;
-	display: table-cell;
-	vertical-align: middle;
-	.accout-submit{
-		width 400px
-		height 48px
-		margin-top 50px
-		border-radius 6px
-		background #cf2878
 
-	}
-		input[type="submit"]{
-			border none
-			background none 
-			display inline-block
-			width 100%
-			height 100%
-			color #fff
-			font-size 16px
-			cursor pointer
-		}
-		li {
-			height: 56px;
+	.edit {
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 9;
+		text-align: right;
 
-			.accout-label {
-				min-width: 64px;
-				padding-right: 10px;
-				text-align: left;
-				display: inline-block;
-				font-size: 14px;
-				color: #999;
-				line-height: 36px;
-			}
+		a {
+			dispaly: inline-block;
+			padding: 10px 20px;
+			border: 1px solid #999;
+			border-radius: 6px;
+			font-size: 14px;
+			color: #666;
+			background: none;
 
-			input[type='text'] {
-				min-width: 220px;
-				width: auto;
-				height: 36px;
-				line-height: 36px;
-				padding: 0 2rem;
-				font-size: 14px;
-				color: #333;
-				border-radius: 6px;
-				appearance: none;
-				border: 1px solid #e4e4e4;
-				box-sizing: border-box;
+			&:hover {
+				background: linear-gradient(left, #6461a5, #cf2878);
+				background: -webkit-linear-gradient(left, #6461a5, #cf2878);
+				color: #fff;
 			}
 		}
-}
+	}
+	.account-wrap {
+		width: auto;
+		display: table-cell;
+		vertical-align: middle;
+		.accout-submit{
+			width 400px
+			height 48px
+			margin-top 50px
+			border-radius 6px
+			background #cf2878
+
+		}
+			input[type="submit"]{
+				border none
+				background none 
+				display inline-block
+				width 100%
+				height 100%
+				color #fff
+				font-size 16px
+				cursor pointer
+				border-radius 6px
+			}
+		
+			li {
+				height: 56px;
+				.accout-label {
+					min-width: 64px;
+					padding-right: 10px;
+					text-align: left;
+					display: inline-block;
+					font-size: 14px;
+					color: #999;
+					line-height: 36px;
+				}
+
+				input[type='text'] {
+					min-width: 220px;
+					width: auto;
+					height: 36px;
+					line-height: 36px;
+					padding: 0 2rem;
+					font-size: 14px;
+					color: #333;
+					border-radius: 6px;
+					appearance: none;
+					border: 1px solid #e4e4e4;
+					box-sizing: border-box;
+				}
+			}
+	}
+	input[type="submit"]:active{
+			background #999 !important
+		}
 </style>

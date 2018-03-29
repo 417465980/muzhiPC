@@ -36,7 +36,6 @@ export default {
 };
 </script>
 <style scoped lang="stylus">
-@import "../../common/style/same.css";
 #user-info 
   width: 100%;
   height: 100px;
