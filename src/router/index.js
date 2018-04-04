@@ -54,7 +54,7 @@ export default new Router({
     {
       path: "/user",
       component: User,
-      redirect:'/user/account',
+      redirect:'/user/MyGame',
       children:[
         {
           path: "",

@@ -36,7 +36,7 @@
 			<ul class="my-game-list">
 				<li v-for="data in rows" :key="data.$index">
 					<div>
-						<img class="my-game-icon" :src="data.icon|addHttp" alt="">
+						<router-link to="/"><img class="my-game-icon" :src="data.icon|addHttp" alt=""></router-link>
 						<div class="my-game-info">
 							<p>{{data.name}}</p>
 							<a :href="data.website" class="officialWeb">官网</a>
@@ -54,13 +54,13 @@
 </template>
 <script>
 	import axios from 'axios';
-	import {url,hint} from '../../common/js/general'
+	import {url,hint,token} from '../../common/js/general'
 	export default{
 		data(){
 			return {
 				info:{
 					username:'pengqian',
-					token:'724f02cfea43d333591b057253ced88f'
+					token
 				},
 				rows:[]
 			}

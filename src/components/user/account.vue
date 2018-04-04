@@ -54,7 +54,7 @@
 </template>
 <script>
 import axios from 'axios';
-import {url,hint} from '../../common/js/general'
+import {url,hint,token} from '../../common/js/general'
 export default {
   data() {
     return {
@@ -67,7 +67,7 @@ export default {
 			phone:'4',
 			address:'1',
 			nickname:'2',
-			token:'634bb6fc9d277b5138e18d99dee0aa5e',
+			token
 		}
     };
   },

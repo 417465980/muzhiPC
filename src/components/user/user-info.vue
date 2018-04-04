@@ -2,11 +2,15 @@
 	<div id="user-info">
         <div class="max-width">
             <div class="user-information">
-                <img src="../../assets/images/user_icon.png" class=user-icon alt="">
+                <div class="user-icon">
+                  <img :src="userdata.mUserIcon|addHttp"  alt="">
+                </div>
+                
                 <div class="g-userinfo">
-                    <p class="user-truename">songcaiyin</p><br>
-                    <p class="username"><span>用户名：</span><span>花卉</span></p><br>
-                    <p class="user-trade"><img src="../../assets/images/vip_1.png" alt=""></p>
+                    <p class="user-truename" v-if="userdata.realName">{{userdata.realName}}</p>
+                    <p class="user-truename" v-else>muzhiyouwan</p><br>
+                    <p class="username"><span>用户名：</span><span>{{userdata.name}}</span></p><br>
+                    <p class="user-trade"><img :src="'../../assets/images/vip_'+userdata.level+'.png'" alt=""></p>
                 </div>
             </div>            
         </div>
@@ -29,9 +33,17 @@
 	</div>
 </template>
 <script>
+import {url,userdata, token} from '../../common/js/general'
 export default {
   data() {
-    return {};
+    return {
+      userdata
+    };
+  },
+  filters:{
+    addHttp(data){
+      return url+data
+    }
   }
 };
 </script>
@@ -46,7 +58,11 @@ export default {
 .user-information 
   float: left;
   width: 400px;
-
+  .user-icon 
+    width: 103px;
+    height:97px;
+    overflow: hidden;
+    display inline-block
 .g-userinfo 
   vertical-align: top;
   display: inline-block;

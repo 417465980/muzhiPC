@@ -3,15 +3,16 @@
 		
 			<div class="login_top clearfix">
 				<div class="avatars fl">
-					<img src="../assets/images/user_icon.png" />
+					<img :src="userdata.mUserIcon|addHttp" />
 				</div>
 				<a class="exit fr">退出</a>
 				<div class="user_title fl">
 					<div>
-						<span>花卉</span>
-						<img src="../assets/images/vip_1.png" />
+						<span>{{userdata.nickName}}</span>
+						<img :src="'../assets/images/vip_'+userdata.level+'.png'" />
 					</div>
-					<p>这个人很懒，什么也没留下,什么也没留下什么也没留下</p>
+					<p v-if="!userdata">这个人很懒，什么也没留下,什么也没留下什么也没留下</p>
+					<p v-else>{{userdata.signature}}</p>
 				</div>
 			</div>
 			<div class="login_botm">
@@ -65,8 +66,22 @@
 	</div>
 </template>
 <script>
+	import {url,token,userdata} from '../common/js/general'
+
 	export default{
-		
+		data(){
+			return {
+				userdata
+			}
+		},
+		mounted(){
+			console.log(userdata)
+		},
+		filters:{
+			addHttp(data){
+				return url+data
+			}
+		}
 	}
 </script>
 <style scoped>

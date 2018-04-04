@@ -1,19 +1,30 @@
 <template>
 	<div id='coupon'>
-qqq
+		<div id="roll-box" ref="rollBox">
+			<div id="roll-content" ref="rollContent" class="my-coupon-box">
+			</div>
+		</div>
+		<transition>
+			<div class="hint" ref="hint">
+				<span ref="hint-content"></span>
+			</div>
+		</transition>
 	</div>
 </template>
 <script>
 	import Vue from 'vue';
 	import axios from 'axios';
-	import {url,hint} from '../../common/js/general'
+	import {url,hint,token} from '../../common/js/general'
 	export default{
 		
 		data(){
 			return {
 				info:{
 					username:'pengqian',
-					token:'724f02cfea43d333591b057253ced88f'
+					token,
+					type:'1',
+					page:'10',
+					rows:'1',
 				},
 				rows:[]
 			}
@@ -76,6 +87,10 @@ qqq
 			let that = this;
 			paramsUrl.append('username',that.info.username);
 			paramsUrl.append('token',that.info.token);
+			paramsUrl.append('type',that.info.type);
+			paramsUrl.append('page',that.info.page);
+			paramsUrl.append('rows',that.info.rows);
+
 			axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl).then(function(res){
 				console.log(res.data)
 				that.rows = res.data.rows

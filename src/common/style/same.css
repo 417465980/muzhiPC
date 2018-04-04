@@ -10,6 +10,10 @@ ol, ul {list-style: none; }
 body{font-family:"微软雅黑","microsoft yahei",'Avenir', Helvetica, Arial, sans-serif;}
 a:focus,button:focus,input:focus{outline: none;}
 input:not[type=" checkedbox"]{appearance: none; }
+img{
+	height:auto;
+	max-width:100%;
+}
 .fl{float: left;}
 .fr{float: right;}
 .clearfix::after{display: block;font-size: 0;clear: both;height: 0;content: "";}

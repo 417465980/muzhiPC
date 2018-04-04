@@ -4,7 +4,7 @@
 		<div class="user-warp max-width">
 			<div class="user-main-left">
 				<ul class="user-main-left-box">
-					<router-link to="/user/account " tag="li">账号信息<span :class="{active:true}"></span></router-link>
+					<router-link to="/user/account " tag="li">账号信息<span></span></router-link>
 					<router-link to="/user/myGame" tag="li">我的游戏<span></span></router-link>
 					<router-link to="/user/myGift" tag="li">我的礼包<span></span></router-link>
 					<router-link to="/user/myCoupon" tag="li">我的礼券<span></span></router-link>
