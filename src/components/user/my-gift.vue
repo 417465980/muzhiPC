@@ -199,6 +199,4 @@
 			color #666
 			padding 18px 0
 			line-height 1
-			
-
 </style>
