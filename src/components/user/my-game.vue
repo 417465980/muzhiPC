@@ -34,98 +34,53 @@
 			</div>
 			<div class="subnav">&nbsp;&nbsp;精品游戏推荐</div>
 			<ul class="my-game-list">
-				<li>
+				<li v-for="data in rows" :key="data.$index">
 					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
+						<img class="my-game-icon" :src="data.icon|addHttp" alt="">
 						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-					</div>
-				</li>
-				<li>
-					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-					</div>
-				</li>
-				<li>
-					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-					</div>
-				</li>
-				<li>
-					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-					</div>
-				</li>
-				<li>
-					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-					</div>
-				</li>
-				<li>
-					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-					</div>
-				</li>
-				<li>
-					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-					</div>
-				</li>
-				<li>
-					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-					</div>
-				</li>
-				<li>
-					<div>
-						<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-						<div class="my-game-info">
-							<p>坦克警戒</p>
-							<a href="javascript:;" class="officialWeb">官网</a>
+							<p>{{data.name}}</p>
+							<a :href="data.website" class="officialWeb">官网</a>
 							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
 					</div>
 				</li>
 			</ul>
 		</div>
+		<transition>
+			<div class="hint" ref="hint">
+				<span ref="hint-content"></span>
+			</div>
+		</transition>
 	</div>
 </template>
 <script>
-	
+	import axios from 'axios';
+	import {url,hint} from '../../common/js/general'
 	export default{
-	
 		data(){
 			return {
-
+				info:{
+					username:'pengqian',
+					token:'724f02cfea43d333591b057253ced88f'
+				},
+				rows:[]
+			}
+		},
+		mounted(){
+			let paramsUrl =  new URLSearchParams();
+			let that = this;
+			paramsUrl.append('username',that.info.username);
+			paramsUrl.append('token',that.info.token);
+			axios.post(url+'/muzhiplat/pc2/user/findMyGame',paramsUrl).then(function(res){
+				console.log(res.data)
+				that.rows = res.data.rows
+				hint(that.$refs,res.data.msg)
+			}).catch(function(res){
+				console.log(res)
+			})
+		},
+		filters:{
+			addHttp(data){
+				return url+data
 			}
 		}
 	}	

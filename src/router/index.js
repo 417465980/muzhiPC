@@ -24,6 +24,10 @@ export default new Router({
   
   routes: [
     {
+      path :'/',
+      redirect: '/home'
+    },
+    {
       path: "/home",
       component: Home //首页
     },
@@ -53,6 +57,10 @@ export default new Router({
       redirect:'/user/account',
       children:[
         {
+          path: "",
+          component: MyGame
+        },
+        {
           path: "account",
           component: Account
         },
@@ -64,10 +72,10 @@ export default new Router({
           path: "myGift",
           component: MyGift
         },
- /*        {
+        {
           path: "myCoupon",
           component: MyCoupon
-        }, */
+        },
         {
           path: "myWallet",
           component: MyWallet

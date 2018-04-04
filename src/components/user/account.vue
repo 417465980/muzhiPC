@@ -3,67 +3,104 @@
 		<div :class="{'edit':true}">
 			<a href="javascript:;" ref="editable" @click="editable">编辑</a></div>
 		<div class="account-wrap">
-			<form action="" method="post">
-				<ul>
-					<li>
-						<label class="accout-label" for="username">用户名</label>
-						<input id="username" placeholder="用户名1" type="text" name="username" :readonly="readonly"></li>
-					<li>
-						<label class="accout-label" for="nickname">昵称</label>
-						<input name="nickname" id='nickname' placeholder="未设置昵称" type="text" :readonly="readonly"></li>
-					<li>
-						<p class="accout-label">性别</p>
-						<label for="men">
-							<input type="radio" id="men" name="nickname" value="男" checked :disabled="readonly">男</label>&nbsp;&nbsp;
-						<label for="women">
-							<input type="radio" id="women" name="nickname" value="女" :disabled="readonly">女</label>
-					</li>
-					<li>
-						<label class="accout-label" for="">实名认证状态</label>
-						<span name="nickname" class="font-s-color333">未认证</span></li>
-					<li>
-						<label class="accout-label" for="">QQ</label>
-						<input name="nickname" type="text" placeholder="18546542853" :readonly="readonly"></li>
-					<li>
-						<label class="accout-label" for="">微信</label>
-						<input name="nickname" type="text" placeholder="weixin1" :readonly="readonly"></li>
-					<li>
-						<label class="accout-label" for="">联系电话</label>
-						<input name="nickname" type="text" placeholder="15454545454" :readonly="readonly"></li>
-					<li>
-						<label class="accout-label" for="">地址</label>
-						<input name="nickname" type="text" value="广东省深圳市南山区粤海街道高新中一道长园新材1栋4楼拇指游玩" :readonly="readonly"></li>
-					<li>
-						<label class="accout-label" for="">上次登录</label>
-						<span name="nickname" class="font-s-color333">2017-10-30&nbsp;18:22</span></li>
-					<li>
-						<label class="accout-label" for="">最近登录IP</label>
-						<span name="nickname" class="font-s-color333">127.0.0.1</span></li>
-				</ul>
-				<div :class="{'accout-submit':true}">
-					<input ref="sub" type="submit" value="提交">
-				</div>
-			</form>
+			<ul>
+				<li>
+					<label class="accout-label" for="username">用户名</label>
+					<input id="username" placeholder="用户名" type="text" name="username" v-model="info.username" :readonly="readonly"></li>
+				<li>
+					<label class="accout-label" for="nickname">昵称</label>
+					<input id='nickname' placeholder="请设置您的昵称" type="text" v-model="info.nickname" :readonly="readonly"></li>
+				<li>
+					<p class="accout-label">性别</p>
+					<label for="men">
+						<input type="radio" id="men" value="man" checked v-model="info.sex"  :disabled="readonly" name="sex">男</label>&nbsp;&nbsp;
+					<label for="women">
+						<input type="radio" id="women" value="woman" v-model="info.sex" :disabled="readonly" name="sex">女</label>
+						
+				</li>
+				<li>
+					<label class="accout-label" for="">实名认证状态</label>
+					<span class="font-s-color333">未认证</span></li>
+				<li>
+					<label class="accout-label" for="">QQ</label>
+					<input type="text"  v-model="info.qq" placeholder="请输入常用QQ号" :readonly="readonly"></li>
+				<li>
+					<label class="accout-label" for="">微信</label>
+					<input type="text"  v-model="info.wx" placeholder="请输入您的微信号" :readonly="readonly"></li>
+				<li>
+					<label class="accout-label" for="">联系电话</label>
+					<input type="text"  v-model="info.phone" placeholder="请输入您的联系电话" :readonly="readonly"></li>
+				<li>
+					<label class="accout-label" for="">地址</label>
+					<input type="text"  v-model="info.address" placeholder="请输入您的地址" :readonly="readonly"></li>
+				<li>
+					<label class="accout-label" for="">上次登录</label>
+					<span class="font-s-color333">2017-10-30&nbsp;18:22</span></li>
+				<li>
+					<label class="accout-label" for="">最近登录IP</label>
+					<span class="font-s-color333">127.0.0.1</span></li>
+			</ul>
+			<div :class="{'accout-submit':true}">
+				<input @click="changeInfo" type="button" value="提交">
+			</div>
+
 		</div>
+		<transition>
+			<div class="hint" ref="hint">
+				<span ref="hint-content"></span>
+			</div>
+		</transition>
 	</div>
 </template>
 <script>
+import axios from 'axios';
+import {url,hint} from '../../common/js/general'
 export default {
   data() {
     return {
-      readonly: true,
-      checked: "checked"
+		readonly: true,
+		info:{
+			username:'lw3333',
+			sex:'man',
+			qq:'2',
+			wx:'3',
+			phone:'4',
+			address:'1',
+			nickname:'2',
+			token:'634bb6fc9d277b5138e18d99dee0aa5e',
+		}
     };
   },
   methods: {
     editable() {
-      this.readonly = !this.readonly;
-	  if(!this.readonly){
-		  this.$refs.editable.className = "background";
-	  }else{
-		  this.$refs.editable.className = "";
-	  }
-    }
+		this.readonly = !this.readonly;
+		if(!this.readonly){
+			this.$refs.editable.className = "background";
+		}else{
+			this.$refs.editable.className = "";
+		}
+	},
+	changeInfo(){
+		let paramsUrl =  new URLSearchParams();
+		let that = this;
+		paramsUrl.append('username',that.info.username);
+		paramsUrl.append('sex',that.info.sex);
+		paramsUrl.append('qq',that.info.qq);
+		paramsUrl.append('wx',that.info.wx)
+		paramsUrl.append('phone',that.info.phone)
+		paramsUrl.append('address',that.info.address)
+		paramsUrl.append('nickname',that.info.nickname)
+		paramsUrl.append('token',that.info.token)
+		axios.post(url+'/muzhiplat/pc2/user/edit',paramsUrl).then(function(res){
+			console.log(res.data)
+			hint(that.$refs,res.data.msg)
+		}).catch(function(res){
+			console.log(res)
+		})
+
+	}
+  },
+  mounted(){
   },
 
 };
@@ -109,7 +146,7 @@ export default {
 			background #cf2878
 
 		}
-			input[type="submit"]{
+			input[type="button"]{
 				border none
 				background none 
 				display inline-block
@@ -148,7 +185,7 @@ export default {
 				}
 			}
 	}
-	input[type="submit"]:active{
-			background #999 !important
-		}
+	input[type="button"]:active{
+		background #999 !important
+	}
 </style>

@@ -7,7 +7,7 @@
 					<router-link to="/user/account " tag="li">账号信息<span :class="{active:true}"></span></router-link>
 					<router-link to="/user/myGame" tag="li">我的游戏<span></span></router-link>
 					<router-link to="/user/myGift" tag="li">我的礼包<span></span></router-link>
-					<!-- <router-link to="/user/myCoupon" tag="li">我的礼券<span></span></router-link> -->
+					<router-link to="/user/myCoupon" tag="li">我的礼券<span></span></router-link>
 					<router-link to="/user/myWallet" tag="li">我的钱包<span></span></router-link>
 				</ul>
 			</div>

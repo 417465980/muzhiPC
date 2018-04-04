@@ -10,134 +10,15 @@
 		</div>
 		<div id="roll-box" ref="rollBox">
 			<div id="roll-content" ref="rollContent" class="my-gift-box">
-				<div class="my-gift-list">
+				<div class="my-gift-list" v-for="data in rows" :key="data.$index">
 					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
+						<li>《{{data.gameName}}》{{data.giftName}}</li>
+						<li>{{data.giftedate}}至{{data.giftpdate}}</li>
+						<li>{{data.giftcode}}</li>
 						<li>已使用</li>
 					</ul>
 				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>《守护奇兵》高级礼包</li>
-						<li>2017-10-24至2019-10-24</li>
-						<li>di6d22s834</li>
-						<li>已使用</li>
-					</ul>
-				</div>
+		
 			</div>
 			<div id="boxout" ref="boxout" class="boxout">
 				<span ref="rollspan" @mousedown = 'rollspan' ></span>
@@ -148,13 +29,18 @@
 </template>
 <script>
 	import Vue from 'vue';
-	import Mint from 'mint-ui';
-	import Axios from 'axios';
-	Vue.use(Mint)
+	import axios from 'axios';
+	import {url,hint} from '../../common/js/general'
 	export default{
 		
 		data(){
-			return {}
+			return {
+				info:{
+					username:'pengqian',
+					token:'724f02cfea43d333591b057253ced88f'
+				},
+				rows:[]
+			}
 		},
 		methods:{
 			scrollDir(obj,fnEnd){
@@ -209,6 +95,19 @@
 
 		},
 		mounted(){
+			//获取礼包
+			let paramsUrl =  new URLSearchParams();
+			let that = this;
+			paramsUrl.append('username',that.info.username);
+			paramsUrl.append('token',that.info.token);
+			axios.post(url+'/muzhiplat/pc2/user/findMyGifts',paramsUrl).then(function(res){
+				console.log(res.data)
+				that.rows = res.data.rows
+				hint(that.$refs,res.data.msg)
+			}).catch(function(res){
+				console.log(res)
+			})
+			//自定义滚动条
 			this.$nextTick(() =>{
 				let ele = this.$refs
 				this.scrollDir(ele.rollContent, function(b){

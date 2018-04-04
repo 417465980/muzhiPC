@@ -8,14 +8,14 @@
                         <div class="login-warp">
                             <div class="login-margin">
                                 <ol>
-                                    <li><label class="username" for="username"><input type="text" id="username" placeholder="请输入用户名"></label></li>  
-                                    <li><label class="psd" for="psd"><input id="psd" type="text" placeholder="请输入密码"></label></li> 
+                                    <li><label class="username" for="username"><input type="text" @input="checkUser" id="username" placeholder="请输入用户名" v-model="username"><span :class="{'text-danger':!userInput.prompt,'text-success':userInput.prompt,'text-active':userInput.textActive}">{{userInput.promptContent}}</span></label></li>  
+                                    <li><label class="psd" for="psd"><input id="psd" :type="type" placeholder="请输入密码" v-model="password"><i class="eye" @click="changeType"></i></label></li> 
                                 </ol>
                                 <div>
                                     <p class="remmberme"><input class="radioR" type="checkbox" checked><span>记住我的两周</span></p>
                                     <router-link to="/forgetpsd" tag="span" class="forgetpsd">忘记密码?</router-link>
                                 </div>
-                                <div><input class="background loginbtn" type="button" value="登录"></div>
+                                <div><input class="background loginbtn" type="button" @click="login" value="登录"></div>
                                 <div><p class="unregistered">还没注册拇指账户？<router-link to="/register" tag="span">立即注册&gt;&gt;</router-link></p></div>
                             </div>
                         </div>
@@ -23,18 +23,76 @@
                 </ul>
             </div>
         </div>
+        <transition>
+			<div class="hint" ref="hint">
+				<span ref="hint-content"></span>
+			</div>
+		</transition>
 	</div>
 </template>
 <script>
+    import axios from 'axios'
+    import {url,resPassword,regUserName,hint} from '../../common/js/general'
 	export default{
 		data(){
 			return {
-
+                username:'',
+                password:'',
+                type:'password',
+                userInput :{
+                    prompt :false,
+                    promptContent:'6-15位（仅限数字、英文）',
+                    textActive :false
+                },//登录注册验证提示
 			}
-		}
+        },
+        methods:{
+            login(){
+                const that = this
+                this.userInput.textActive =true
+                if(this.userInput.prompt){
+                    let paramsUrl = new URLSearchParams()
+                    paramsUrl.append('username', this.username);
+                    paramsUrl.append('password', this.password);
+                    axios.post(url + '/muzhiplat/pc2/user/login',paramsUrl).then(function(res){
+                        
+                        hint(that.$refs,res.data.msg)
+                        if(res.data.ret){
+                            setTimeout(function(){
+                                that.$router.push('/home');
+                            },2000)
+                        }
+                    }).catch(function(res){
+                        
+                    })
+                }
+            },
+            checkUser(){
+                this.userInput.textActive = true
+                this.userInput.prompt = regUserName.test(this.username)
+                if(regUserName.test(this.username)){
+                    this.userInput.promptContent = "通过"
+                }else{
+                    this.userInput.promptContent = "6-15位（仅限数字、英文）"
+                }
+            },
+            changeType(){
+                if(this.type == 'text'){
+                    this.type = 'password'
+                }else{
+                    this.type = 'text'
+                }
+               
+            },
+       
+        },
+        mounted(){
+
+        }
 	}	
 </script>
 <style scoped lang="stylus" >
+
 .login
     height 520px
     width 100%
@@ -70,6 +128,15 @@
         height 40px
         background #fff
         border-radius 6px
+        span 
+            display none
+            position absolute
+            top 40px
+            left 0
+            font-size 12px
+            width 200px
+        .text-active
+            display inline-block
     .username:before 
         content ''
         display inline-block
@@ -131,5 +198,14 @@
     span 
         color #922ba8
         cursor pointer
-
+.eye
+    display inline-block
+    position absolute
+    right 0
+    top 1px
+    width 38px
+    height 38px
+    background #fff url(../../assets/images/eye.png) no-repeat center center
+    background-size 100% auto
+    cursor pointer
 </style>

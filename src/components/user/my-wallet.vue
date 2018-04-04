@@ -46,14 +46,18 @@
 	</div>
 </template>
 <script>
-	import Vue from 'vue';
-	import Mint from 'mint-ui';
-	import Axios from 'axios';
-	Vue.use(Mint)
+	import axios from 'axios';
+	import {url,hint} from '../../common/js/general'
 	export default{
 		
 		data(){
-			return {}
+			return {
+				info:{
+					username:'pengqian',
+					token:'d8e2b1af431a0b376fd389c46dbfdb24'
+				},
+				rows:[]
+			}
 		},
 		methods:{
 			//滚动条
@@ -110,6 +114,19 @@
 
 		},
 		mounted(){
+			//查看充值记录
+			let paramsUrl =  new URLSearchParams();
+			let that = this;
+			paramsUrl.append('username',that.info.username);
+			paramsUrl.append('token',that.info.token);
+			axios.post(url+'/muzhiplat/pc2/user/findMyRecharge',paramsUrl).then(function(res){
+				console.log(res.data)
+				that.rows = res.data.rows
+				hint(that.$refs,res.data.msg)
+			}).catch(function(res){
+				console.log(res)
+			})
+
 			this.$nextTick(() =>{
 				let ele = this.$refs
 				this.scrollDir(ele.rollContent, function(b){

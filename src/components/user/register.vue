@@ -8,41 +8,154 @@
             <div class="register-wrap">
                 <div class="mauto tl register-main">
                     <h3 class="g0 n f28 pb40 ">注册拇指游戏平台</h3>
-                    <form action="" methods="post">
-                        <ul>
-                            <li>
-                                <label class="accout-label" for="username">用户名</label>
-                                <input id="username" class="input-common" placeholder="6-15位（仅限数字、英文）" type="text" name="username" ></li>
-                            <li>
-                                <label class="accout-label" for="password">密码</label>
-                                <input name="password" class="input-common" id='password' placeholder="请输入密码" type="password" ></li>
-                            <li>
-                                <label class="accout-label" for="">重复密码</label>
-                                <input name="passwordrepeat" class="input-common" id="passwordrepeat" type="password" placeholder="请输入重复密码" ></li>
-                            <li>
-                                <label class="accout-label" for="">E-mail</label>
-                                <input name="nickname" class="input-common" type="text" placeholder="请输入您常用email" ></li>
-                        </ul>
-                         <div><p class="unregistered tl">我已阅读并同意<router-link to="/mzagreement" tag="span">《拇指通行证用户服务协议》</router-link></p></div>
-                        <input class="background register-sub tc br6 f16 wh cp" ref="sub" type="submit" value="提交">
-                    </form>
+                    <ul>
+                        <li>
+                            <label class="accout-label" for="username">用户名</label>
+                            <input @input="checkUser" @blur="checkname" class="input-common" placeholder="6-15位（仅限数字、英文）" type="text" v-model='username'>
+                            <span :class="{'text-danger':!userInput.prompt,'text-success':userInput.prompt,'text-active':userInput.textActive}">{{userInput.promptContent}}</span></li>
+                        <li>
+                            <label class="accout-label" for="password">密码</label>
+                            <input @input="checkPsd" class="input-common" placeholder="请输入密码" :type="type" v-model='password'>
+                            <span :class="{'text-danger':!psdInput.prompt,'text-success':psdInput.prompt,'text-active':psdInput.textActive}">{{psdInput.promptContent}}</span>
+                            <i class="eye" @click="changeType"></i></li>
+                        <li>
+                            <label class="accout-label" for="">重复密码</label>
+                            <input @input="checkPsdRepeat" class="input-common" :type="type" placeholder="请输入重复密码" v-model="passwordrepeat">
+                            <span :class="{'text-danger':!repeatPsdInput.prompt,'text-success':repeatPsdInput.prompt,'text-active':repeatPsdInput.textActive}">{{repeatPsdInput.promptContent}}</span>
+                            <i class="eye" @click="changeType"></i></li>
+                    </ul>
+                    <div><p class="unregistered tl">我已阅读并同意<router-link to="/mzagreement" tag="span">《拇指通行证用户服务协议》</router-link></p></div>
+                    <input class="background register-sub tc br6 f16 wh cp" ref="sub" @click="mobileDoReg" type="button" value="提交">
                 </div>
             </div>
         </div>
+        <transition>
+			<div class="hint" ref="hint">
+				<span ref="hint-content"></span>
+			</div>
+		</transition>
 	</div>
 </template>
 <script>
+    import axios from 'axios'
+    import {url,resPassword,regUserName,hint} from '../../common/js/general'
+   
 	export default{
 
 		data(){
 			return {
-
+                username:'',
+                password:'',
+                passwordrepeat:'',
+                type:'password',
+                userInput :{
+                    prompt :false,
+                    promptContent:'6-15位（仅限数字、英文）',
+                    textActive :false
+                },//登录注册验证提示
+                psdInput :{
+                    prompt :false,
+                    promptContent :'最少5位',
+                    textActive :false
+                },
+                repeatPsdInput:{
+                    prompt:false,
+                    promptContent:'两次输入不一致',
+                    textActive :false
+                },
+                $refs:'',
 			}
-		}
+        },
+        methods:{
+            mobileDoReg(){
+                const that = this
+                
+                this.userInput.textActive = this.psdInput.textActive = this.repeatPsdInput.textActive =true
+                if(this.userInput.prompt&&this.psdInput.prompt&&this.repeatPsdInput.prompt){
+                    let paramsUrl = new URLSearchParams();
+                    paramsUrl.append('username', this.username);
+                    paramsUrl.append('password', this.password);
+                    axios.post(url + '/muzhiplat/pc2/user/register',paramsUrl).then(function(res){
+                        if(res.data.ret){
+                            setTimeout(function(){
+                                that.$router.push('/home');
+                            },2000)
+                            hint(that.$refs,res.data.msg)
+                        }
+                    }).catch(function(res){
+                        console.log(res)
+                    })                    
+                }
+            },
+            checkUser(){
+                this.userInput.textActive = true
+                this.userInput.prompt = regUserName.test(this.username)
+                if(regUserName.test(this.username)){
+                    this.userInput.promptContent = "通过"
+                }else{
+                    this.userInput.promptContent = "6-15位（仅限数字、英文）"
+                }
+                
+            },
+            checkPsd(){
+                this.psdInput.textActive = true
+                this.psdInput.prompt = resPassword.test(this.password)
+                if(resPassword.test(this.password)){
+                   this.psdInput.promptContent = "通过"
+                }else{
+                    this.psdInput.promptContent = "最少5位"
+                }
+            },
+            checkPsdRepeat(){
+                this.repeatPsdInput.textActive = true
+                if(this.password == this.passwordrepeat){
+                    this.repeatPsdInput.prompt = true
+                    this.repeatPsdInput.promptContent = '密码输入一致'
+                }else{
+                    this.repeatPsdInput.prompt = false
+                    this.repeatPsdInput.promptContent = '两次密码输入不一致，请重新输入'
+                }
+            },
+            changeType(){
+                if(this.type == 'text'){
+                    this.type = 'password'
+                }else{
+                    this.type = 'text'
+                }
+               
+            },
+            checkname(){
+                const that = this
+                if(regUserName.test(this.username)){
+                    paramsUrl.delete('username')
+                    paramsUrl.delete('password')
+                    paramsUrl.append('name', that.username);
+                    axios.post(url + '/newMobile/checkname',paramsUrl).then(function(res){
+
+                        if(res.data.result==1){
+                             that.userInput.prompt = false
+                            that.userInput.promptContent = "该用户名已存在"
+                        }else if(res.data.result==-1){
+                             that.userInput.prompt = true
+                            that.userInput.promptContent = "该用户名可用"
+                        }
+                    }).catch(function(res){
+                        console.log(res)
+                    })                     
+                }
+
+            },
+
+        },
+        mounted(){
+            
+
+        }
+        
 	}	
 </script>
 <style scoped lang="stylus" >
-@import '../../common/style/common.css'
+
 .unregistered
     
     font-size 14px
@@ -55,6 +168,7 @@
     vertical-align: middle;
     li 
         height: 56px;
+        position relative
         .accout-label 
             min-width: 64px;
             padding-right: 10px;
@@ -66,8 +180,8 @@
         .input-common
             min-width: 330px;
             width: auto;
-            height: 36px;
-            line-height: 36px;
+            height: 40px;
+            line-height: 40px;
             padding: 0 2rem;
             font-size: 14px;
             color: #333;
@@ -75,13 +189,32 @@
             appearance: none;
             border: 1px solid #e4e4e4;
             box-sizing: border-box;
+        span 
+            display none
+            position absolute
+            top 10px
+            left 415px
+            font-size 12px
+            width 200px
+        .text-active
+            display inline-block
+.eye
+    display inline-block
+    position absolute
+    right 56px
+    top 1px
+    width 38px
+    height 38px
+    background #fff url(../../assets/images/eye.png) no-repeat center center
+    background-size 100% auto
+    cursor pointer
 .accout-submit
     width 400px
     height 48px
     margin-top 50px
     border-radius 6px
     background #cf2878
-    input[type="submit"]
+    input[type="button"]
         border none
         background none 
         display inline-block
