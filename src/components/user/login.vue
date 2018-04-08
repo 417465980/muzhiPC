@@ -8,11 +8,11 @@
                         <div class="login-warp">
                             <div class="login-margin">
                                 <ol>
-                                    <li><label class="username" for="username"><input type="text" @input="checkUser" id="username" placeholder="请输入用户名" v-model="username"><span :class="{'text-danger':!userInput.prompt,'text-success':userInput.prompt,'text-active':userInput.textActive}">{{userInput.promptContent}}</span></label></li>  
+                                    <li><label class="username" for="username"><input type="text" value="checkedRemmber" @input="checkUser" id="username" placeholder="请输入用户名" v-model="username"><span :class="{'text-danger':!userInput.prompt,'text-success':userInput.prompt,'text-active':userInput.textActive}">{{userInput.promptContent}}</span></label></li>  
                                     <li><label class="psd" for="psd"><input id="psd" :type="type" placeholder="请输入密码" v-model="password"><i class="eye" @click="changeType"></i></label></li> 
                                 </ol>
                                 <div>
-                                    <p class="remmberme"><input class="radioR" type="checkbox" checked><span>记住我的两周</span></p>
+                                    <p class="remmberme"><input class="radioR" type="checkbox" @change="remmberme" v-model="checked"><span>记住我的两周</span></p>
                                     <router-link to="/forgetpsd" tag="span" class="forgetpsd">忘记密码?</router-link>
                                 </div>
                                 <div><input class="background loginbtn" type="button" @click="login" value="登录"></div>
@@ -32,13 +32,14 @@
 </template>
 <script>
     import axios from 'axios'
-    import {url,resPassword,regUserName,hint} from '../../common/js/general'
+    import {url,resPassword,regUserName,hint,userdata,token} from '../../common/js/general'
 	export default{
 		data(){
 			return {
                 username:'',
                 password:'',
                 type:'password',
+                checked:localStorage.checked||false,
                 userInput :{
                     prompt :false,
                     promptContent:'6-15位（仅限数字、英文）',
@@ -86,10 +87,23 @@
                 }
                
             },
+            remmberme(){
+                if(this.checked){
+                    window.localStorage.setItem('checked','checked')
+                }else{
+                    window.localStorage.removeItem('checked')
+                }
+            }
        
         },
         mounted(){
-
+            if(this.checked){
+                window.localStorage.setItem('checked','checked')
+                this.username = userdata.name
+                console.log(this.username)
+            }else{
+                window.localStorage.removeItem('checked')
+            }
         }
 	}	
 </script>

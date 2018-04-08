@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "components/Home";
+import Search from "components/search";
 import GameCenter from "components/game/game-center";
 import GiftCenter from "components/gift/gift-center";
 import ActiveCenter from "components/active/active-center";
@@ -34,6 +35,10 @@ export default new Router({
     {
       path: "/gameCneter",
       component: GameCenter
+    },
+    {
+      path: "/search",
+      component: Search
     },
     {
       path: "/giftCenter",

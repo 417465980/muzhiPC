@@ -39,17 +39,46 @@
 				</ul>
 			</div>
 			<div class="search fr">
-				<input type="text" placeholder="还珠格格">
-				<div class="searchBtn">
-					<i class="icon_spri"></i>
-				</div>
+				<input type="text" @blur="defaultkeyword" @focus="clearkeyword" v-model="keyword" :placeholder="keyword">
+				<router-link to="/search" tag="div" class="searchBtn"><i class="icon_spri"></i></router-link>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
+	import axios from 'axios';
+	import {hint,url} from '../common/js/general';
 	export default{
-		
+		data(){
+			return {
+				keyword:'还珠格格',
+			}
+		},
+		methods:{
+			clearkeyword(){
+				if(this.keyword=='还珠格格'){
+					this.keyword = "";
+				}
+			},
+			defaultkeyword(){
+				if(this.keyword==''){
+					this.keyword = '还珠格格';
+				}
+			},
+			searchgame(){
+				let paramsUrl = new URLSearchParams();
+				let that = this
+				paramsUrl.append('keyword', this.keyword);
+				axios.post(url + '/mobile3/game/findGameOrGiftByKeyword',paramsUrl).then(function(res){
+					if(res.data.ret){
+						hint(that.$refs,res.data.msg)
+					}
+					
+				}).catch(function(res){
+					console.log(res)
+				})     
+			},
+		}
 	}
 </script>
 <style scoped>
@@ -74,6 +103,6 @@
 	.nav .search{font-size: 0; display: flex;align-items: center;justify-content: center;}
 	.nav input,.nav .search .searchBtn{width: 45px;}
 	.nav .search input{height: 30px; font-size: 10px; width: 165px; border-radius:15px 0 0 15px;border: 1px solid #dadada; color: #a9a9a9;padding-left: 20px;}
-	.nav .search .searchBtn{height: 34px;border-radius:0 15px 15px 0;background-color: #bb3679;display: inline-block;position: relative;}
-	.nav .search .searchBtn i{display:block; width: 16px; height: 14px;background-position: -87px -112px;position: absolute;top:50%;left:50%;margin-left: -8px;margin-top: -7px;}
+	.nav .search .searchBtn{height: 34px;border-radius:0 15px 15px 0;background-color: #bb3679;display: inline-block;position: relative;cursor: pointer;}
+	.nav .search .searchBtn i{ display:block; width: 16px; height: 14px;background-position: -87px -112px;position: absolute;top:50%;left:50%;margin-left: -8px;margin-top: -7px; }
 </style>
