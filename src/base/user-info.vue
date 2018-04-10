@@ -1,73 +1,73 @@
 <template>
-	<div class="login">
-		
-			<div class="login_top clearfix">
-				<div class="avatars fl">
-					<img :src="userdata.mUserIcon|addHttp" />
-				</div>
-				<a class="exit fr">退出</a>
-				<div class="user_title fl">
-					<div>
-						<span>{{userdata.nickName}}</span>
-						<img :src="'../assets/images/vip_'+userdata.level+'.png'" />
-					</div>
-					<p v-if="!userdata">这个人很懒，什么也没留下,什么也没留下什么也没留下</p>
-					<p v-else>{{userdata.signature}}</p>
-				</div>
+	<div class="login" >
+		<div class="login_top clearfix">
+			<div class="avatars fl">
+				<img :src="userdata.mUserIcon|addHttp" />
 			</div>
-			<div class="login_botm">
-				<ul class="clearfix">
-					 <li class="gift">
-					 	<i class="user_spri"></i>
-					 	<p><a>礼包：</a><span>5</span></p>
-					 </li>
-					 <li class="lj">
-					 	<i class="user_spri"></i>
-					 	<p><a>礼劵：</a><span>10</span></p>
-					 </li>
-					 <li class="muzhi_money">
-					 	<i class="user_spri"></i>
-					 	<p><a>拇指币：</a><span>0</span></p>
-					 </li>
-				</ul>
-			</div>
-			<div class="play_gm">
-				<div class="title">
-					<i class="icon_spri"></i>
-					<span>最近玩过的游戏</span>
+			<a class="exit fr">退出</a>
+			<div class="user_title fl">
+				<div>
+					<span>{{userdata.nickName}}</span>
+					<img :src="'../assets/images/vip_'+userdata.level+'.png'" />
 				</div>
-				<ul class="clearfix">
-					<li>
-						<a>
-							<img src="../assets/images/gmIcon.png"/>
-							<p>梦幻奇侠传</p>
-						</a>
-					</li>
-					<li>
-						<a>
-							<img src="../assets/images/gmIcon.png"/>
-							<p>梦幻奇侠传</p>
-						</a>
-					</li>
-					<li>
-						<a>
-							<img src="../assets/images/gmIcon.png"/>
-							<p>梦幻奇侠传</p>
-						</a>
-					</li>
-					<li>
-						<a>
-							<img src="../assets/images/gmIcon.png"/>
-							<p>梦幻奇侠传</p>
-						</a>
-					</li>
-				</ul>
+				<p v-if="!userdata">这个人很懒，什么也没留下</p>
+				<p v-else>{{userdata.signature}}</p>
 			</div>
+		</div>
+		<div class="login_botm">
+			<ul class="clearfix">
+				<li class="gift">
+				<i class="user_spri"></i>
+				<p><a>礼包：</a><span>{{userdata.giftSum}}</span></p>
+				</li>
+				<li class="lj">
+				<i class="user_spri"></i>
+				<p><a>礼劵：</a><span>{{userdata.couponSum}}</span></p>
+				</li>
+				<li class="muzhi_money">
+				<i class="user_spri"></i>
+				<p><a>拇指币：</a><span>{{userdata.mzAccount}}</span></p>
+				</li>
+			</ul>
+		</div>
+		<div class="play_gm">
+			<div class="title">
+				<i class="icon_spri"></i>
+				<span>最近玩过的游戏</span>
+			</div>
+			<ul class="clearfix">
+				<li>
+					<a>
+						<img src="../assets/images/gmIcon.png"/>
+						<p>梦幻奇侠传</p>
+					</a>
+				</li>
+				<li>
+					<a>
+						<img src="../assets/images/gmIcon.png"/>
+						<p>梦幻奇侠传</p>
+					</a>
+				</li>
+				<li>
+					<a>
+						<img src="../assets/images/gmIcon.png"/>
+						<p>梦幻奇侠传</p>
+					</a>
+				</li>
+				<li>
+					<a>
+						<img src="../assets/images/gmIcon.png"/>
+						<p>梦幻奇侠传</p>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</div>
+
 </template>
 <script>
 	import {url,token,userdata} from '../common/js/general'
-
+	
 	export default{
 		data(){
 			return {
@@ -86,7 +86,7 @@
 </script>
 <style scoped>
 	.login{height:398px;width: 350px;border: 1px solid #e9e9e9;}
-	 .login_top{height: 97px;margin:20px 20px 10px;}
+	 .login_top{height: 97px;margin:20px 20px 10px; }
 	 .login_top .avatars{width:103px;height:97px;display: flex;align-items: center;justify-content: center;margin-right: 20px;}
 	 .login_top .avatars img{max-width: 100%;height: auto;max-height: 100%;}
 	 .login_top .exit{font-size: 15px;color: #666666;text-decoration: underline;}

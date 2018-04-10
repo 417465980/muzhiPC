@@ -15,7 +15,7 @@
 						<li>《{{data.gameName}}》{{data.giftName}}</li>
 						<li>{{data.giftedate}}至{{data.giftpdate}}</li>
 						<li>{{data.giftcode}}</li>
-						<li>已使用</li>
+						<li>{{data.giftState|giftState}}</li>
 					</ul>
 				</div>
 		
@@ -24,20 +24,25 @@
 				<span ref="rollspan" @mousedown = 'rollspan' ></span>
 			</div>
 		</div>
+		<transition>
+			<div class="hint" ref="hint">
+				<span ref="hint-content"></span>
+			</div>
+		</transition>
 		<!-- <div class="paging" id="page"></div> -->
 	</div>
 </template>
 <script>
 	import Vue from 'vue';
 	import axios from 'axios';
-	import {url,hint} from '../../common/js/general'
+	import {url,hint,token,userdata} from '../../common/js/general'
 	export default{
 		
 		data(){
 			return {
 				info:{
-					username:'pengqian',
-					token:'724f02cfea43d333591b057253ced88f'
+					username:userdata.name,
+					token
 				},
 				rows:[]
 			}
@@ -54,7 +59,6 @@
 					
 					if( ev.wheelDelta ){
 						b=ev.wheelDelta>0?true:false;
-						console.log(b)
 					}else{
 						b=ev.detail<0?true:false;	
 					}
@@ -136,6 +140,15 @@
 					ele.boxout.style.display = "none"
 				}
 			})
+		},
+		filters:{
+			giftState(val){
+				if(val ==1){
+					return '未使用'
+				}else{
+					return '已使用'
+				}
+			}
 		}
 	}	
 </script>

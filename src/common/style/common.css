@@ -242,3 +242,9 @@
     padding: 6px 16px;
     border-radius: 6px;
 }
+.hover-base:hover{ background: -moz-linear-gradient(left,#6461a5,#cf2878); 
+    background: -o-linear-gradient(left,#6461a5,#cf2878); background: -webkit-gradient(linear,0 0,100% 100%,from(#6461a5), to(#cf2878)); /*Old gradient for webkit*/
+    background:-webkit-linear-gradient(left,#6461a5,#cf2878);   /*new gradient for Webkit*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#6461a5, endColorstr=#cf2878);/*IE<9>*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=1, startColorstr=#6461a5, endColorstr=#cf2878)";/*IE8+*/
+}

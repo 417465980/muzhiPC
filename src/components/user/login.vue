@@ -59,8 +59,10 @@
                         
                         hint(that.$refs,res.data.msg)
                         if(res.data.ret){
+                           
                             window.localStorage.setItem('userdata',JSON.stringify(res.data.rows.user))
                             window.localStorage.setItem('token',JSON.stringify(res.data.token))
+                          
                             setTimeout(function(){
                                 that.$router.push('/home');
                             },2000)
@@ -100,7 +102,7 @@
             if(this.checked){
                 window.localStorage.setItem('checked','checked')
                 this.username = userdata.name
-                console.log(this.username)
+                
             }else{
                 window.localStorage.removeItem('checked')
             }

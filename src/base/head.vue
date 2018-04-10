@@ -33,9 +33,9 @@
 					<router-link to="/user" tag="li">用户中心</router-link>
 					<router-link to="/gameCneter" tag="li">游戏中心</router-link>
 					<router-link to="/giftCenter" tag="li">礼包中心</router-link>
-					<router-link to="/recharge" tag="li">充值中心</router-link>					
+					<router-link to="/recharge" tag="li">充值中心</router-link>	
 					<router-link to="/activeCneter" tag="li">活动中心</router-link>
-					<router-link to="/service" tag="li">客服中心</router-link>					
+					<router-link to="/service" tag="li">客服中心</router-link>
 				</ul>
 			</div>
 			<div class="search fr">
@@ -66,6 +66,7 @@
 				}
 			},
 			searchgame(){
+				
 				let paramsUrl = new URLSearchParams();
 				let that = this
 				paramsUrl.append('keyword', this.keyword);
@@ -76,7 +77,8 @@
 					
 				}).catch(function(res){
 					console.log(res)
-				})     
+				})   
+
 			},
 		}
 	}

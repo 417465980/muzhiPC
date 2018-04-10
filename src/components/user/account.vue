@@ -13,10 +13,9 @@
 				<li>
 					<p class="accout-label">性别</p>
 					<label for="men">
-						<input type="radio" id="men" value="man" checked v-model="info.sex"  :disabled="readonly" name="sex">男</label>&nbsp;&nbsp;
+						<input type="radio" id="men" value="2" checked='checked' v-model="info.sex"  :disabled="readonly" name="sex">男</label>&nbsp;&nbsp;
 					<label for="women">
-						<input type="radio" id="women" value="woman" v-model="info.sex" :disabled="readonly" name="sex">女</label>
-						
+						<input type="radio" id="women" value="1" v-model="info.sex" :disabled="readonly" name="sex">女</label>
 				</li>
 				<li>
 					<label class="accout-label" for="">实名认证状态</label>
@@ -35,15 +34,14 @@
 					<input type="text"  v-model="info.address" placeholder="请输入您的地址" :readonly="readonly"></li>
 				<li>
 					<label class="accout-label" for="">上次登录</label>
-					<span class="font-s-color333">2017-10-30&nbsp;18:22</span></li>
+					<span class="font-s-color333">{{recentLoginTime}}</span></li>
 				<li>
 					<label class="accout-label" for="">最近登录IP</label>
-					<span class="font-s-color333">127.0.0.1</span></li>
+					<span class="font-s-color333">{{recentLoginIpAddr}}</span></li>
 			</ul>
 			<div :class="{'accout-submit':true}">
 				<input @click="changeInfo" type="button" value="提交">
 			</div>
-
 		</div>
 		<transition>
 			<div class="hint" ref="hint">
@@ -54,21 +52,24 @@
 </template>
 <script>
 import axios from 'axios';
-import {url,hint,token} from '../../common/js/general'
+import {url,hint,token,userdata} from '../../common/js/general'
 export default {
   data() {
     return {
 		readonly: true,
 		info:{
-			username:'lw3333',
-			sex:'man',
-			qq:'2',
-			wx:'3',
-			phone:'4',
-			address:'1',
-			nickname:'2',
+			username:userdata.name,
+			sex:userdata.gender,
+			qq:userdata.qq,
+			wx:userdata.wx,
+			phone:userdata.phoneNum,
+			address:userdata.receivedAddress,
+			nickname:userdata.nickName,
 			token
-		}
+		},
+		recentLoginIpAddr:userdata.recentLoginAddr,
+		recentLoginTime:userdata.recentLoginTime
+
     };
   },
   methods: {
@@ -83,7 +84,7 @@ export default {
 	changeInfo(){
 		let paramsUrl =  new URLSearchParams();
 		let that = this;
-		paramsUrl.append('username',that.info.username);
+		
 		paramsUrl.append('sex',that.info.sex);
 		paramsUrl.append('qq',that.info.qq);
 		paramsUrl.append('wx',that.info.wx)
@@ -98,9 +99,15 @@ export default {
 			console.log(res)
 		})
 
-	}
+	},
+
   },
   mounted(){
+	let that =this
+	setTimeout(function(){
+		
+	},20)
+	  
   },
 
 };

@@ -54,12 +54,12 @@
 </template>
 <script>
 	import axios from 'axios';
-	import {url,hint,token} from '../../common/js/general'
+	import {url,hint,token,userdata} from '../../common/js/general'
 	export default{
 		data(){
 			return {
 				info:{
-					username:'pengqian',
+					username:userdata.name,
 					token
 				},
 				rows:[]

@@ -91,6 +91,8 @@ img{
 .margin-s{
 	margin-top:15px
 }
-
+#app{
+	min-width:1200px;
+}
 
 

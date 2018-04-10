@@ -4,11 +4,7 @@
 		<div class="user-warp max-width">
 			<div class="user-main-left">
 				<ul class="user-main-left-box">
-					<router-link to="/user/account " tag="li">账号信息<span></span></router-link>
-					<router-link to="/user/myGame" tag="li">我的游戏<span></span></router-link>
-					<router-link to="/user/myGift" tag="li">我的礼包<span></span></router-link>
-					<router-link to="/user/myCoupon" tag="li">我的礼券<span></span></router-link>
-					<router-link to="/user/myWallet" tag="li">我的钱包<span></span></router-link>
+					<router-link v-for="(item,index) in navMsg" :key="index" :to="{path:item.path}"  tag="li">{{item.msg}}<span></span></router-link>
 				</ul>
 			</div>
 			<div class="user-main-right">
@@ -24,17 +20,27 @@
 	export default{
 		data(){
 			return {
-				active:true
+				active:true,
+				navMsg:[{
+						path:'account',
+						msg:'账号信息'
+					},{
+						path:'myGame',
+						msg:'我的游戏'
+					},{
+						path:'myGift',
+						msg:'我的礼包'
+					},{
+						path:'myCoupon',
+						msg:'我的礼券'
+					},{
+						path:'myWallet',
+						msg:'我的钱包'
+					},
+				]
 			}
-		},
-		components:{
+		},components:{
 			UserInfo,
-			
-		},
-		data(){
-			return {
-
-			}
 		}
 	}	
 </script>

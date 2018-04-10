@@ -8,7 +8,7 @@
                 
                 <div class="g-userinfo">
                     <p class="user-truename" v-if="userdata.realName">{{userdata.realName}}</p>
-                    <p class="user-truename" v-else>muzhiyouwan</p><br>
+                    <p class="user-truename" v-else>{{userdata.nickName}}</p><br>
                     <p class="username"><span>用户名：</span><span>{{userdata.name}}</span></p><br>
                     <p class="user-trade"><img :src="'../../assets/images/vip_'+userdata.level+'.png'" alt=""></p>
                 </div>
@@ -18,15 +18,15 @@
             <ul class="clearfix ">
                 <li class="gift">
                     <i class="user_spri"></i>
-                    <p><a>礼包：</a><span>5</span></p>
+                    <p><a>礼包：</a><span>{{userdata.giftSum}}</span></p>
                 </li>
                 <li class="lj">
                     <i class="user_spri"></i>
-                    <p><a>礼劵：</a><span>10</span></p>
+                    <p><a>礼劵：</a><span>{{userdata.couponSum}}</span></p>
                 </li>
                 <li class="muzhi_money">
                     <i class="user_spri"></i>
-                    <p><a>拇指币：</a><span>0</span></p>
+                    <p><a>拇指币：</a><span>{{userdata.mzAccount}}</span></p>
                 </li>
             </ul>
         </div>

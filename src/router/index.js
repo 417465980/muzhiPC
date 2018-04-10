@@ -20,7 +20,6 @@ import Register from "components/user/register";
 import Mzagreement from 'components/user/mzagreement';
 
 Vue.use(Router);
-
 export default new Router({
   
   routes: [
@@ -38,7 +37,7 @@ export default new Router({
     },
     {
       path: "/search",
-      component: Search
+      component: Search,
     },
     {
       path: "/giftCenter",
@@ -59,16 +58,8 @@ export default new Router({
     {
       path: "/user",
       component: User,
-      redirect:'/user/MyGame',
+      redirect:'/user/myCoupon',
       children:[
-        {
-          path: "",
-          component: MyGame
-        },
-        {
-          path: "account",
-          component: Account
-        },
         {
           path: "myGame",
           component: MyGame
@@ -79,11 +70,15 @@ export default new Router({
         },
         {
           path: "myCoupon",
-          component: MyCoupon
+          component: MyCoupon,
         },
         {
           path: "myWallet",
           component: MyWallet
+        },
+        {
+          path: "account",
+          component: Account
         }
       ]
 		},

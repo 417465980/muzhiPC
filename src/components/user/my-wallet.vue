@@ -1,7 +1,7 @@
 <template>
 	<div id="wallet">
 		<div class="my-wallet">
-			<p>拇指币余额：<span>100</span><a href="javascript:;">立即充值</a></p>
+			<p>拇指币余额：<span>{{mzAccount}}</span><a href="javascript:;">立即充值</a></p>
 		</div>
 		<div class="my-gift-nav">
 			<p>&nbsp;&nbsp;充值记录</p>
@@ -14,30 +14,15 @@
 		</div>
 		<div id="roll-box" ref="rollBox">
 			<div id="roll-content" ref="rollContent" class="my-gift-box">
-				<div class="my-gift-list">
+				<div class="my-gift-list" v-for="(item, index) in rows" :key="index">
 					<ul>
-						<li>23000000232320124515</li>
-						<li>￥30</li>
-						<li>30</li>
-						<li>2017-12-14</li>
+						<li>{{item.thirPayId}}</li>
+						<li>￥{{item.channelNo}}</li>
+						<li>{{item.mzAmount}}</li>
+						<li>{{item.time}}</li>
 					</ul>
 				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>23000000232320124515</li>
-						<li>￥30</li>
-						<li>30</li>
-						<li>2017-12-14</li>
-					</ul>
-				</div>
-				<div class="my-gift-list">
-					<ul>
-						<li>23000000232320124515</li>
-						<li>￥30</li>
-						<li>30</li>
-						<li>2017-12-14</li>
-					</ul>
-				</div>
+		
 			</div>
 			<div id="boxout" ref="boxout" class="boxout">
 				<span ref="rollspan" @mousedown = 'rollspan' ></span>
@@ -47,16 +32,17 @@
 </template>
 <script>
 	import axios from 'axios';
-	import {url,hint} from '../../common/js/general'
+	import {url,hint,userdata,token} from '../../common/js/general'
 	export default{
 		
 		data(){
 			return {
 				info:{
-					username:'pengqian',
-					token:'d8e2b1af431a0b376fd389c46dbfdb24'
+					username:userdata.name,
+					token,
 				},
-				rows:[]
+				rows:[],
+				mzAccount:userdata.mzAccount
 			}
 		},
 		methods:{
