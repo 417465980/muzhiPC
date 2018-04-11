@@ -1,16 +1,14 @@
 <template>
 	<div id="user">
-		<user-info></user-info>
+		<user-info :gift="newmsg"></user-info>
 		<div class="user-warp max-width">
 			<div class="user-main-left">
 				<ul class="user-main-left-box">
-					<router-link v-for="(item,index) in navMsg" :key="index" :to="{path:item.path}"  tag="li">{{item.msg}}<span></span></router-link>
+					<router-link v-for="(item,index) in navMsg"  :key="index" :to="{path:item.path}" @click.native="newmsg=index"  tag="li">{{item.msg}}<span></span></router-link>
 				</ul>
 			</div>
 			<div class="user-main-right">
-				
 				<router-view></router-view>
-				
 			</div>
 		</div>
 	</div>
@@ -37,11 +35,14 @@
 						path:'myWallet',
 						msg:'我的钱包'
 					},
-				]
+				],
+				newmsg:''
 			}
-		},components:{
+		},
+		components:{
 			UserInfo,
-		}
+		},
+		
 	}	
 </script>
 <style scoped lang="stylus">

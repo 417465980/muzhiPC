@@ -15,6 +15,7 @@ let hint = function(el,data){
 const token = null||window.localStorage.getItem('token').slice(1,-1);
 
 let userdata = null||JSON.parse(window.localStorage.getItem('userdata'));
+let game = null||JSON.parse(window.localStorage.getItem('game'));
 userdata = Object.assign({
     accountId : "2377808",
     auth : 263,
@@ -53,4 +54,4 @@ userdata = Object.assign({
     wx : "",
 },userdata);
 
-export {url,paramsUrl,resPassword,regUserName,hint,token,userdata}
+export {url,paramsUrl,resPassword,regUserName,hint,token,userdata,game}

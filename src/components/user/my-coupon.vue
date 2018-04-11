@@ -8,14 +8,17 @@
 					</ul>
 				</div>
 				<div class="">
-					<div v-for="(itemcont,index) in coupon" :key="index" ref="itemcont" :class="{'coupon-list':true, 'coupon-active':!index}">
+					<div v-for="(itemcont,index) in couponlist" :key="index" ref="itemcont" :class="{'coupon-list':true, 'coupon-active':index=='acct'}">
 						<ul>
-							<li v-for="(item,index) in rows" :key="index">
-								<p class="canuse coupon-sum  ">￥{{item.rebate_num}}</p>
+							<li v-for="(item,i) in itemcont" :key="i">
+								<p :class="{ canuse:index=='acct', cantuse:index == 'cantuse'||index == 'perms',  'coupon-sum':true}">￥{{item.rebate_num}}</p>
 								<div class="coupon-content">
-									<p class="f16 g3 pt10">{{item.remark}}</p>
-									<p class="f14 g9">有效期：{{item.start_data}}-{{item.end_data}}</p>
-									<a href="javascript:;" class="mt10">下载app使用</a>
+									<p :class="{f16:'true', g3:'true', ellipsis:'true', permswidth:index == 'cantuse'||index == 'perms'}">{{item.remark}}</p>
+									<p class="f14 g9 " v-if="index=='acct'">有效期：{{item.start_date|dateformat}}-{{item.start_date|dateformat}}</p>
+									<p class="f14 g9 " v-if="index == 'cantuse'||index == 'perms'">{{item.start_date|dateformat}}-{{item.start_date|dateformat}}</p>
+									<a v-if="index=='acct'" href="javascript:;">下载app使用</a>
+									<div v-if="index=='perms'" class="perms" href="javascript:;">已使用</div>
+									<div v-if="index=='cantuse'" class="perms" href="javascript:;">已失效</div>
 								</div>
 							</li>
 						</ul>
@@ -43,7 +46,7 @@
 				info:{
 					username:userdata.name,
 					token,
-					type:'1',
+					type:'3',
 					page:'10',
 					rows:'1',
 				},
@@ -59,53 +62,24 @@
 						rebate_num: "25",
 						use_rule: 2,
 						coupon_count: 0
-					},{
-						coupon_no: 2017003,
-						coupon_name: "10%拇指币返利券",
-						start_date: "2017-12-01",
-						end_date: "2017-12-03",
-						remark: "充值满300元 返利10%拇指币",
-						cue_date: 0,
-						rebate_type: 1,
-						rebate_num: "10",
-						use_rule: 2,
-						coupon_count: 1
-					},{
-						coupon_no: 2017001,
-						coupon_name: "5拇指币代金券",
-						start_date: "2017-12-01",
-						end_date: "2017-12-08",
-						remark: "点击使用 增加5拇指币",
-						cue_date: 0,
-						rebate_type: 2,
-						rebate_num: "5",
-						use_rule: 1,
-						coupon_count: 0
-					}, {
-						coupon_no: 2018002,
-						coupon_name: "测试礼券",
-						start_date: "2018-03-15",
-						end_date: "2018-03-16",
-						remark: "测试充值 充1块送1块",
-						cue_date: 0,
-						rebate_type: 2,
-						rebate_num: "1",
-						use_rule: 2,
-						coupon_count: 0
 					}
 				],
 				selected: '1',
 				coupon:[{
+					name:'canuse',
+					content:'可使用'
+				},{
 					name:'alreadyuse',
 					content:'已使用'
 				},{
-					name:'canuse',
-					content:'未使用'
-				},{
 					name:'cantuse',
 					content:'已失效'
-				}]
-				
+				}],
+				couponlist:{
+					acct:[],
+					perms:[],
+					cantuse:[]
+				}
 			}
 		},
 		methods:{
@@ -166,13 +140,7 @@
 				paramsUrl.append('type',3);
 				paramsUrl.append('page',that.info.page);
 				paramsUrl.append('rows',that.info.rows);
-				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl).then(function(res){
-					console.log(res.data)
-					that.rows = res.data.rows
-					hint(that.$refs,res.data.msg)
-				}).catch(function(res){
-					console.log(res)
-				})
+				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl)
 			},
 			getCoupon4(){
 				let paramsUrl =  new URLSearchParams();
@@ -182,13 +150,7 @@
 				paramsUrl.append('type',4);
 				paramsUrl.append('page',that.info.page);
 				paramsUrl.append('rows',that.info.rows);
-				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl).then(function(res){
-					console.log(res.data)
-					that.rows = res.data.rows
-					hint(that.$refs,res.data.msg)
-				}).catch(function(res){
-					console.log(res)
-				})
+				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl)
 			},
 			getCoupon5(){
 				let paramsUrl =  new URLSearchParams();
@@ -198,13 +160,7 @@
 				paramsUrl.append('type',5);
 				paramsUrl.append('page',that.info.page);
 				paramsUrl.append('rows',that.info.rows);
-				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl).then(function(res){
-					console.log(res.data)
-					that.rows = res.data.rows
-					hint(that.$refs,res.data.msg)
-				}).catch(function(res){
-					console.log(res)
-				})
+				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl)
 			},
 			couponTab(index){
 				console.log(this.$refs)
@@ -224,9 +180,11 @@
 		/* 	this.getCoupon3()//未使用
 			this.getCoupon4()//已使用
 			this.getCoupon5()//已失效 */
-			axios.all([this.getCoupon3(),this.getCoupon4(),this.getCoupon5()]).then(axios.spread(function(acct,perms){
-				console.log(acct.data)
-				console.log(perms.data)
+			var that = this ;
+			axios.all([this.getCoupon3(),this.getCoupon4(),this.getCoupon5()]).then(axios.spread(function(acct,perms,cantuse){
+				that.couponlist.acct = acct.data.rows
+				that.couponlist.perms = perms.data.rows
+				that.couponlist.cantuse = cantuse.data.rows
 			}))
 			//自定义滚动条
 			this.$nextTick(() =>{
@@ -257,10 +215,18 @@
 					ele.boxout.style.display = "none"
 				}
 			})
+		},
+		filters:{
+			dateformat(val){
+				return val.split('-').join('.')
+			}
 		}
 	}	
 </script>
 <style scoped lang="stylus" >
+
+		
+
 	#roll-box 
 		width 100%
 		position relative
@@ -340,11 +306,31 @@
 				box-sizing border-box
 				cursor pointer
 	.coupon-content
+		position relative
+		display flex
+		align-items flex-start
+		justify-content center
+		flex-direction column
+		height 131px
 		margin-left 145px
-	
 	.coupon-list
 		display none
-	
+	.perms
+		position absolute
+		right 10px 
+		top 36px 
+		width 60px
+		height 60px
+		border 1px solid #999
+		border-radius  30px
+		font-size  14px
+		color #999
+		text-align center
+		line-height 60px
+		transform rotate(45deg)
+	.permswidth
+		width 140px 
+
 	.coupon-list li
 		display inline-block
 		width 370px 
@@ -367,7 +353,10 @@
 		background-image url('../../assets/images/canuse.png')
 		background-repeat no-repeat
 		background-position center center 
-		
+	.cantuse
+		background-image url('../../assets/images/cantuse.png')
+		background-repeat no-repeat
+		background-position center center 	
 	.coupon-content
 		p
 			line-height 30px

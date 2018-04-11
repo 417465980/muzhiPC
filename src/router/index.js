@@ -36,7 +36,7 @@ export default new Router({
       component: GameCenter
     },
     {
-      path: "/search",
+      path: "/search/:keyword",
       component: Search,
     },
     {
@@ -58,11 +58,12 @@ export default new Router({
     {
       path: "/user",
       component: User,
-      redirect:'/user/myCoupon',
+      redirect:'/user/account',
       children:[
         {
           path: "myGame",
-          component: MyGame
+          component: MyGame,
+          
         },
         {
           path: "myGift",

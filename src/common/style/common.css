@@ -248,3 +248,10 @@
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#6461a5, endColorstr=#cf2878);/*IE<9>*/
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=1, startColorstr=#6461a5, endColorstr=#cf2878)";/*IE8+*/
 }
+
+.ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+}

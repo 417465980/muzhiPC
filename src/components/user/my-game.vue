@@ -3,33 +3,16 @@
 		<div class="">
 			<div class="my-game-main">
 				<ul class="my-game-list">
-					<li>
+					<li v-for="(item,index) in game" :key="index">
 						<div>
-							<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
+							<img class="my-game-icon" :src="item.icon|addHttp" alt="">
 							<div class="my-game-info">
-								<p>坦克警戒</p>
-								<a href="javascript:;" class="officialWeb">官网</a>
+								<p>{{item.name}}</p>
+								<a :href="item.website" terget="_blank" class="officialWeb">官网</a>
 								<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
 						</div>
 					</li>
-					<li>
-						<div>
-							<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-							<div class="my-game-info">
-								<p>坦克警戒</p>
-								<a href="javascript:;" class="officialWeb">官网</a>
-								<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-						</div>
-					</li>
-					<li>
-						<div>
-							<img class="my-game-icon" src="../../assets/images/gmIcon.png" alt="">
-							<div class="my-game-info">
-								<p>坦克警戒</p>
-								<a href="javascript:;" class="officialWeb">官网</a>
-								<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
-						</div>
-					</li>
+					
 				</ul>
 			</div>
 			<div class="subnav">&nbsp;&nbsp;精品游戏推荐</div>
@@ -54,7 +37,7 @@
 </template>
 <script>
 	import axios from 'axios';
-	import {url,hint,token,userdata} from '../../common/js/general'
+	import {url,hint,token,userdata,game} from '../../common/js/general'
 	export default{
 		data(){
 			return {
@@ -62,7 +45,8 @@
 					username:userdata.name,
 					token
 				},
-				rows:[]
+				rows:[],
+				game,
 			}
 		},
 		mounted(){

@@ -1,10 +1,10 @@
 <template>
 	<div id="search " class="topBorder">
+        
         <div class="min-width mb20">
             <p class="search-result "><i class="icon_spri"></i><span>搜索结果</span></p>
             <div class="search-box">
                 <ul>
-                    --1{{$route.name}}
                     <li class="game-list">
                         <div>
                             <h3>正统三国</h3>
@@ -57,6 +57,7 @@
                 </ul>
             </div>
             <div class="cl"></div>
+            {{$route.params.keyword}}
         </div>
 		<transition>
 			<div class="hint" ref="hint">
@@ -68,10 +69,13 @@
 <script>
 import axios from "axios";
 import { url, hint } from "../common/js/general";
+let key = $route.params
+console.log(key)
 export default {
   data() {
     return {
-      gamedata: {}
+      gamedata: {},
+      keyword:this.$route.params
     };
   },
   methods: {},
@@ -79,7 +83,7 @@ export default {
     setTimeout(function() {
       let paramsUrl = new URLSearchParams();
       let that = this;
-      paramsUrl.append("keyword", "");
+      paramsUrl.append("keyword", that.keyword);
       axios
         .post(url + "/muzhiplat/pc2/game/findGameByKeywords", paramsUrl)
         .then(function(res) {

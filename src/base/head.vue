@@ -40,7 +40,7 @@
 			</div>
 			<div class="search fr">
 				<input type="text" @blur="defaultkeyword" @focus="clearkeyword" v-model="keyword" :placeholder="keyword">
-				<router-link to="/search" tag="div" class="searchBtn"><i class="icon_spri"></i></router-link>
+				<router-link :to="'/search/'+keyword" tag="div" class="searchBtn"><i class="icon_spri"></i></router-link>
 			</div>
 		</div>
 	</div>

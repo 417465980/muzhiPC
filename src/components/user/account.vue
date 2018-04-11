@@ -13,7 +13,7 @@
 				<li>
 					<p class="accout-label">性别</p>
 					<label for="men">
-						<input type="radio" id="men" value="2" checked='checked' v-model="info.sex"  :disabled="readonly" name="sex">男</label>&nbsp;&nbsp;
+						<input type="radio" id="men" value="0" v-model="info.sex"  :disabled="readonly" name="sex">男</label>&nbsp;&nbsp;
 					<label for="women">
 						<input type="radio" id="women" value="1" v-model="info.sex" :disabled="readonly" name="sex">女</label>
 				</li>
@@ -39,7 +39,7 @@
 					<label class="accout-label" for="">最近登录IP</label>
 					<span class="font-s-color333">{{recentLoginIpAddr}}</span></li>
 			</ul>
-			<div :class="{'accout-submit':true}">
+			<div v-show="!readonly" :class="{'accout-submit':true}">
 				<input @click="changeInfo" type="button" value="提交">
 			</div>
 		</div>
@@ -117,7 +117,18 @@ export default {
 	#account {
 		position: relative;
 	}
-
+	input[type="radio"]{
+		display inline-block
+		appearance none
+		width 13px
+		height 13px
+		border 3px solid #e6e6e6
+		margin 0 10px
+		border-radius 8px
+	}
+	input[type="radio"]:checked{
+		border 3px solid #820c9b
+	}
 	.edit {
 		position: absolute;
 		right: 0;
