@@ -36,28 +36,10 @@
 				<span>最近玩过的游戏</span>
 			</div>
 			<ul class="clearfix">
-				<li>
+				<li v-for="(item,index) in game" :key="index" v-if="index<4">
 					<a>
-						<img src="../assets/images/gmIcon.png"/>
-						<p>梦幻奇侠传</p>
-					</a>
-				</li>
-				<li>
-					<a>
-						<img src="../assets/images/gmIcon.png"/>
-						<p>梦幻奇侠传</p>
-					</a>
-				</li>
-				<li>
-					<a>
-						<img src="../assets/images/gmIcon.png"/>
-						<p>梦幻奇侠传</p>
-					</a>
-				</li>
-				<li>
-					<a>
-						<img src="../assets/images/gmIcon.png"/>
-						<p>梦幻奇侠传</p>
+						<img :src="item.icon|addHttp" >
+						<p>{{item.name}}</p>
 					</a>
 				</li>
 			</ul>
@@ -66,12 +48,13 @@
 
 </template>
 <script>
-	import {url,token,userdata} from '../common/js/general'
+	import {url,token,userdata,game} from '../common/js/general'
 	
 	export default{
 		data(){
 			return {
-				userdata
+				userdata,
+				game
 			}
 		},
 		mounted(){
@@ -110,7 +93,7 @@
 	.play_gm ul li{float: left;text-align: center;width: 65px;margin-right: 16px;}
 	.play_gm ul li:last-child{margin-right: 0 !important;}
 	.play_gm ul li img{height: 65px;margin: 12px 0 5px;}
-	.play_gm ul li p{font-size: 12px;color:#666666;}
+	.play_gm ul li p{font-size: 12px;color:#666666;line-height: 15px;}
 	
 </style>
 

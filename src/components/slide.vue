@@ -1,24 +1,20 @@
 <template>
 	<div class="slide-show" @mouseover="clearInv" @mouseout="runInv">
-	    <div class="slide-img">
-	      <a :href="slides[nowIndex].href">
+	    <div class="slide-img" v-for="(item,index) in slides" :key="index">
+	      <a :href="slides[nowIndex].jumpUrl" target="_blank">
 	      	<transition name="slide-trans">
-	          <img v-if="isShow" :src="slides[nowIndex].src">
+	          <img v-if="isShow" :src="'http://game.91muzhi.com/muzhiplat'+slides[nowIndex].imgUrl">
 	        </transition>
 	        <transition name="slide-trans-old">
-	          <img v-if="!isShow" :src="slides[nowIndex].src">
+	          <img v-if="!isShow" :src="'http://game.91muzhi.com/muzhiplat'+slides[nowIndex].imgUrl">
 	        </transition>
 	      </a>
 	    </div>
-	    <h2>{{slides[nowIndex].title}}</h2>
 	    <ul class="slide-pages">
-	      <li @click="goto(prevIndex)">&lt;</li>
-	      <li v-for="(item, index) in slides" @click="goto(index)" :key="index">
-	      	<a :class="{on: index === nowIndex}">{{index +1}}</a>
-	      	
-	      </li>
-	      <li @click="goto(nextIndex)">&gt;</li>
+	      <li v-for="(item, index) in slides" :key="index" @click="goto(index)" :class="{on:index === nowIndex}"></li>
 	    </ul>
+		<a class="prev" @click="goto(prevIndex)"></a>
+		<a class="next" @click="goto(nextIndex)"></a>
   </div>
 </template>
 <script>
@@ -30,11 +26,10 @@
 			},
 			invSpeed:{
 				type:Number,
-				default: 2000 
+				default: 4000 
 			}
 		},
 		mounted(){
-			console.log(this.slides);
 			this.runInv();
 		},
 		data(){
@@ -61,12 +56,12 @@
 		},
 		
 		methods:{
-			goto (index) {   //左右切换滑动动画
+			goto (index) {   
 		      this.isShow = false
 		      setTimeout(() => {
 		        this.isShow = true
 		        this.nowIndex = index
-		        this.$emit('onchange',index)
+		       // this.$emit('onchange',index)
 		      }, 10)
 		    },
 			runInv(){
@@ -83,56 +78,57 @@
 
 <style scoped>
 
-.slide-trans-enter-active {
-  transition: all .5s;
-}
-.slide-trans-enter {
-  transform: translateX(900px);
-}
-.slide-trans-old-leave-active {
-  transition: all .5s;
-  transform: translateX(-900px);
-}
+	.slide-trans-enter-active {
+		transition: all .5s;
+	}
+	.slide-trans-enter {
+		transform: translateX(900px);
+	}
+	.slide-trans-old-leave-active {
+		transition: all .5s;
+		transform: translateX(-900px);
+	}
 
-.slide-show {
-  position: relative;
- 
-  width: 848px;
-  height: 400px;
-  overflow: hidden;
-}
-.slide-show h2 {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  color: #fff;
-  background: #000;
-  opacity: .5;
-  bottom: 0;
-  height: 30px;
-  text-align: left;
-  padding-left: 15px;
-}
-.slide-img {
-  width: 100%;
-}
-.slide-img img {
-  width: 100%;
-  position: absolute;
-  top: 0;
-}
-.slide-pages {
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
-}
-.slide-pages li {
-  display: inline-block;
-  padding: 0 10px;
-  cursor: pointer;
-  color: #fff;
-}
-.slide-pages li .on {
-  text-decoration: underline;
-}
+	.slide-show {
+		position: relative;
+		width: 848px;
+		height: 400px;
+		overflow: hidden;
+	}
+
+	.slide-img {
+		width: 100%;
+		height: 100%;
+	}
+	.slide-img img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+	}
+	.slide-pages {
+		position: absolute;
+		bottom: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		-webkit-transform: translateX(-50%);
+		-ms-transform: translateX(-50%);-o-transform: translateX(-50%);-moz-transform: translateX(-50%)    
+	}
+	.slide-pages li {
+		display: inline-block;
+		width: 20px;
+		height:20px;
+		border-radius: 50%;
+		margin-right:10px; 
+		cursor: pointer;
+		background-color: #fff;
+	}
+	.slide-pages .on{
+		background-color:red
+	}
+	.slide-show .prev,.slide-show .next{display:block; position:absolute;top: 200px;margin-top:-25px;width: 50px;height:50px;background-repeat: no-repeat;
+		background-position: center center; background-size:50% auto;
+	}
+	.slide-show .prev{left: 15px;background-image: url('../assets/images/prev.png')}
+	.slide-show .next{right: 15px;background-image: url('../assets/images/next.png')}
 </style>

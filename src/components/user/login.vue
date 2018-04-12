@@ -64,7 +64,7 @@
                             window.localStorage.setItem('token',JSON.stringify(res.data.token))
                             window.localStorage.setItem('game',JSON.stringify(res.data.rows.game))
                             setTimeout(function(){
-                                that.$router.push('/home');
+                                that.$router.push('/index');
                                 window.location.reload()
                             },2000)
                         }

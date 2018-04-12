@@ -6,13 +6,13 @@
 				<span>热门活动</span>
 			</div>
 			<div class="hot_more fr">
-				<router-link to="/activeCneter">+</router-link>
+				<router-link to="/active">+</router-link>
 			</div>
 		</div>
 		<ul>
-			<li v-for="item in hotActive" @click="hotAc(item)" :key="item.id">
+			<li v-for="(item,index) in hotActive" :key="index" @click="hotAc(item)">
 				<figure>
-					<img :src="item.imgUrl" :style="imgHeight"/>
+					<img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/>
 					<figcaption>
 						{{item.title}}
 					</figcaption>
@@ -21,33 +21,27 @@
 					<div class="active_time fl">
 						<div class="effective">
 							<i></i>
-							<span>活动时间：2018-07-10至2018-09-15</span>
+							<span>活动时间：{{item.startDate}}至{{item.endDate}}</span>
 						</div>
 						<div class="remain_time">
 							<i></i>
 							<span>剩余时间：0天0小时0分0秒</span>
 						</div>
 					</div>
-					<slot name="index"></slot>
+					<img class="end_icon fr" src="../assets/images/endIcon.png" :style="endIconW" v-show="isEnd === true"/>
 				</div>
 			</li>
 		</ul>
 	</div>
 </template>
 <script>
+	import {getNews} from 'api/muzhi'
+	import {timeHandle,countdown} from 'common/js/time'
 	export default{
 		data(){
 			return{
-				hotActive:[
-					{
-						imgUrl:require('../assets/images/ac-img.jpg'),
-						title:'七夕约鹊桥，情人终眷属'
-					},
-					{
-						imgUrl:require('../assets/images/ac-img.jpg'),
-						title:'七夕约鹊桥，情人终眷属'
-					}
-				]
+				hotActive:[],
+				isEnd:false
 			}
 		},
 		computed:{
@@ -58,9 +52,38 @@
 				}else{
 					return 'height:119px'
 				}
+			},
+			endIconW(){
+				var url = window.location.href;
+				if(url.indexOf('news') === -1){
+					return 'width:44px'
+				}
 			}
 		},
+		mounted(){
+			setTimeout(()=>{
+				this._getHotActive()
+			},20)
+		},
 		methods:{
+			_getHotActive(){
+				let type = 1,page = 1,rows = 2
+				getNews(type,page,rows).then((res) =>{
+					if(res.ret === true){
+						this.hotActive = res.rows
+						for(let i =0; i< this.hotActive.length; i++){
+						//	let endTime = new Date(this.hotActive[i].endDate).getTime()
+						//	let nowTime = new Date().getTime()
+    						
+							if(timeHandle(this.hotActive[i].endDate) === true){
+								this.isEnd = false
+							}else{
+								this.isEnd = true	
+							}
+						}
+					}
+				})	
+			},
 			hotAc(item){
 				this.$router.push({
 					path:`/news/${item.id}`

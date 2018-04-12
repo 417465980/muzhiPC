@@ -2,11 +2,11 @@
 	<div class="load_app">
 		<div class="content clearfix">
 			<div class="app_icon fl">
-				<img src="../assets/images/gmIcon.png" />
+				<img src="../assets/images/mzapp.png" />
 			</div>
 			<div class="app_title fl">
-				<p>拇指游戏宝</p>
-				<span>不要再错过任何一个活动哟~</span>
+				<p>拇指游戏宝APP</p>
+				<span>最全拇指礼包领取平台</span>
 				<a href="#">
 					<i class="gmCen_spri"></i>
 					<span>下载</span>
@@ -28,7 +28,7 @@
 	.load_app .content .app_title{margin-top:5px;font-size: 0;}
 	.load_app .content .app_title p{font-size: 16px;}
 	.load_app .content .app_title > span{font-size:15px;color: #666666;line-height: 30px;}
-	.load_app .content .app_title a{width:112px;height: 34px;display: block;font-size:16px;border-radius: 10px;color: #FFFFFF;display: flex;justify-content: center;
+	.load_app .content .app_title a{width:112px;height: 34px;display: block;font-size:16px;border-radius: 6px;color: #FFFFFF;display: flex;justify-content: center;
 		align-items: center;
 		background: -moz-linear-gradient(left,#6362a6,#d12878); 
 		background: -o-linear-gradient(left,#6362a6,#d12878); 
