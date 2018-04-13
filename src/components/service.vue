@@ -4,129 +4,65 @@
             <div class="main_top">
                 <h3>常见问题</h3>
                 <div class="list">
-                    <span class="ul active">
-                        <i class="one"></i><br>
-                        <span class="li">充值问题</span>
-                    </span>
-                    <span class="ul">
-                        <i class="two"></i><br>
-                        <span class="li">账号问题</span>
-                    </span>
-                    <span class="ul">
-                        <i class="three"></i><br>
-                        <span class="li">礼包问题</span>
-                    </span>
-                    <span class="ul">
-                        <i class="four"></i><br>
-                        <span class="li">服务器问题</span>
-                    </span>
-                    <span class="ul">
-                        <i class="five"></i><br>
-                        <span class="li">活动问题</span>
-                    </span>
-                    <span class="ul">
-                        <i class="six"></i><br>
-                        <span class="li">其他问题</span>
+                    <span  v-for="(item, index) in fqalist" :key="index" :class="{ul:true, active:index==active }" @click="seefqa(index)">
+                        
+                        <i :class="item[0]"></i><br>
+                        <span class="li">{{item[1].name}}</span>
                     </span>
                 </div>
-                <div class="details active">
-                    <ul>
-                        <li class="fl left">在手机上怎么充值拇指币？</li>
-                        <li class="fl">拇指币充值游戏问题？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">拇指币有什么用？</li>
-                        <li class="fl">拇指币要怎么查询？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">拇指币充值成功后，平台个人中心没有显示？</li>
-                        <li class="fl">充值成功后多久才能到账？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">怎么查询网银扣费订单？</li>
-                        <li class="fl">银行卡没有开通网银功能，能否充值？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">提示支付失败是什么原因？会不会扣费？</li>
-                        <li class="fl">你们可以人工直接充值吗？</li>
-                    </ul>
-                </div>
-                <div class="details">
-                    <ul>
-                        <li class="fl left">我的账号给了朋友玩，朋友把我的装备误删了怎么办？</li>
-                        <li class="fl">拇指账号登录的游戏卸载后去哪里下载？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">用充值卡叠加充值游戏，没到账怎么办？</li>
-                    </ul>
-                </div>
-                <div class="details">
-                    <ul>
-                        <li class="fl left">拇指的礼包如何领取？</li>
-                        <li class="fl">同样的礼包能重复领取吗？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">游戏里同样的礼包不同的兑换码能再次使用吗？</li>
-                        <li class="fl">礼包为什么不能使用？</li>
-                    </ul>
-                </div>
-                <div class="details">
-                    <ul>
-                        <li class="fl left">黑屏、白屏、卡机、掉线如何处理？</li>
-                        <li class="fl">手机内置截图方式？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">有效清理手机缓存方法？</li>
-                    </ul>
-                </div>
-                <div class="details">
-                    <ul>
-                        <li class="fl left">为什么到了活动结束时间，奖励还没有收到？</li>
-                        <li class="fl">怎么查看拇指游玩平台近期的活动？</li>
-                    </ul>
-                </div>
-                <div class="details">
-                    <ul>
-                        <li class="fl left">忘记账号了怎么办？</li>
-                        <li class="fl">一键注册的账号，忘记密码了怎么办？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">账号和密码都忘记了怎么办？</li>
-                        <li class="fl">登陆不上游戏？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">角色不见了？</li>
-                        <li class="fl">充值成功后多久才能到账？</li>
-                    </ul>
-                    <ul>
-                        <li class="fl left">拇指账号如何更换手机绑定？</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="main_bottom">
-                <h3>联系我们</h3>
-                <div class="telephone">
-                    <i></i>
-                    <div>
-                        <p class="phone">400-9611-191</p>
-                        <p class="time">工作时间：周一至周日 9:00-24:00</p>
+                <transition-group enter-active-class=" zoomInLeft" leave-active-class=" zoomOutRight">
+                    <div v-for="item in id" :key="item" v-show="item==activenum" class="details animated" >
+                        <ul>
+                            <li  v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" class="fl left">{{items.proTitle}}</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="public">
-                    <i></i>
-                    <div>
-                        <p class="phone">微信公众号</p>
-                        <p class="time">更多精彩福利，敬请关注</p>
-                    </div>
-                </div>
+                </transition-group>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import axios from 'axios';
+    import {url,hint} from 'common/js/general'
     export default{
-
+        data(){
+            return {
+                id:[2,1,5,3,4,6],
+                fqalist:{
+                    one:[{one:true},{name:'充值问题'}],
+                    two:[{two:true},{name:'账号问题'}],
+                    three:[{three:true},{name:'礼包问题'}],
+                    four:[{four:true},{name:'服务器问题'}],
+                    five:[{five:true},{name:'活动问题'}],
+                    six:[{six:true},{name:'其他问题'}],
+                },
+                pp:{'one':2,'two':1,'three':5,'four':3,'five':4,'six':6},
+                active:'one',
+                activenum:2,
+                rows:[]
+            }
+        },
+        methods:{
+            queryFQAMsg(){
+                let that = this;
+                let paramsUrl = new URLSearchParams();
+				paramsUrl.append('id',1);
+				axios.post(url + '/muzhiplat/pc2/customer/queryFQAMsg').then(function(res){
+                    hint(that.$refs,res.data.msg)
+                    that.rows = res.data.rows
+				}).catch(function(res){
+					console.log(res)
+				})
+            },
+            seefqa(index){
+                this.active = index;
+                this.activenum = this.pp[index];
+            }
+        },
+        mounted(){
+            this.queryFQAMsg()
+            console.log(this.rows)
+        }
     }
 </script>
 <style scoped>
@@ -293,5 +229,7 @@
         font-size: 14px;
         color: #363636;
     }
-
+    .details li:hover{
+        text-shadow: 1px 1px 1px #ea73b9
+    }
 </style>

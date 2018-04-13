@@ -103,6 +103,7 @@
 	}
 </script>
 <style scoped>
+	.gift-center{ margin-bottom:50px;}
 	.gift-center .gmCen_right{width: 850px;padding-top:15px;}
 	.gift-center .gmCen_right .lbClsifiTit{margin:0 0 40px 40px;}
 	.gift-center .gmCen_right .hotLbCont{margin:0 0 35px 10px;}

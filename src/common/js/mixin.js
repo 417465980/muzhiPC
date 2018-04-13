@@ -22,12 +22,12 @@ export const gameListMixin = {
         },
         allMore(){
             this.page++
-            this.total += this.rows
+            this.total += this.rows;
             getGmesType(this.type,this.page,this.rows).then((res) =>{
                 if(res.ret === true){
                     this.allList = this.allList.concat(res.rows)
                     if(!res.rows.length || (this.total+this.rows) >= res.total){
-                        this.hasMore = false
+                        this.hasMore = false;
                     }
                 }
             })

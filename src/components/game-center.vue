@@ -90,5 +90,6 @@
 	}
 </script>
 <style scoped>
+	.gm_center{margin-bottom:50px;}
 	.gm_center .gmCen_right{border-top: 1px solid #e9e9e9;width:810px;padding: 15px 0 0 40px;} 
 </style>

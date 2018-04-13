@@ -44,7 +44,7 @@
 <style scoped>
 	.gmListWrap .hotGame_tit .hot_icon i{ width: 35px; height: 33px;display:block;background-position: -10px -10px;margin-right: 10px;}
 	.game_list ul li{margin-top: 29px;}
-	.game_list .item_title p,.game_list .item_title > span{width:97px; text-overflow: ellipsis;overflow: hidden; white-space: nowrap}
+	.game_list .item_title p,.game_list .item_title > span{ text-overflow: ellipsis;overflow: hidden; white-space: nowrap}
 	.game_list .item_title > span{line-height: 28px;display: block;width:97px; text-overflow: ellipsis;overflow: hidden; white-space: nowrap}
 	.game_list .item_title a{ display: block; width:90px;height: 23px;text-align: center;line-height: 21px;border: 1px solid #a0a0a0;border-radius: 5px;}
 	.game_list .item_title a span{color: #666666;font-size: 14px;}

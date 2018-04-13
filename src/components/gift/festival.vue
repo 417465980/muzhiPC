@@ -1,7 +1,10 @@
 <template>
 	<div class="gmListWrap">
 		<slot name="hotLb_Tit"></slot>
-		<div class="game_list">
+		<div class="expect" v-if="!hotGift.length">
+            <p>无此分类游戏，敬请期待...</p>
+        </div>
+		<div v-else class="game_list">
 			<ul class="clearfix">
 				<li v-for="(item,index) in hotGift" :key="index">
 					<a class="gm_icon fl">
@@ -18,115 +21,16 @@
 				</li>
 			</ul>
 		</div>
+		
 	</div>
 </template>
 <script>
+	import expect from 'base/expect'
 	export default{
 		
 		data(){
 			return{
-				hotGift:[
-					{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		}
-				]
+				hotGift:[]
 			}
 		}
 		

@@ -12,7 +12,7 @@
 					<div class="clearfix">
 						<a class="getLb fl">
 							<i class="gmCen_spri"></i>
-							<span>礼包领取</span>
+							<span @click="receivebag">礼包领取</span>
 						</a>
 						<a :href="item.downloadLink" class="gmLoad fl">
 							<i class="gmCen_spri"></i>
@@ -33,7 +33,7 @@
 <script>
     import LoadMore from 'base/load-more'
     import expect from 'base/expect'
-    import {gameListMixin} from 'common/js/mixin'
+	import {gameListMixin} from 'common/js/mixin'
     export default{
         mixins: [gameListMixin],
 		components:{
@@ -49,6 +49,11 @@
                 total:0,
                 hasMore:false
             }
+		},
+		methods:{
+			receivebag(){
+				alert('请到App领取')
+			}
 		}
     }
 </script>

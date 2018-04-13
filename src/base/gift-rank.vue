@@ -14,11 +14,11 @@
 						</div>
 					</div>
 					<div class="gmRank_tit fl">
-						<p>{{item.gameName}}</p>
+						<router-link to="">{{item.gameName}}</router-link>
 						<span>{{item.giftName}}</span>
 					</div>
 					<div class="rankGmBtn fr">
-						<i class="activeCenRrankIco gmCen_spri"></i>    
+						<i class="activeCenRrankIco gmCen_spri" @click="receivebag"></i>    
                     </div>
 				</div>
 				<div class="hotRank_tit" v-else>
@@ -61,6 +61,9 @@
 			},
 			rankHide(index){
 				this.currentIndex = index
+			},
+			receivebag(){
+				alert('请到App领取')
 			}
 		}
 	}

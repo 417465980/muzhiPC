@@ -12,7 +12,11 @@ let hint = function(el,data){
     }
 
 };
-const token = null||window.localStorage.getItem('token').slice(1,-1);
+let token = null;
+if(window.localStorage.getItem('token')){
+    token = window.localStorage.getItem('token').slice(1,-1);
+}
+
 
 let userdata = null||JSON.parse(window.localStorage.getItem('userdata'));
 let game = null||JSON.parse(window.localStorage.getItem('game'));

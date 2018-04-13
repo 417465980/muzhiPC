@@ -12,7 +12,7 @@
 						<span :title="item.giftName">{{item.giftName}}</span>
 						<a :href="item.download" target="_blank" class="hotGmBtn">   
 							<i class="icon_spri"></i>
-							<span>领取</span>
+							<span @click="receivebag">领取</span>
 						</a>
 					</div>
 				</li>
@@ -21,114 +21,47 @@
 	</div>
 </template>
 <script>
+	import {url,hint} from '../../common/js/general';
+	import axios from 'axios'
 	export default{
 		
 		data(){
 			return{
-				hotGift:[
-					{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		},
-			  		{
-			  			gmIcon: require('../../assets/images/gmIcon.png'),
-			  			title:'坦克警戒',
-			  			size:'拇指特权礼包'
-			  		}
-				]
+				hotGift:[],
+				type:[0,1,2],
+				rows:10,
+				page:1,
+				url
 			}
-		}
+		},
+		methods:{
+			findMyGifts(){
+				let paramsUrl = new URLSearchParams()
+				let that = this;
+				paramsUrl.append('type', that.type[2]);
+				paramsUrl.append('page', that.page);
+				paramsUrl.append('rows', that.rows);
+				axios.post(url + '/muzhiplat/pc2/gift/findGiftsByType',paramsUrl).then(function(res){
+					hint(that.$refs,res.data.msg)
+					that.hotGift = res.data.rows
+					console.log(res.data.rows)
+				}).catch(function(res){
+					console.log(res)
+				})
+			},
+			receivebag(){
+				alert('请到App领取')
+			}
+
+		},
+		mounted(){
+			this.findMyGifts()
+		},
+		filters:{
+			addHttp(val){
+				return url+val
+			}
+		}		
 		
 	}
 </script>
