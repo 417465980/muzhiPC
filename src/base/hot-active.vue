@@ -10,9 +10,10 @@
 			</div>
 		</div>
 		<ul>
-			<li v-for="(item,index) in hotActive" :key="index" @click="hotAc(item)">
+			<li v-for="(item,index) in hotActive" :key="index" ><!-- @click="hotAc(item)" -->
 				<figure>
-					<img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/>
+					<router-link :to="'/news/'+item.id" tag="a"><img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
+					<!-- <img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/> -->
 					<figcaption>
 						{{item.title}}
 					</figcaption>

@@ -122,7 +122,6 @@ export default {
 				this.rows = 9
 				getNews(type,this.page,this.rows).then((res) =>{
 					if(res.ret === true){
-						console.log(res)
 						this.headlines = res.rows[0].title
 						this.headlineId = res.rows[0].id
 						this.newList = res.rows.slice(1,9)

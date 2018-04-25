@@ -21,7 +21,6 @@
 				</li>
 			</ul>
 		</div>
-		
 	</div>
 </template>
 <script>
@@ -32,7 +31,6 @@
 				hotGift:[]
 			}
 		}
-		
 	}
 </script>
 <style scoped>

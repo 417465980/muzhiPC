@@ -6,7 +6,8 @@
 		</div>
 		<ul class="clearfix">
 			<li v-for="(item,index) in qualityGame" :key="index" @mouseover="showCode(index)" @mouseout="hideCode(index)">
-				<a :href="item.downloadLink"><img :src="item.bigImg|addHttp" /></a>
+				<!-- <a :href="item.downloadLink"><img :src="item.bigImg|addHttp" /></a> -->
+				<router-link :to="'/game/'+item.id" tag="a"><img :src="item.bigImg|addHttp" /></router-link>
 				<div class="load" v-if="index == isShow">
 					<div class="code">
 						<img :src="item.qrcode">

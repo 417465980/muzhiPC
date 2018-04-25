@@ -2,16 +2,20 @@
 	<div class="login" >
 		<div class="login_top clearfix">
 			<div class="avatars fl">
-				<img :src="userdata.mUserIcon|addHttp" />
+				<img v-if="userdata.mUserIcon" :src="userdata.mUserIcon|addHttp" />
+				<img v-else src="../assets/images/user_icon.png" />
 			</div>
-			<a class="exit fr">退出</a>
+			<a href="javascript:;" class="exit fr" @click="signOut">退出</a>
 			<div class="user_title fl">
 				<div>
-					<span>{{userdata.nickName}}</span>
-					<img :src="'../assets/images/vip_'+userdata.level+'.png'" />
+					<span v-if="userdata.nickName!='undefined'">{{userdata.nickName}}</span>
+					<span v-else>拇指小可爱</span>
+					
+					<img v-if="userdata.level" :src="'../../static/images/vip_'+userdata.level+'.png'" />
+					<img v-else src="../../static/images/vip_0.png" />
 				</div>
-				<p v-if="!userdata">这个人很懒，什么也没留下</p>
-				<p v-else>{{userdata.signature}}</p>
+				<p v-if="userdata.signature">{{userdata.signature}}</p>
+				<p v-else>这个人很懒，什么也没留下</p>
 			</div>
 		</div>
 		<div class="login_botm">
@@ -49,7 +53,6 @@
 </template>
 <script>
 	import {url,token,userdata,game} from '../common/js/general'
-	
 	export default{
 		data(){
 			return {
@@ -58,11 +61,16 @@
 			}
 		},
 		mounted(){
-			console.log(userdata)
 		},
 		filters:{
 			addHttp(data){
 				return url+data
+			}
+		},
+		methods:{
+			signOut(){
+				 localStorage.clear();
+				 window.location.reload()
 			}
 		}
 	}

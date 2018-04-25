@@ -1,7 +1,7 @@
 <template>
 	<div id="wallet">
 		<div class="my-wallet">
-			<p>拇指币余额：<span>{{mzAccount}}</span><a href="javascript:;">立即充值</a></p>
+			<p>拇指币余额：<span>{{mzAccount}}</span><router-link  to="/charge">立即充值</router-link></p>
 		</div>
 		<div class="my-gift-nav">
 			<p>&nbsp;&nbsp;充值记录</p>
@@ -58,7 +58,6 @@
 					
 					if( ev.wheelDelta ){
 						b=ev.wheelDelta>0?true:false;
-						console.log(b)
 					}else{
 						b=ev.detail<0?true:false;	
 					}
@@ -106,7 +105,6 @@
 			paramsUrl.append('username',that.info.username);
 			paramsUrl.append('token',that.info.token);
 			axios.post(url+'/muzhiplat/pc2/user/findMyRecharge',paramsUrl).then(function(res){
-				console.log(res.data)
 				that.rows = res.data.rows
 				hint(that.$refs,res.data.msg)
 			}).catch(function(res){

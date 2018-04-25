@@ -15,18 +15,19 @@
 							<span>手机版</span>
 						</li>
 					</a>
-					<li class="count fr">
+					<li class="count fr" v-if="!userdata.name">
 						<i class="icon_spri"></i>
-						<!-- <span>
-							花卉&nbsp;&nbsp;|&nbsp;&nbsp;退出
-						</span> -->
-						<router-link to="/login" tag="span">登录</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/register" tag="span">注册</router-link>
+
+						<router-link  to="/login" tag="span">登录</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/register" tag="span">注册</router-link>
+					</li>
+					<li class="count fr" v-else>
+						<router-link  to="/user" tag="span">{{userdata.name}}</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<span @click="signOut">退出</span>
 					</li>
 				</ul>
 			</div>
 		</div>
 		<div class="nav">
-			<div class="log fl"></div>
+			<router-link to="/index" class="log fl"></router-link>
 			<div class="fl">
 				<ul class="clearfix">
 					<router-link to="/index" tag="li">首页</router-link>
@@ -38,29 +39,24 @@
 					<router-link to="/service" tag="li">客服中心</router-link>
 				</ul>
 			</div>
-		<!-- 	<div class="fr">
-				<search-box></search-box>	
-			</div> -->
 			<div class="search fr">
 				<input type="text" @blur="defaultkeyword" @focus="clearkeyword" v-model="keyword" :placeholder="keyword">
-				<router-link :to="'/search/'+keyword" tag="div" class="searchBtn"><i class="icon_spri"></i></router-link>
+				<router-link :to="{path:'/search/'+keyword}" tag="div" class="searchBtn"><i class="icon_spri"></i></router-link>
+
 			</div>
 		</div>
 	</div>
 </template>
 <script>
-/* 	import SearchBox from './search-box'
-	export default{
-		components:{
-			SearchBox	
-		}	
-	} */
+
 	import axios from 'axios';
-	import {hint,url} from '../common/js/general';
+	import {hint,url,userdata} from '../common/js/general';
 	export default{
+
 		data(){
 			return {
 				keyword:'还珠格格',
+				userdata
 			}
 		},
 		methods:{
@@ -74,21 +70,10 @@
 					this.keyword = '还珠格格';
 				}
 			},
-			searchgame(){
-				
-				let paramsUrl = new URLSearchParams();
-				let that = this
-				paramsUrl.append('keyword', this.keyword);
-				axios.post(url + '/mobile3/game/findGameOrGiftByKeyword',paramsUrl).then(function(res){
-					if(res.data.ret){
-						hint(that.$refs,res.data.msg)
-					}
-					
-				}).catch(function(res){
-					console.log(res)
-				})   
-
-			},
+			signOut(){
+				 localStorage.clear();
+				 window.location.reload()
+			}
 		}
 	}
 </script>
@@ -102,6 +87,7 @@
 	.head li.muzhi div{width: 58px;height: 13px;line-height: 13px; border-right:1px solid #fff;display: inline-block;margin-left: 5px;}
 	.head li.mobile i{width: 11px; height: 21px;display: inline-block; background-position: -168px -82px;margin-right:5px;}
 	.head li.count i{width: 18px; height: 18px;background-position: -10px -112px;display: inline-block;margin-right: 5px;}
+	.count span {cursor: pointer;}
 	.nav,.nav ul li,.nav .log{height: 93px;}
 	.nav .log{margin-right: 10px; width: 150px;background: url('../assets/images/logo.png') no-repeat center center;}
 	.nav ul li{float: left;width: 105px;text-align: center;line-height: 93px;font-size: 16px;color: #666666;position: relative;}

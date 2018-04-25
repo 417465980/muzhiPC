@@ -6,7 +6,7 @@
 				<span>新闻资讯</span>
 			</div>
 			<div class="hot_more fr">
-				<router-link :to="{path:'/news'}" tag="a">+</router-link>
+				<router-link :to="{path:'/news/all'}" tag="a">+</router-link>
 			</div>
 		</div>
 		<div class="new_content">
@@ -45,6 +45,10 @@
 	.news_info .new_content li{width: 300px;margin-bottom: 15px;display: flex;align-items: center;cursor: pointer}
 	.news_info .new_content li a{flex: 0 0 43; margin-right: 10px; height: 20px;width: 43px;border: 1px solid #cf387f;text-align: center;line-height: 20px;
 		color:#cf387f;font-size:12px;border-radius: 5px;
+	}
+	.news_info .new_content li span:hover{
+		color:#666;
+		text-shadow: 1px 1px 1px #b788a0;
 	}
 	.news_info .new_content li span{color:#666666;font-size: 14px;flex:1; text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 </style>

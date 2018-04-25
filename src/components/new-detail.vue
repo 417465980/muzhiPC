@@ -11,17 +11,17 @@
 				<div class="info_pro">
 					<div class="fl">
 						<i class="gmCen_spri"></i>
-						<span>资讯专题</span>
+						<span>{{rows.adType}}专题</span>
 					</div>
 					<router-link to="/news" class="fr" >+</router-link>
 				</div>
 				<div class="detail_cont">
 					<div class="title">
-						<h1 v-html="newsTitle"></h1>
-						<span>发布时间：{{newsTime}}</span>
+						<h1>{{rows.title}}</h1>
+						<span>发布时间：{{rows.startDate}}</span>
 					</div>
 					<div class="content">
-						<p v-html="newsCont"></p>
+						<p v-html="rows.contentUrl"></p>
 					</div>
 				</div>
 			</div>
@@ -32,10 +32,17 @@
 	import GameRank from 'base/game-rank'
 	import HotActive from 'base/hot-active'
 	import {mapGetters} from 'vuex'
+	import axios from 'axios'
+	import {url } from 'common/js/general'
 	export default{
 		components:{
 			GameRank,
 			HotActive
+		},
+		data(){
+			return {
+				rows:{}
+			}
 		},
 		computed:{
             newsTitle(){
@@ -70,7 +77,34 @@
 					}
 				}
             }
-        }
+		},
+		methods:{
+			getData(){
+				const that = this
+				let paramsUrl = new URLSearchParams()
+				//http://game.91muzhi.com/muzhiplat/pc2/news/{id}
+
+				var newsId = window.location.href.split('/news/')[1]
+				newsId = newsId=='all'?null:newsId
+				if(newsId){
+					axios.post(url + '/muzhiplat/pc2/news/'+newsId,).then(function(res){
+						console.log(res.data)
+						that.rows = res.data.rows
+					}).catch(function(res){
+						
+					})				
+				}				
+			}
+
+
+		},
+		created (){
+            this.getData()
+        },
+         watch: {
+            // 如果路由有变化，会再次执行该方法
+            '$route': 'getData'
+        },
 	}
 	
 </script>
@@ -86,6 +120,7 @@
 	.detail_cont .title{border-bottom: 1px solid #f0f0f0;text-align: center;padding: 12px 0 35px;}
 	.detail_cont .title h1{font-weight: normal;line-height: 60px;font-size: 25px;color: #333333;}
 	.detail_cont .title span{font-size: 14px;color:#959595;}
+	.content{ margin:20px;}
 </style>
 
 

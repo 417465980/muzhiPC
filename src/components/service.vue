@@ -10,17 +10,26 @@
                         <span class="li">{{item[1].name}}</span>
                     </span>
                 </div>
-                <transition-group enter-active-class=" zoomInLeft" leave-active-class=" zoomOutRight">
+                <transition-group enter-active-class="bounceInDown" leave-active-class=" hinge" tag ="div" class="group">
                     <div v-for="item in id" :key="item" v-show="item==activenum" class="details animated" >
                         <ul>
-                            <li  v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" class="fl left">{{items.proTitle}}</li>
+                            <li v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" :data-proDetail="items.proDetail" @click="markfqa">{{items.proTitle}}</li>
                         </ul>
                     </div>
                 </transition-group>
             </div>
         </div>
+        <div class="markfqa" v-show="bool">
+            <div class="markbox">
+                <div class="close" @click="close">×</div>
+                <h3>{{markfqadata.proTitle}}</h3>
+                <div>
+                    <p>{{markfqadata.proDetail}}</p>
+                </div>
+            </div>
+        </div>
     </div>
-</template>
+</template> 
 <script>
     import axios from 'axios';
     import {url,hint} from 'common/js/general'
@@ -39,13 +48,18 @@
                 pp:{'one':2,'two':1,'three':5,'four':3,'five':4,'six':6},
                 active:'one',
                 activenum:2,
-                rows:[]
+                rows:[],
+                markfqadata:{
+                    proTitle:'',
+                    proDetail:''
+                },
+                bool:false
             }
         },
         methods:{
             queryFQAMsg(){
                 let that = this;
-                let paramsUrl = new URLSearchParams();
+                let paramsUrl = new  URLSearchParams();
 				paramsUrl.append('id',1);
 				axios.post(url + '/muzhiplat/pc2/customer/queryFQAMsg').then(function(res){
                     hint(that.$refs,res.data.msg)
@@ -57,15 +71,73 @@
             seefqa(index){
                 this.active = index;
                 this.activenum = this.pp[index];
+            },
+            markfqa(e){
+                var e = event||e;
+                this.markfqadata.proTitle = e.target.innerText;
+                this.markfqadata.proDetail = e.target.dataset.prodetail;
+                this.bool =!this.bool
+               
+            },
+            close(){
+                this.bool =!this.bool
             }
         },
         mounted(){
             this.queryFQAMsg()
-            console.log(this.rows)
         }
     }
 </script>
 <style scoped>
+    @import '../common/style/animate.css';
+    .markfqa{ width:100vw;height:100vh;position: fixed;top:0;left:0;background:rgba(0,0,0,.4) ;}
+    .markbox{
+        width:600px;
+        position: absolute;
+        top:300px;
+        left:50%;
+        margin-left:-300px;
+        background:#fff;
+        border-radius: 10px;
+        border:1px solid #e9e9e9;
+    }
+    .markfqa h3{
+        margin :30px auto 0;
+        line-height : 55px;
+        font-size: 30px;
+        font-weight: normal;
+        color:#fa5e2e;
+        text-align: center;
+        border-bottom : 1px solid #e9e9e9;
+    }
+    .markbox p{
+        font-size:14px;
+        color:#333;
+        line-height :36px;
+        margin:20px 30px;
+    }
+    .close{
+        position: absolute;
+        right :0;
+        top:-40px;
+        width:30px;
+        height :30px;
+        background:rgba(255,255,255,.8);
+        border:1px solid #e9e9e9;
+        border-radius: 15px;
+        font-size:20px;
+        color:#999;
+        text-align:center;
+        line-height:30px;
+        cursor: pointer;
+        box-sizing:border-box;
+    }
+    .close:hover{
+        
+        color:#666;
+        background:#fff;
+        
+    }
     .service{
         width: 1200px;
         margin: 15px auto 0;
@@ -146,10 +218,9 @@
         height: 180px;
         padding: 30px 45px 30px 87px;
         margin: 0 auto;
-        border-bottom: 1px solid #f0f0f0;
+        
         color: #363636;
         font-size: 14px;
-        display: none;
     }
     .main_top .active{
         display: block;
@@ -232,4 +303,5 @@
     .details li:hover{
         text-shadow: 1px 1px 1px #ea73b9
     }
+    .group{ min-height:300px;height:300px;overflow: hidden;border-bottom: 3px solid #f0f0f0;}
 </style>

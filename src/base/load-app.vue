@@ -7,7 +7,7 @@
 			<div class="app_title fl">
 				<p>拇指游戏宝APP</p>
 				<span>最全拇指礼包领取平台</span>
-				<a href="#">
+				<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk">
 					<i class="gmCen_spri"></i>
 					<span>下载</span>
 				</a>

@@ -36,9 +36,6 @@
 <script>
 	import Vue from 'vue';
 	import axios from 'axios';
-	import { Navbar, TabItem } from 'mint-ui';
-	Vue.component(Navbar.name, Navbar);
-	Vue.component(TabItem.name, TabItem);
 	import {url,hint,token,userdata} from '../../common/js/general'
 	export default{
 		data(){

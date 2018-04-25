@@ -1,42 +1,43 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from 'components/Home'
-import GameCenter from 'components/game-center'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from 'components/Home';
+import GameCenter from 'components/game-center';
 
-import GameAll from 'components/games/game-all'
-import CasualPuzzle from 'components/games/casual-puzzle'
-import RolePlay from 'components/games/role-play'
-import BusinessStrategy from 'components/games/business-strategy'
-import Adventure from 'components/games/adventure'
-import Chessworld from 'components/games/chess-world'
-import FlightShoot from 'components/games/flight-shoot'
-import NetworkGame from 'components/games/network-game'
-import Sport from 'components/games/sport'
+import GameAll from 'components/games/game-all';
+import CasualPuzzle from 'components/games/casual-puzzle';
+import RolePlay from 'components/games/role-play';
+import BusinessStrategy from 'components/games/business-strategy';
+import Adventure from 'components/games/adventure';
+import Chessworld from 'components/games/chess-world';
+import FlightShoot from 'components/games/flight-shoot';
+import NetworkGame from 'components/games/network-game';
+import Sport from 'components/games/sport';
 
-import GiftCenter from 'components/gift-center'
+import GiftCenter from 'components/gift-center';
 
-import GiftAll from 'components/gift/gift-all'
-import Latest from 'components/gift/latest'
-import Novice from 'components/gift/novice'
-import Exclusive from 'components/gift/exclusive'
-import Privilege from 'components/gift/privilege'
-import Starting from 'components/gift/starting'
-import Platinum from 'components/gift/platinum'
-import Luxury from 'components/gift/luxury'
-import Festival from 'components/gift/festival'
-import Other from 'components/gift/other'
+import GiftAll from 'components/gift/gift-all';
+import Latest from 'components/gift/latest';
+import Novice from 'components/gift/novice';
+import Exclusive from 'components/gift/exclusive';
+import Privilege from 'components/gift/privilege';
+import Starting from 'components/gift/starting';
+import Platinum from 'components/gift/platinum';
+import Luxury from 'components/gift/luxury';
+import Festival from 'components/gift/festival';
+import Other from 'components/gift/other';
 
-import ChargeCenter from 'components/charge-center'
-import ActiveCenter from 'components/active-center'
-import Service from 'components/service'
-import NewsCenter from 'components/news-center'
+import ChargeCenter from 'components/charge-center';
+import ActiveCenter from 'components/active-center';
+import Service from 'components/service';
+import NewsCenter from 'components/news-center';
 
-import NewsAll from 'components/news/news-all'
-import NewsHot from 'components/news/news-hot'
-import Measure from 'components/news/measure'
-import Strategy from 'components/news/strategy'
-import Announce from 'components/news/announce'
-import newDetail from 'components/new-detail'
+import NewsAll from 'components/news/news-all';
+import NewsHot from 'components/news/news-hot';
+import Measure from 'components/news/measure';
+import Strategy from 'components/news/strategy';
+import Announce from 'components/news/announce';
+import newDetail from 'components/new-detail';
+import GameDetail from 'components/games/game-detail';
 
 import User from "components/user/user-center";
 import Account from "components/user/account";
@@ -48,10 +49,12 @@ import Login from "components/user/login";
 import Register from "components/user/register";
 import Mzagreement from 'components/user/mzagreement';
 
-Vue.use(Router)
+import Search from 'components/search';
 
+Vue.use(Router);
 export default new Router({
-	  routes: [
+
+	routes: [
 	  	{
 	        path: '/',
 			redirect: '/index'
@@ -68,38 +71,34 @@ export default new Router({
 				{
 					path:'all',
 					component:GameAll,
-				},
-				{
+				},{
 					path:'casual',
 					component:CasualPuzzle
-				},
-				{
+				},{
 					path:'role',
 					component:RolePlay
-				},
-				{
+				},{
 					path:'business',
 					component:BusinessStrategy   
-				},
-				{
+				},{
 					path:'adventure',
 					component:Adventure   
 				},
 				{
 					path:'chess',
 					component:Chessworld   
-				},
-				{
+				},{
 					path:'shoot',
 					component:FlightShoot   
-				},
-				{
+				},{
 					path:'network',
-					component:NetworkGame   
-				},
-				{
+					component:NetworkGame 
+				},{
 					path:'sport',
-					component:Sport   
+					component:Sport
+				},{
+					path:'gamedetail',
+					component:GameDetail
 				}
 			]
 		},
@@ -165,7 +164,6 @@ export default new Router({
 		{
 			path:'/news',
 			component:NewsCenter,
-			redirect:'/news/all',
 			children:[
 				{
 					path:'all',
@@ -192,6 +190,10 @@ export default new Router({
 		{
 			path: '/news/:id',
 			component:newDetail
+		},
+		{
+			path: '/game/:id',
+			component:GameDetail
 		},
 		{
 			path: "/user",
@@ -224,14 +226,25 @@ export default new Router({
 		{
 			path: "/login",
 			component: Login
-		  },
-		  {
+		},
+		{
 			path: "/register",
 			component: Register
-		  },
-		  {
+		},
+		{
 			path:'/mzagreement',
 			component : Mzagreement
-		  }
-	]
-})
+		},
+		{
+			path :'/search/:keyword',
+			component:Search
+		}
+	],
+	scrollBehavior (to, from, savedPosition) {
+		if (savedPosition) {
+			return savedPosition;
+		} else {
+			return { x: 0, y: 0 };
+		}
+	},
+});

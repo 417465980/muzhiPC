@@ -16,7 +16,7 @@
 						<span>资讯专题</span>
 					</div>
 					<div class="type_wrap">
-						<router-link :to="{path:item.path}" tag="div" class="clsifi_type clearfix"  v-for="(item,index) in newTypeFields" :key="index" @click.native="selectNews(index)">
+						<router-link :to="{path:'/news/'+item.path}" tag="div" class="clsifi_type clearfix"  v-for="(item,index) in newTypeFields" :key="index" @click.native="selectNews(index)">
 							<a class="fl">
 								{{item.type}}
 								<b v-show="newCurIndex === index"><i></i><i></i></b>

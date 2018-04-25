@@ -4,14 +4,13 @@
 		<div class="game_list">
 			<ul class="clearfix">
 				<li v-for="(item,index) in hotGift" :key="index">
-					
-					<a class="gm_icon fl">
-						<img :src="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl"/>
+					<a class="gm_icon fl" href="javascript:;">
+						<img :src="url+'/muzhiplat'+item.giftIconUrl"/>
 					</a>
 					<div class="item_title fl">
 						<p :title="item.gameName">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
-						<a :href="item.download" target="_blank" class="hotGmBtn">   
+						<a href="javascript:;" @click="receivebag" class="hotGmBtn">   
 							<i class="icon_spri"></i>
 							<span>领取</span>
 						</a>
@@ -22,12 +21,25 @@
 	</div>
 </template>
 <script>
+	import {url } from '../common/js/general'
 	export default{
 		props:{
 			hotGift:{
 				type:Array,
-				default:[]
+				default:[],
+				
 			}
+		},
+		data(){
+			return {
+				url
+			}
+		},
+		methods:{
+			receivebag(){
+				alert('请到App领取')
+			}
+
 		}
 	}
 </script>

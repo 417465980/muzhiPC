@@ -3,24 +3,28 @@
 		<div class="acIcon">
 			<i class="icon_spri"></i>
 			<span>全部活动</span>
+			
 		</div>
 		<ul class="clearfix">
-			<li v-for="(item,index) in activeList" :key="index" @click="selectActive(item)">
+			<li v-for="(item,index) in activeList" :key="index">
 				<div class="ac_img">
-					<img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" />
+					<router-link :to="'/news/'+item.id" tag="a"><img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /></router-link>
+					<!-- <img  @click="selectActive(item)" :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /> -->
 				</div>
 				<div class="ac_title clearfix">
 					<div class="active_time fl">
-						<p>{{item.title}}</p>
+						<p><router-link :to="'/news/'+item.id" tag="a">{{item.title}}</router-link></p>
+						<!-- <p  @click="selectActive(item)">{{item.title}}</p> -->
 						<div class="effective">
 							<i></i>
 							<span>活动时间：{{item.startDate}}至{{item.endDate}}</span>
 						</div>
 						<div class="remain_time">
 							<i></i>
-							<span>剩余时间：0天0小时0分0秒</span>
+							<span>剩余时间：<span v-if="type">{{item.remain}}</span></span>
 						</div>
 					</div>
+				
 					<img class="end_icon fr" src="../assets/images/endIcon.png" />
 				</div>
 			</li>
@@ -33,6 +37,7 @@
 <script>
 	import LoadMore from 'base/load-more'
 	import {getNews} from 'api/muzhi'
+	import Vue from 'vue'
 	export default{
 		components:{
 			LoadMore
@@ -44,7 +49,7 @@
 				page:1,
 				rows:6,
 				total:0,
-				hasMore:false
+				hasMore:false,
 			}
 		},
 		mounted(){
@@ -56,8 +61,18 @@
 			_getActive(){
 				getNews(this.type,this.page,this.rows).then((res) =>{
 					if(res.ret === true){
-						console.log(res)
 						this.activeList = res.rows
+						var that = this;
+						// setInterval(function(){
+					
+							var now = new Date();
+							for(var i =0 ; i<that.activeList.length;i++){
+								var end = new Date(that.activeList[i].endDate.replace(/-/g,"/"));
+								end.setHours(23, 59, 59, 0);
+								var time = parseInt((end.getTime() - now.getTime()) / 1000);
+								that.activeList[i].remain  = that.remainTime(that.activeList[i].endDate,time)
+							}
+						// },2000)
 						if(this.activeList.length < res.total){
                             this.hasMore = true
                         }else{
@@ -67,11 +82,20 @@
 				})
 			},
 			activeMore(){
+
                 this.page++
-                this.total += this.rows
+				this.total += this.rows
+				var that = this
                 getNews(this.type,this.page,this.rows).then((res) =>{
                     if(res.ret === true){
-                        this.activeList = this.activeList.concat(res.rows)
+						this.activeList = this.activeList.concat(res.rows)
+						var now = new Date();
+							for(var i =0 ; i<that.activeList.length;i++){
+								var end = new Date(that.activeList[i].endDate.replace(/-/g,"/"));
+								end.setHours(23, 59, 59, 0);
+								var time = parseInt((end.getTime() - now.getTime()) / 1000);
+								that.activeList[i].remain  = that.remainTime(that.activeList[i].endDate,time)
+							}
                         if(!res.rows.length || (this.total+this.rows) >= res.total){
                             this.hasMore = false
                         }
@@ -82,7 +106,21 @@
 				this.$router.push({
 					path:`/news/${item.id}`
 				})
+			},
+			remainTime(endDate,time){
+				if(time>=0){
+					var d = Math.floor(time / 86400);  
+					var h = Math.floor((time %= 86400) / 3600); 
+					var m = Math.floor((time %= 3600) / 60);  
+					var s = parseInt(time % 60); 
+					return   d + " 天 " + h + " 小时 " + m + " 分 " + s + " 秒";
+				}else{
+					return '活动已经结束了哟'
+				}
 			}
+		},
+		filters:{
+
 		}
 	}
 </script>

@@ -22,7 +22,7 @@
 </template>
 <script>
 	import {url,hint} from '../../common/js/general';
-	import axios from 'axios'
+	import axios from 'axios';
 	export default{
 		
 		data(){

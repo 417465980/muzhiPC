@@ -1,5 +1,5 @@
 <template>
-	<div id="login">
+	<div id="login" @keyup.enter="login">
         <div class="login">
             <div class="min-width">
                 <ul>
@@ -13,9 +13,9 @@
                                 </ol>
                                 <div>
                                     <p class="remmberme"><input class="radioR" type="checkbox" @change="remmberme" v-model="checked"><span>记住我的两周</span></p>
-                                    <router-link to="/forgetpsd" tag="span" class="forgetpsd">忘记密码?</router-link>
+                                    <router-link to="/service" tag="span" class="forgetpsd">忘记密码?</router-link>
                                 </div>
-                                <div><input class="background loginbtn" type="button" @click="login" value="登录"></div>
+                                <div><input class="background loginbtn" type="button" @click="login" value="登录" ></div>
                                 <div><p class="unregistered">还没注册拇指账户？<router-link to="/register" tag="span">立即注册&gt;&gt;</router-link></p></div>
                             </div>
                         </div>
@@ -64,8 +64,8 @@
                             window.localStorage.setItem('token',JSON.stringify(res.data.token))
                             window.localStorage.setItem('game',JSON.stringify(res.data.rows.game))
                             setTimeout(function(){
-                                that.$router.push('/index');
                                 window.location.reload()
+                                that.$router.push('/index');
                             },2000)
                         }
                     }).catch(function(res){
@@ -172,13 +172,15 @@
         background url(../../assets/images/icon_spri.png) no-repeat -130px -98px
     #username ,#psd
         display inline-block 
-        width 222px 
+        width 230px 
         line-height 38px 
         color #999 
         font-size 14px
         border none 
         background #fff 
         box-sizing border-box 
+        border-top-right-radius 6px
+        border-bottom-right-radius 6px
         margin-left 40px 
 .remmberme
     display inline-block
@@ -220,7 +222,7 @@
 .eye
     display inline-block
     position absolute
-    right 0
+    right 3px
     top 1px
     width 38px
     height 38px

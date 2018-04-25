@@ -1,7 +1,9 @@
 <template>
 	<div class="cont_box gm_center clearfix">
 		<div class="gmCen_left fl">
-			<user-info></user-info>
+			
+			<user-info v-if="token"></user-info>
+			<reg-info v-else></reg-info>
 			<game-rank></game-rank>
 		</div>
 		<div class="gmCen_right fr">
@@ -11,7 +13,7 @@
 					<span>游戏分类</span>
 				</div>
 				<div class="type_wrap">
-					<router-link :to="{path:item.path}" tag="div" class="clsifi_type clearfix"  v-for="(item,index) in gmTypeFields" :key="index" @click.native="selectGame(index)">
+					<router-link   v-for="(item,index) in gmTypeFields" :to="{path:item.path}"  class="clsifi_type clearfix"  :key="index" @click.native="selectGame(index)">
 						<a class="fl">
 							{{item.type}}
 							<b v-show="curIndex === index"><i></i><i></i></b>
@@ -32,15 +34,19 @@
 	</div>
 </template>
 <script>
+	import RegInfo from 'base/reg-info'
 	import UserInfo from 'base/user-info'
 	import GameRank from 'base/game-rank'
+	import {token} from 'common/js/general'
 	export default{
 		components:{
 			UserInfo,
-			GameRank
+			GameRank,
+			RegInfo
 		},
 		data(){
 			return{
+				token,
 				gmTypeFields:[
 					{
 						type:'全部',
