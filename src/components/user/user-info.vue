@@ -11,7 +11,7 @@
                     <p class="user-truename" v-else-if="userdata.nickName">{{userdata.nickName=='undefined'?'请设置您的昵称':userdata.nickName}}</p>
                     <p class="user-truename" v-else >拇指小可爱</p><br>
                     <p class="username"><span>用户名：</span><span v-if="userdata.name">{{userdata.name}}</span><span v-else>拇指小可爱</span></p><br>
-                    <p class="user-trade"><img :src="'../../../static/images/vip_'+userdata.level+'.png'" alt=""></p>
+                    <p class="user-trade"><img :src="'static/images/vip_'+userdata.level+'.png'" alt=""></p>
                 </div>
             </div>            
         </div>

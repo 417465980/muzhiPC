@@ -9,7 +9,8 @@
 					<input id="username" placeholder="用户名" type="text" name="username" v-model="info.username" :readonly="readonly"></li>
 				<li>
 					<label class="accout-label" for="nickname">昵称</label>
-					<input id='nickname' placeholder="请设置您的昵称" type="text" v-model="info.nickname" :readonly="readonly"></li>
+					<input id='nickname' placeholder="请设置您的昵称" type="text" v-if="info.nickname!='undefined'" v-model="info.nickname" :readonly="readonly">
+					<input id='nickname' placeholder="请设置您的昵称" type="text" v-else v-model="请设置您的昵称" :readonly="readonly"></li>
 				<li>
 					<p class="accout-label">性别</p>
 					<label for="men">
