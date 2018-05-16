@@ -18,21 +18,25 @@
                                 <div><input class="background loginbtn" type="button" @click="login" value="登录" ></div>
                                 <div><p class="unregistered">还没注册拇指账户？<router-link to="/register" tag="span">立即注册&gt;&gt;</router-link></p></div>
                             </div>
+                            <transition>
+                                <div class="hint" ref="hint">
+                                    <span ref="hint-content"></span>
+                                </div>
+                            </transition>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <transition>
-			<div class="hint" ref="hint">
-				<span ref="hint-content"></span>
-			</div>
-		</transition>
+        
 	</div>
 </template>
 <script>
-    import axios from 'axios'
+
+    import axios from 'axios';
+    import qs from 'qs'
     import {url,resPassword,regUserName,hint,userdata,token} from '../../common/js/general'
+   
 	export default{
 		data(){
 			return {
@@ -52,9 +56,11 @@
                 const that = this
                 this.userInput.textActive =true
                 if(this.userInput.prompt){
-                    let paramsUrl = new URLSearchParams()
-                    paramsUrl.append('username', this.username);
-                    paramsUrl.append('password', this.password);
+                    let paramsUrl =qs.stringify({
+                        'username':this.username,
+                        'password':this.password
+                    })
+                   
                     axios.post(url + '/muzhiplat/pc2/user/login',paramsUrl).then(function(res){
                         
                         hint(that.$refs,res.data.msg)
@@ -126,6 +132,7 @@
 .login-cont-right
     float right
     height 520px
+    position relative
     .login-warp
         width 320px
         height 360px
@@ -187,12 +194,16 @@
     margin-top 10px
     font-size 12px
     color #999
-    width auto
-        input 
-            width 12px
-            height 12px
-            border 1px solid #d6d6d6
-            font-size 12px
+    input 
+        width 12px
+        height 12px
+        border 1px solid #d6d6d6
+        font-size 12px
+        vertical-align middle
+    span 
+        vertical-align middle
+        padding-left 3px
+
 .forgetpsd
     margin-top 10px
     float right
@@ -229,4 +240,14 @@
     background #fff url(../../assets/images/eye.png) no-repeat center center
     background-size 100% auto
     cursor pointer
+.hint
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+    display: none; 
+    max-width: 768px;
+    transform: translateX(-50%);
 </style>

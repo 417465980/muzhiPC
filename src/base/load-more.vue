@@ -1,6 +1,6 @@
 <template>
 	<div class="load_more" @click="loadMore">
-		<span>查看更多</span>
+		<span class="hoveraction">查看更多</span>
 		<a>
 			<i class="gmCen_spri"></i>
 		</a>
@@ -20,4 +20,8 @@
 	.load_more a{width:35px;height: 100%;display: flex;justify-content: center;align-items: center;}
 	.load_more a i{ width: 17px; height: 17px;background-position:-56px -58px;display: block;}
 	.load_more span{color:#666666;font-size:18px;line-height: 40px;}
+	.hoveraction:hover{
+		color: #666;
+		text-shadow: 1px 1px 1px #b788a0;
+	}
 </style>

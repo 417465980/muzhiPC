@@ -5,11 +5,11 @@
 				<img v-if="userdata.mUserIcon" :src="userdata.mUserIcon|addHttp" />
 				<img v-else src="../assets/images/user_icon.png" />
 			</div>
-			<a href="javascript:;" class="exit fr" @click="signOut">退出</a>
+			<a href="javascript:;" class="exit fr " @click="signOut">退出</a>
 			<div class="user_title fl">
 				<div>
 					<span v-if="userdata.nickName!='undefined'">{{userdata.nickName}}</span>
-					<span v-else>拇指小可爱</span>
+					<span v-else>请设置你的昵称</span>
 					
 					<img v-if="userdata.level" :src="'static/images/vip_'+userdata.level+'.png'" />
 					<img v-else src="static/images/vip_0.png" />
@@ -78,11 +78,21 @@
 <style scoped>
 	.login{height:398px;width: 350px;border: 1px solid #e9e9e9;}
 	 .login_top{height: 97px;margin:20px 20px 10px; }
-	 .login_top .avatars{width:103px;height:97px;display: flex;align-items: center;justify-content: center;margin-right: 20px;}
-	 .login_top .avatars img{max-width: 100%;height: auto;max-height: 100%;}
+	 .login_top .avatars{width:103px;height:97px;overflow: hidden; margin-right: 10px;}
+	 .avatars img{max-height:100%;width:auto; max-width: none;}
 	 .login_top .exit{font-size: 15px;color: #666666;text-decoration: underline;}
+	 .exit:hover{color:#820c9b;}
 	 .login_top .user_title div{display: flex;align-items: center;}
-	 .login_top .user_title span{font-weight:bold;font-size: 16px;margin-right: 15px;}
+	 .login_top .user_title span{  margin-right: 15px;
+    font-size: 14px;
+    color: #820c9b;
+    display: block;
+    width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	white-space: nowrap;}
+	.user_title{margin-top:10px;}
+	.login_top .user_title img{ width:68px;}
 	 .login_top .user_title p{color: #b0b0b0;font-size: 14px;margin-top: 15px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width:187px;}
 	 .login_botm{border-bottom: 1px solid #e9e9e9;padding-bottom: 15px;}
 	 .login_botm .lj{position: relative;}

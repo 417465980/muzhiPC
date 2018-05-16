@@ -1,5 +1,4 @@
 const url = 'http://game.91muzhi.com';
-const paramsUrl = new URLSearchParams();
 const resPassword = /\S{6,16}/;
 const regUserName = /^[0-9a-zA-Z]{6,16}$/;
 let hint = function(el,data){
@@ -58,4 +57,5 @@ userdata = Object.assign({
     wx : null,
 },userdata);
 
-export {url,paramsUrl,resPassword,regUserName,hint,token,userdata,game}
+
+export {url,resPassword,regUserName,hint,token,userdata,game}

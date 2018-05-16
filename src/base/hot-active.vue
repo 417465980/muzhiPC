@@ -12,9 +12,9 @@
 		<ul>
 			<li v-for="(item,index) in hotActive" :key="index" ><!-- @click="hotAc(item)" -->
 				<figure>
-					<router-link :to="'/news/'+item.id" tag="a"><img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
+					<router-link :to="'/news/'+item.id" tag="a"><img v-lazy="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
 					<!-- <img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/> -->
-					<figcaption>
+					<figcaption class="hoveraction">
 						{{item.title}}
 					</figcaption>
 				</figure>
@@ -26,13 +26,15 @@
 						</div>
 						<div class="remain_time">
 							<i></i>
-							<span>剩余时间：0天0小时0分0秒</span>
+							<span>剩余时间：{{item.remain}}</span>
 						</div>
-					</div>
-					<img class="end_icon fr" src="../assets/images/endIcon.png" :style="endIconW" v-show="isEnd === true"/>
+					</div>                                                                                 
+					<img class="end_icon fr" src="../assets/images/endIcon.png" :style="endIconW" v-show="isEnd[index]"/>
 				</div>
 			</li>
 		</ul>
+		
+		{{count[0]}}
 	</div>
 </template>
 <script>
@@ -42,7 +44,9 @@
 		data(){
 			return{
 				hotActive:[],
-				isEnd:false
+				isEnd:[],
+				timer:null,
+				count:[],
 			}
 		},
 		computed:{
@@ -59,6 +63,13 @@
 				if(url.indexOf('news') === -1){
 					return 'width:44px'
 				}
+			},
+			aaab (){
+				return setInterval(()=>{
+					//console.log(this.aaa[0].b)
+					this.aaa[0].a=this.aaa[0].a+1
+					
+				},1000)
 			}
 		},
 		mounted(){
@@ -66,22 +77,40 @@
 				this._getHotActive()
 			},20)
 		},
+	
 		methods:{
 			_getHotActive(){
+				for(var i in this.aaa){
+					this.aaa[i].b = 4
+				}
+				
 				let type = 1,page = 1,rows = 2
 				getNews(type,page,rows).then((res) =>{
 					if(res.ret === true){
 						this.hotActive = res.rows
-						for(let i =0; i< this.hotActive.length; i++){
-						//	let endTime = new Date(this.hotActive[i].endDate).getTime()
-						//	let nowTime = new Date().getTime()
-    						
-							if(timeHandle(this.hotActive[i].endDate) === true){
-								this.isEnd = false
-							}else{
-								this.isEnd = true	
+						clearInterval(this.timer)
+						this.timer = setInterval(()=>{
+							var arr =[]
+							for(var i in this.count){
+								this.count[i]=this.count[i]+1	
+								arr.push(this.count[i])
 							}
-						}
+							 this.count= arr
+							var now = new Date();
+							for(var i =0 ; i<this.hotActive.length;i++){
+								var end = new Date(this.hotActive[i].endDate.replace(/-/g,"/"));
+								end.setHours(23, 59, 59, 0);
+								var time = parseInt((end.getTime() - now.getTime()) / 1000);
+								this.hotActive[i].remain  = this.remainTime(time)
+								if(time <=0){
+									this.isEnd[i] = true
+								}else{
+									this.isEnd[i] = false	
+								}
+							}
+						},1000)
+						
+	
 					}
 				})	
 			},
@@ -89,7 +118,18 @@
 				this.$router.push({
 					path:`/news/${item.id}`
 				})
-			}
+			},
+			remainTime(time){
+				if(time>=0){
+					var d = Math.floor(time / 86400);  
+					var h = Math.floor((time %= 86400) / 3600); 
+					var m = Math.floor((time %= 3600) / 60);  
+					var s = parseInt(time % 60); 
+					return   d + " 天 " + h + " 小时 " + m + " 分 " + s + " 秒";
+				}else{
+					return '活动已经结束了哟'
+				}
+			},
 		}
 	}
 </script>
@@ -99,6 +139,7 @@
 	.hot_active ul{border-top:1px solid #e9e9e9;margin-top: 11px;}
 	.hot_active ul figure img{width: 100%;margin: 20px 0 10px;height: auto;}
 	.hot_active ul figure figcaption{color: #333333;font-size: 18px;}
+
 	.hot_active li .hotTimeCont{position: relative;}
 	.hot_active ul .active_time{font-size: 10px;color: #666666;}
 	.hot_active ul .active_time .effective,.hot_active ul .active_time .remain_time{height: 20px;display: flex;align-items: center;margin-top:5px;}

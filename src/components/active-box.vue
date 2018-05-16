@@ -7,13 +7,14 @@
 		</div>
 		<ul class="clearfix">
 			<li v-for="(item,index) in activeList" :key="index">
+			
 				<div class="ac_img">
-					<router-link :to="'/news/'+item.id" tag="a"><img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /></router-link>
+					<router-link :to="'/news/'+item.id" tag="a"><img v-lazy="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /></router-link>
 					<!-- <img  @click="selectActive(item)" :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /> -->
 				</div>
 				<div class="ac_title clearfix">
 					<div class="active_time fl">
-						<p><router-link :to="'/news/'+item.id" tag="a">{{item.title}}</router-link></p>
+						<p><router-link :to="'/news/'+item.id" class="hoveraction" tag="a">{{item.title}}</router-link></p>
 						<!-- <p  @click="selectActive(item)">{{item.title}}</p> -->
 						<div class="effective">
 							<i></i>
@@ -29,6 +30,7 @@
 				</div>
 			</li>
 		</ul>
+		{{count[0]}}
 		<div class="moreWrap" v-show="hasMore === true">
 			<load-more @hasMore="activeMore"></load-more>
 		</div>
@@ -50,6 +52,9 @@
 				rows:6,
 				total:0,
 				hasMore:false,
+				activetime:[],
+				count:[],
+				timer:null
 			}
 		},
 		mounted(){
@@ -63,16 +68,33 @@
 					if(res.ret === true){
 						this.activeList = res.rows
 						var that = this;
-						// setInterval(function(){
-					
-							var now = new Date();
-							for(var i =0 ; i<that.activeList.length;i++){
-								var end = new Date(that.activeList[i].endDate.replace(/-/g,"/"));
-								end.setHours(23, 59, 59, 0);
-								var time = parseInt((end.getTime() - now.getTime()) / 1000);
-								that.activeList[i].remain  = that.remainTime(that.activeList[i].endDate,time)
+						clearInterval(this.timer)
+						//var count=[]
+						this.timer = setInterval(()=>{
+							var arr =[]
+							for(var i in this.count){
+								this.count[i]=this.count[i]+1	
+								arr.push(this.count[i])
+														
 							}
-						// },2000)
+							this.count = arr
+							
+							var now = new Date();
+							for(var i =0 ; i<this.activeList.length;i++){
+								var end = new Date(this.activeList[i].endDate.replace(/-/g,"/"));
+								
+								end.setHours(23, 59, 59, 0);
+								
+								var time = parseInt((end.getTime() - now.getTime()) / 1000);
+								
+								
+								this.activeList[i].remain  = this.remainTime(this.activeList[i].endDate,time)
+								
+							}
+							//this.activeList = this.activeList
+							//console.log(count[0].remain)
+						},1000)
+						
 						if(this.activeList.length < res.total){
                             this.hasMore = true
                         }else{
@@ -92,8 +114,11 @@
 						var now = new Date();
 							for(var i =0 ; i<that.activeList.length;i++){
 								var end = new Date(that.activeList[i].endDate.replace(/-/g,"/"));
+								
 								end.setHours(23, 59, 59, 0);
+								
 								var time = parseInt((end.getTime() - now.getTime()) / 1000);
+								
 								that.activeList[i].remain  = that.remainTime(that.activeList[i].endDate,time)
 							}
                         if(!res.rows.length || (this.total+this.rows) >= res.total){
@@ -137,6 +162,7 @@
 	.acBox li .ac_img{width: 100%;height: 163px;margin-bottom:15px;}
 	.acBox li .ac_img img{width:100%; height:100%;}
 	.acBox li .active_time{width:314px;height: 70px;}
+
 	.acBox li .active_time p{font-size:18px;color: #333333;width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 	
 	.acBox li .active_time span{font-size: 13px;color: #666666;font-family: simsun,"宋体";}

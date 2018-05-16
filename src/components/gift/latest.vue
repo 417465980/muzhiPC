@@ -8,7 +8,7 @@
 						<img :src="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl"/>
 					</a>
 					<div class="item_title fl">
-						<p :title="item.gameName">{{item.gameName}}</p>
+						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
 						<a :href="item.download" target="_blank" class="hotGmBtn">   
 							<i class="icon_spri"></i>
@@ -23,6 +23,7 @@
 <script>
 	import {url,hint} from '../../common/js/general';
 	import axios from 'axios';
+	import qs from 'qs'
 	export default{
 		
 		data(){
@@ -36,15 +37,15 @@
 		},
 		methods:{
 			findMyGifts(){
-				let paramsUrl = new URLSearchParams()
 				let that = this;
-				paramsUrl.append('type', that.type[2]);
-				paramsUrl.append('page', that.page);
-				paramsUrl.append('rows', that.rows);
+				let paramsUrl =qs.stringify({
+					'place': that.place[2],
+					'page': that.page,
+					'rows': that.rows,
+				})
 				axios.post(url + '/muzhiplat/pc2/gift/findGiftsByType',paramsUrl).then(function(res){
 					hint(that.$refs,res.data.msg)
 					that.hotGift = res.data.rows
-					console.log(res.data.rows)
 				}).catch(function(res){
 					console.log(res)
 				})

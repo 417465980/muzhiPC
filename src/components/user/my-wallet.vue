@@ -12,8 +12,8 @@
 				<li><a href="javascript:;">充值时间</a></li>
 			</ul>
 		</div>
-		<div id="roll-box" ref="rollBox">
-			<div id="roll-content" ref="rollContent" class="my-gift-box">
+		<div id="roll-box" ref="rollBox" >
+			<div id="roll-content" ref="rollContent" class="my-gift-box" v-if="!!rows">
 				<div class="my-gift-list" v-for="(item, index) in rows" :key="index">
 					<ul>
 						<li>{{item.thirPayId}}</li>
@@ -22,16 +22,19 @@
 						<li>{{item.time}}</li>
 					</ul>
 				</div>
-		
+				
 			</div>
+			<img src="static/images/mzapp.png" class="center-img" v-else alt="">
 			<div id="boxout" ref="boxout" class="boxout">
 				<span ref="rollspan" @mousedown = 'rollspan' ></span>
 			</div>
 		</div>
+		
 	</div>
 </template>
 <script>
 	import axios from 'axios';
+	import qs from 'qs';
 	import {url,hint,userdata,token} from '../../common/js/general'
 	export default{
 		
@@ -41,7 +44,7 @@
 					username:userdata.name,
 					token,
 				},
-				rows:[],
+				rows:null,
 				mzAccount:userdata.mzAccount
 			}
 		},
@@ -100,10 +103,12 @@
 		},
 		mounted(){
 			//查看充值记录
-			let paramsUrl =  new URLSearchParams();
+		
 			let that = this;
-			paramsUrl.append('username',that.info.username);
-			paramsUrl.append('token',that.info.token);
+			let paramsUrl =qs.stringify({
+				'username':that.info.username,
+				'token':that.info.token
+			})
 			axios.post(url+'/muzhiplat/pc2/user/findMyRecharge',paramsUrl).then(function(res){
 				that.rows = res.data.rows
 				hint(that.$refs,res.data.msg)

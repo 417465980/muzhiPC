@@ -38,6 +38,7 @@
 </template>
 <script>
     import axios from 'axios'
+    import qs from 'qs';
     import {url,resPassword,regUserName,hint} from '../../common/js/general'
    
 	export default{
@@ -73,9 +74,10 @@
                 
                 this.userInput.textActive = this.psdInput.textActive = this.repeatPsdInput.textActive =true
                 if(this.userInput.prompt&&this.psdInput.prompt&&this.repeatPsdInput.prompt&&this.checked){
-                    let paramsUrl = new URLSearchParams();
-                    paramsUrl.append('username', this.username);
-                    paramsUrl.append('password', this.password);
+                    let paramsUrl =qs.stringify({
+                        'username':this.username,
+                        'password':this.password
+                    })
                     axios.post(url + '/muzhiplat/pc2/user/register',paramsUrl).then(function(res){
                         if(res.data.msg=="注册成功"){
                             setTimeout(function(){

@@ -37,6 +37,7 @@
 </template>
 <script>
 	import axios from 'axios';
+	import qs from 'qs'
 	import {url,hint,token,userdata,game} from '../../common/js/general'
 	export default{
 		data(){
@@ -50,10 +51,11 @@
 			}
 		},
 		mounted(){
-			let paramsUrl =  new URLSearchParams();
+			let paramsUrl =qs.stringify({
+				'username':that.info.username,
+				'token':that.info.token
+			})
 			let that = this;
-			paramsUrl.append('username',that.info.username);
-			paramsUrl.append('token',that.info.token);
 			axios.post(url+'/muzhiplat/pc2/user/findMyGame',paramsUrl).then(function(res){
 				console.log(res.data)
 				that.rows = res.data.rows

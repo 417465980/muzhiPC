@@ -9,8 +9,11 @@
 			</ul>
 		</div>
 		<div id="roll-box" ref="rollBox">
-			<div id="roll-content" ref="rollContent" class="my-gift-box">
-				<div class="my-gift-list" v-for="data in rows" :key="data.$index">
+			<div id="roll-content" ref="rollContent" v-if="!!rows" class="my-gift-box">
+			
+
+				<div class="my-gift-list"  v-for="data in rows" :key="data.$index">
+				
 					<ul>
 						<li>《{{data.gameName}}》{{data.giftName}}</li>
 						<li>{{data.giftedate}}至{{data.giftpdate}}</li>
@@ -18,9 +21,14 @@
 						<li>{{data.giftState|giftState}}</li>
 					</ul>
 				</div>
-		
+				
+			
+			
+				
 			</div>
-			<div id="boxout" ref="boxout" class="boxout">
+			<img src="static/images/mzapp.png" class="center-img" v-else alt="">
+			
+			<div id="boxout" v-if="rows" ref="boxout" class="boxout">
 				<span ref="rollspan" @mousedown = 'rollspan' ></span>
 			</div>
 		</div>
@@ -35,6 +43,7 @@
 <script>
 	import Vue from 'vue';
 	import axios from 'axios';
+	import qs from 'qs'
 	import {url,hint,token,userdata} from '../../common/js/general'
 	export default{
 		
@@ -100,12 +109,14 @@
 		},
 		mounted(){
 			//获取礼包
-			let paramsUrl =  new URLSearchParams();
 			let that = this;
-			paramsUrl.append('username',that.info.username);
-			paramsUrl.append('token',that.info.token);
+			let paramsUrl =qs.stringify({
+				'username':that.info.username,
+				'token':that.info.token
+			})
+			
 			axios.post(url+'/muzhiplat/pc2/user/findMyGifts',paramsUrl).then(function(res){
-				console.log(res.data)
+				
 				that.rows = res.data.rows
 				hint(that.$refs,res.data.msg)
 			}).catch(function(res){

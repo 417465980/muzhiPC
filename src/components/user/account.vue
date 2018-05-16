@@ -10,7 +10,7 @@
 				<li>
 					<label class="accout-label" for="nickname">昵称</label>
 					<input id='nickname' placeholder="请设置您的昵称" type="text" v-if="info.nickname!='undefined'" v-model="info.nickname" :readonly="readonly">
-					<input id='nickname' placeholder="请设置您的昵称" type="text" v-else v-model="请设置您的昵称" :readonly="readonly"></li>
+					<input id='nickname' placeholder="请设置您的昵称" type="text" v-else value="请设置您的昵称" :readonly="readonly"></li>
 				<li>
 					<p class="accout-label">性别</p>
 					<label for="men">
@@ -83,16 +83,16 @@ export default {
 		}
 	},
 	changeInfo(){
-		let paramsUrl =  new URLSearchParams();
+		let paramsUrl =qs.stringify({
+			'sex':that.info.sex,
+			'qq':that.info.qq,
+			'wx':that.info.wx,
+			'phone':that.info.phone,
+			'address':that.info.address,
+			'nickname':that.info.nickname,
+			'token':that.info.token,
+		})
 		let that = this;
-		
-		paramsUrl.append('sex',that.info.sex);
-		paramsUrl.append('qq',that.info.qq);
-		paramsUrl.append('wx',that.info.wx)
-		paramsUrl.append('phone',that.info.phone)
-		paramsUrl.append('address',that.info.address)
-		paramsUrl.append('nickname',that.info.nickname)
-		paramsUrl.append('token',that.info.token)
 		axios.post(url+'/muzhiplat/pc2/user/edit',paramsUrl).then(function(res){
 			console.log(res.data)
 			hint(that.$refs,res.data.msg)
@@ -202,6 +202,10 @@ export default {
 					border: 1px solid #e4e4e4;
 					box-sizing: border-box;
 				}
+				&:hover input[type='text']{
+					box-shadow :inset 0 0 1px  #820c9b;
+				}
+			
 			}
 	}
 	input[type="button"]:active{

@@ -1,5 +1,5 @@
 html, body, div, span, applet, object, iframe, table, caption, 
-tbody, tfoot, thead, tr, th, td, del, dfn, em, font, img, ins, 
+tbody, tfoot, thead, tr, th, td, del, dfn, em, font, img, ins, input,
 kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, 
 h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, 
 acronym, address, big, cite, code, dl, dt, dd, ol, ul, li, 
@@ -11,8 +11,9 @@ body{font-family:"微软雅黑","microsoft yahei",'Avenir', Helvetica, Arial, sa
 a:focus,button:focus,input:focus{outline: none;}
 input:not[type=" checkedbox"]{appearance: none; }
 img{
-	height:auto;
-	max-width:100%;
+	
+	width:auto;
+	max-width:100%
 }
 .fl{float: left;}
 .fr{float: right;}
@@ -29,12 +30,17 @@ img{
 	width:1200px;
 	margin:0 auto;
 }
+.center-img{ margin:0 auto; display: block;}
 .icon_spri{background-image: url('../../assets/images/icon_spri.png');background-repeat:no-repeat;}
 .user_spri{background-image: url('../../assets/images/user_spri.png');background-repeat:no-repeat;}
 .gmCen_spri{background-image: url('../../assets/images/gmCen_spri.png'); background-repeat: no-repeat;}
 .cont_box{width: 1200px;margin: 0 auto 50px;}
 .gmCen_left,.activeCen_left{width:350px;}
 .news_gift{margin-top: 30px;}	
+.hoveraction:hover{
+	color:#820c9b !important;
+	/* text-shadow: 1px 1px 1px #b788a0; */
+}
 
 .hot_icon,.hot_more{display: flex;align-items: center;}
 .hot_icon span{font-size: 20px;} 
@@ -94,14 +100,23 @@ img{
 
 /*游戏类型列表*/
 .clsifi_list{margin-top: 25px;}
-.clsifi_list ul li{width: 383px;height: 160px;border: 1px solid #e6e6e6;margin-bottom: 30px;}
+.clsifi_list ul li{width: 383px;height: 150px;border: 1px solid #e6e6e6;margin-bottom: 30px;}
 .clsifi_list ul li:nth-child(odd){float: left;}
 .clsifi_list ul li:nth-child(even){float: right;}
-.clsifi_list li .listIcon{height: 100%;width: 90px;display: flex;align-items: flex-start;justify-content: center;margin-right: 10px;    margin-left: 10px;margin-top:16px;}
-.clsifi_list li .listIcon img{height: auto;max-height: 100%;max-width: 100%; cursor: pointer;}
+.clsifi_list li .listIcon{height: 100%;width: 150px;margin-right: 10px; position: relative; }
+.imgfilter{
+	position: absolute;
+	right :0;
+	width:60%;
+	height :100%;
+	cursor: pointer;
+	background: linear-gradient(to right,rgba(255,255,255,0), rgba(255,255,255,1));
+}
+.clsifi_list li .listIcon img{height: 150px;max-height: 100%;max-width: 100%; cursor: pointer;}
 .clsifi_list li .listTitle p:first-child{font-size: 16px;line-height: 50px; cursor: pointer;}
-.clsifi_list li .listTitle span{font-size: 13px;color: #959595;}
-.clsifi_list li .listTitle .introduce{width:237px; font-size: 14px;color: #959595;line-height: 30px;margin-bottom: 10px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+
+.clsifi_list li .listTitle span{font-size: 13px;color: #666;}
+.clsifi_list li .listTitle .introduce{width:222px; font-size: 14px;color: #666;line-height: 30px;margin-bottom: 10px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .clsifi_list li .listTitle a{height: 25px;width: 85px;border: 1px solid #c7c7c7;border-radius: 5px;display: flex;align-items: center;justify-content: center;}
 .clsifi_list li .listTitle a:first-child{margin-right: 8px;}
 .clsifi_list .listTitle .getLb i,.clsifi_list .listTitle .gmLoad i{display: inline-block; width: 12px; height: 12px;margin-right: 5px;}
@@ -116,7 +131,7 @@ img{
 	.rank_title{height: 20px;line-height: 20px;display: flex;align-items: center;padding: 15px 0;border-bottom: 1px solid #f0f0f0;}
 	.rank_title i{width: 3px;height: 20px;display: inline-block;background-color:#820c9b;margin-right: 10px;}
 	.rank_title span{font-size: 20px;}
-	.gm_rank .hotRank_tit,.gm_rank .showRankGm{border-bottom: 1px solid #f0f0f0;display: flex;align-items: center;}
+	.gm_rank .hotRank_tit,.gm_rank .showRankGm{position: relative; border-bottom: 1px solid #f0f0f0;display: flex;align-items: center;}
 	.gm_rank .hotRank_tit{height: 50px;}
 	.gm_rank .hotRank_tit div,.gm_rank .showRankGm .rankGmIcon div{
 		width: 20px;
@@ -127,10 +142,35 @@ img{
 	    overflow: hidden;
 	    border-bottom: none;
 	    text-align: center;
-	    font-size: 14px;
+		
 	}
-	.gm_rank .hotRank_tit div{ position: relative;color:#820c9b;}
-	.gm_rank .showRankGm .rankGmIcon div{position: absolute;top: 0;left:0;background-color:#820c9b;color: #fff;}
+	.gm_rank .showRankGm div .hotRank-index,.gm_rank .hotRank_tit div span{
+		font-size: 14px;
+		line-height: 20px;
+		color:#820c9b;
+		margin-left :0;
+		position: absolute;
+		z-index: 7;
+		left:0;
+		top:0;
+		width:100%;
+		text-align:center;
+	}
+	.gm_rank .showRankGm div .hotRank-index{
+		color:#fff;
+	}
+	.gm_rank .showRankGm div span{
+		font-size: 14px;
+		line-height: 20px;
+		margin-left: 0;
+		position: absolute;
+		z-index: 7;
+		top: 70px;
+		left: 93px;
+		text-align: left;
+	}
+	.gm_rank .hotRank_tit div{ position: relative;}
+	.gm_rank .showRankGm .rankGmIcon div{position: absolute;top: 0;left:0;color: #fff;}
 	.gm_rank .hotRank_tit div i,.gm_rank .showRankGm .rankGmIcon i{
 		width: 0;
 	    height: 0;
@@ -139,14 +179,33 @@ img{
 	    left: -10px;
 	    top: 0;
 	    z-index: 5;
-	    border-top: 19px transparent dashed;
-	    border-left: 20px transparent dashed;
-	    border-right: 20px transparent dashed;
+	   
 	    overflow: hidden;
 	}
-	
-	.gm_rank ul .hotRank_tit i:first-child,.gm_rank .showRankGm .rankGmIcon i:first-child{border-bottom: 10px #820c9b solid;}
-	.gm_rank ul .hotRank_tit i:last-child,.gm_rank .showRankGm .rankGmIcon i:last-child{top: 1px;border-bottom: 10px white solid;}
+	.gm_rank .showRankGm .rankGmIcon i{
+		border-top: 19px #820c9b dashed;
+	    border-left: 20px #820c9b dashed;
+	    border-right: 20px #820c9b dashed;
+	}
+	.gm_rank .hotRank_tit div i{
+		border-top: 19px transparent dashed;
+	    border-left: 20px transparent dashed;
+	    border-right: 20px transparent dashed;
+	}
+	.gm_rank ul .hotRank_tit i:first-child{
+		border-bottom: 10px #820c9b solid;
+	}
+	.gm_rank ul .hotRank_tit .addI{
+		top:2px;
+		z-index:6;
+		border-bottom: 8px #fff solid;
+	}
+	.router-link-active {
+		color: #820c9b;
+	}
+	.gm_rank .showRankGm .rankGmIcon i:first-child{border-bottom: 10px transparent solid;}
+	.gm_rank ul .hotRank_tit i:last-child{top: 1px;border-bottom: 10px #820c9b solid;}
+	.gm_rank .showRankGm .rankGmIcon i:last-child{top: 1px;border-bottom: 10px transparent solid;}
 	.gm_rank .hotRank_tit span{margin-left: 15px;}
 	.gm_rank .hotRank_tit span,.showRankGm .gmRank_tit p{font-size: 16px;color:#666666;}
 	.gm_rank .showRankGm{height:75px;padding: 20px 0;}
@@ -177,6 +236,7 @@ img{
 	.gmListWrap .hotGift_tit .hot_icon i{width: 28px; height: 28px;display:block;background-position: -60px -63px;margin-right: 10px;}
 	.game_list ul li{margin-bottom: 30px;}
 	.game_list .item_title p,.game_list .item_title > span{max-width:82px; text-overflow: ellipsis;overflow: hidden; white-space: nowrap}
+	
 	.game_list .item_title > span{line-height: 25px;display: block;}
 	.game_list .item_title a{display: flex;justify-content: center;align-items: center; text-align: center;border: 1px solid #a0a0a0;border-radius: 5px;}
 	.game_list .item_title a i,.game_list .item_title .hotGmBtn:hover i{display: inline-block;height:16px;width:16px;margin-right: 5px;}

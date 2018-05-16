@@ -11,7 +11,7 @@
 						<img :src="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl"/>
 					</a>
 					<div class="item_title fl">
-						<p :title="item.gameName">{{item.gameName}}</p>
+						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
 						<a :href="item.download" target="_blank" class="hotGmBtn">   
 							<i class="icon_spri"></i>

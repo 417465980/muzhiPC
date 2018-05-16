@@ -6,7 +6,7 @@
 					<img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" />
 				</div>
 				<div class="new_title fl">
-					<h1>{{item.title}}</h1>
+					<h1 class="hoveraction">{{item.title}}</h1>
 					<p>{{item.childTitle}}</p>
 				</div>
 				<div class="new_time fr">

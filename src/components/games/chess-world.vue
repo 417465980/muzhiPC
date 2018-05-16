@@ -3,7 +3,7 @@
 		<ul class="clearfix">
 			<li v-for="(item,index) in allList" :key="index">
 				<div class="listIcon fl">
-					<router-link :to="'/game/'+item.id" tag="p"><img :src="'http://game.91muzhi.com/muzhiplat'+item.icon" /></router-link>
+					<router-link :to="'/game/'+item.id" tag="p" class="hoveraction"><img v-lazy="'http://game.91muzhi.com/muzhiplat'+item.character" /></router-link>
 				</div>
 				<div class="listTitle fl">
 					<router-link :to="'/game/'+item.id" tag="p">{{item.name}}</router-link>

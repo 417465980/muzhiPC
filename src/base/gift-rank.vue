@@ -10,11 +10,11 @@
 					<div class="rankGmIcon fl">
 						<img :src="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl" />
 						<div>
-							{{index+1}}<i></i><i></i>
+							<span class="hotRank-index">{{index+1}}</span><i></i><i class="addI"></i><i></i>
 						</div>
 					</div>
 					<div class="gmRank_tit fl">
-						<router-link to="">{{item.gameName}}</router-link>
+						<router-link to="" class="hoveraction" @click.native="receivebag">{{item.gameName}}</router-link>
 						<span>{{item.giftName}}</span>
 					</div>
 					<div class="rankGmBtn fr">
@@ -23,7 +23,7 @@
 				</div>
 				<div class="hotRank_tit" v-else>
 					<div>
-						{{index+1}}<i></i><i></i>
+						<span class="hotRank-index">{{index+1}}</span><i></i><i class="addI"></i><i></i>
 					</div>
 					<span>{{item.gameName}}</span>
 				</div>

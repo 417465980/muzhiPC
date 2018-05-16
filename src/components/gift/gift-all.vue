@@ -8,7 +8,7 @@
 						<img :src="item.giftIconUrl|addHttp"/>
 					</a>
 					<div class="item_title fl">
-						<p :title="item.gameName">{{item.gameName}}</p>
+						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
 						<a href="javascript:;" class="hotGmBtn">   
 							<i class="icon_spri"></i>
@@ -28,6 +28,7 @@
 <script>
 	import {url,hint} from '../../common/js/general';
 	import axios from 'axios'
+	import qs from 'qs'
 	export default{
 		data(){
 			return{
@@ -40,15 +41,17 @@
 		},
 		methods:{
 			findMyGifts(){
-				let paramsUrl = new URLSearchParams()
 				let that = this;
-				paramsUrl.append('place', that.place[1]);
-				paramsUrl.append('page', that.page);
-				paramsUrl.append('rows', that.rows);
+				let paramsUrl =qs.stringify({
+					'place': that.place[1],
+					'page': that.page,
+					'rows': that.rows,
+				})
+				
+			
 				axios.post(url + '/muzhiplat/pc2/gift/findGiftsByPlace',paramsUrl).then(function(res){
 					hint(that.$refs,res.data.msg)
 					that.hotGift = res.data.rows
-					console.log(res.data.rows)
 				}).catch(function(res){
 					console.log(res)
 				})

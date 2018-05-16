@@ -81,7 +81,7 @@
 		methods:{
 			getData(){
 				const that = this
-				let paramsUrl = new URLSearchParams()
+				
 				//http://game.91muzhi.com/muzhiplat/pc2/news/{id}
 
 				var newsId = window.location.href.split('/news/')[1]

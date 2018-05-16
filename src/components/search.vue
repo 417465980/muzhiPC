@@ -1,33 +1,34 @@
 <template>
     <div class="search ">
-         
-        <div  class="clsifi_list min-width">
-            <div v-if="rows.length == 0"  class="nonegame">
-                    <p>未能查询到游戏.</p>
-            </div>
-            <ul v-else class="clearfix">
-                <li v-for="(item,index) in rows" :key="index">
-                    <router-link class="listIcon fl" tag="div" :to="'/game/'+item.id">
-                        <img :src="'http://game.91muzhi.com/muzhiplat'+item.icon" />
-                    </router-link>
-                    <div class="listTitle fl">
-                        <router-link tag="p" :to="'/game/'+item.id">{{item.name}}</router-link>
-                        <span>类型：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;大小{{item.appSize}}M</span>
-                        <p class="introduce" :title="item.introduction">简介：{{item.introduction}}</p>
-                        <div class="clearfix">
-                            <a class="getLb fl">
-                                <i class="gmCen_spri"></i>
-                                <span @click="receivebag">礼包领取</span>
-                            </a>
-                            <a :href="item.downloadLink" class="gmLoad fl">
-                                <i class="gmCen_spri"></i>
-                                <span>游戏下载</span>
-                            </a>
+         <keep-alive>
+            <div  class="clsifi_list min-width">
+                <div v-if="rows.length == 0"  class="nonegame">
+                        <p>未能查询到游戏.</p>
+                </div>
+                <ul v-else class="clearfix">
+                    <li v-for="(item,index) in rows" :key="index">
+                        <router-link class="listIcon fl" tag="div" :to="'/game/'+item.id">
+                            <img :src="'http://game.91muzhi.com/muzhiplat'+item.icon" />
+                        </router-link>
+                        <div class="listTitle fl">
+                            <router-link tag="p" :to="'/game/'+item.id">{{item.name}}</router-link>
+                            <span>类型：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;大小{{item.appSize}}M</span>
+                            <p class="introduce" :title="item.introduction">简介：{{item.introduction}}</p>
+                            <div class="clearfix">
+                                <a class="getLb fl">
+                                    <i class="gmCen_spri"></i>
+                                    <span @click="receivebag">礼包领取</span>
+                                </a>
+                                <a :href="item.downloadLink" class="gmLoad fl">
+                                    <i class="gmCen_spri"></i>
+                                    <span>游戏下载</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
+                    </li>
+                </ul>
+            </div>
+        </keep-alive>
         <transition>
 			<div class="hint" ref="hint">
 				<span ref="hint-content"></span>
@@ -38,7 +39,8 @@
 <script>
     import {url,hint} from 'common/js/general' 
     import '../common/style/animate.css'
-    import axios from 'axios'
+    import axios from 'axios';
+    import qs from 'qs'
     export default{
         data(){
             return{
@@ -48,9 +50,11 @@
         },
         methods:{
             search(keyword){
-                let paramsUrl =  new URLSearchParams();
-                let that = this;
-                paramsUrl.append('keywords',keyword);
+                 let that = this;
+                let paramsUrl =qs.stringify({
+					'keywords':keyword,
+				})
+               
                 axios.post(url+'/muzhiplat/pc2/game/findGameByKeywords',paramsUrl).then(function(res){
                    that.rows = res.data.rows;
                    if(res.data.rows.length > 0){

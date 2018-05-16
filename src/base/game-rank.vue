@@ -6,26 +6,22 @@
 		</div>
 		<ul>
 			<li v-for="(item,index) in rankList" :key="index" @mouseover="rankShow(index)" @mouseout="rankHide(index)">
-				<a :href="item.downloadLink">
+				<a :href="item.downloadLink" >
 					<div class="showRankGm clearfix" v-if="currentIndex === index">
 						<div class="rankGmIcon fl">
 							<img :src="'http://game.91muzhi.com/muzhiplat'+item.icon" />
-							<div>
-								{{index+1}}<i></i><i></i>
-							</div>
+							<div><span class="hotRank-index">{{index+1}}</span><i></i><i class="addI"></i><i></i></div>
 						</div>
 						<div class="gmRank_tit fl">
-							<p>{{item.name}}</p>
-							<span>{{item.type}}&nbsp;&nbsp;|&nbsp;&nbsp;{{item.appSize}}M</span>
+							<p class="hoveraction">{{item.name}}</p>
+							<span>{{item.type}}&nbsp;|{{item.appSize}}M</span>
 						</div>
 						<div class="rankGmBtn fr">
 							<i class="gmCenRrankIco gmCen_spri"></i>
 						</div>
 					</div>
 					<div class="hotRank_tit" v-else>
-						<div>
-							{{index+1}}<i></i><i></i>
-						</div>
+						<div><span class="hotRank-index">{{index+1}}</span><i></i><i class="addI"></i><i></i></div>
 						<span>{{item.name}}</span>
 					</div>
 				</a>

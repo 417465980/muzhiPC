@@ -17,7 +17,7 @@
 					</div>
 					<div class="type_wrap">
 						<router-link :to="{path:'/news/'+item.path}" tag="div" class="clsifi_type clearfix"  v-for="(item,index) in newTypeFields" :key="index" @click.native="selectNews(index)">
-							<a class="fl">
+							<a class="fl hoveraction">
 								{{item.type}}
 								<b v-show="newCurIndex === index"><i></i><i></i></b>
 							</a>

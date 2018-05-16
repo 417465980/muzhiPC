@@ -64,7 +64,7 @@
                           <a class="next swiperbtn gmCen_spri" href="javascript:;" @click="next"></a>
                       </div>
                     </div>
-                      
+                    
                 </div>
 			</div>
 		</div>
@@ -79,7 +79,8 @@
 	import axios from 'axios'
     import {url } from 'common/js/general'
     import MintUi from 'mint-ui'
-    import {Button,Swipe } from 'mint-ui'
+    import {Swipe } from 'mint-ui'
+    import 'mint-ui/lib/style.css'
     vue.use(MintUi,Swipe)
     export default{
         mixins: [gameListMixin],
@@ -126,7 +127,11 @@
         },
         filters:{
             addHttp(data){
-                return url+data
+                if(data.indexOf('undefined')!=-1){
+                    return data
+                }else{
+                    return url+data
+                }
             },
         
         }

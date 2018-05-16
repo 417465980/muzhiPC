@@ -5,10 +5,10 @@
 			<ul class="clearfix">
 				<li v-for="(item,index) in hotGift" :key="index">
 					<a class="gm_icon fl" href="javascript:;">
-						<img :src="url+'/muzhiplat'+item.giftIconUrl"/>
+						<img v-lazy="url+'/muzhiplat'+item.giftIconUrl"/>
 					</a>
 					<div class="item_title fl">
-						<p :title="item.gameName">{{item.gameName}}</p>
+						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
 						<a href="javascript:;" @click="receivebag" class="hotGmBtn">   
 							<i class="icon_spri"></i>
@@ -54,4 +54,5 @@
 	.game_list .item_title a span{color: #666666;font-size: 14px;}
 	.game_list .item_title .hotGmBtn{width:73px;height: 25px;line-height: 25px;}
 	.game_list .item_title .hotGmBtn:hover i{background-position:-168px -10px}
+
 </style>

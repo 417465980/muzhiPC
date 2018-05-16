@@ -10,24 +10,28 @@
                         <span class="li">{{item[1].name}}</span>
                     </span>
                 </div>
-                <transition-group enter-active-class="bounceInDown" leave-active-class=" hinge" tag ="div" class="group">
-                    <div v-for="item in id" :key="item" v-show="item==activenum" class="details animated" >
-                        <ul>
-                            <li v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" :data-proDetail="items.proDetail" @click="markfqa">{{items.proTitle}}</li>
-                        </ul>
-                    </div>
-                </transition-group>
-            </div>
-        </div>
-        <div class="markfqa" v-show="bool">
-            <div class="markbox">
-                <div class="close" @click="close">×</div>
-                <h3>{{markfqadata.proTitle}}</h3>
-                <div>
-                    <p>{{markfqadata.proDetail}}</p>
+                <div v-for="item in id" :key="item" v-show="item==activenum" class="details animated" >
+                    <ul>
+                        <li v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" :data-proDetail="items.proDetail" @click="markfqa" class="hoveraction">{{items.proTitle}}</li>
+                    </ul>
                 </div>
             </div>
         </div>
+       
+        <div class="markfqa" v-show="bool">
+            <transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
+                <div class="markbox">
+                    
+                        <div class="close" @click="close">×</div>
+                        <h3>{{markfqadata.proTitle}}</h3>
+                        <div>
+                            <p v-html="$options.filters.editPro(markfqadata.proDetail)"></p>
+                        </div>
+                
+                </div>
+             </transition>
+        </div>
+        
     </div>
 </template> 
 <script>
@@ -40,7 +44,7 @@
                 fqalist:{
                     one:[{one:true},{name:'充值问题'}],
                     two:[{two:true},{name:'账号问题'}],
-                    three:[{three:true},{name:'礼包问题'}],
+                    three:[{three:true},{name:'礼包问题'}], 
                     four:[{four:true},{name:'服务器问题'}],
                     five:[{five:true},{name:'活动问题'}],
                     six:[{six:true},{name:'其他问题'}],
@@ -53,14 +57,16 @@
                     proTitle:'',
                     proDetail:''
                 },
-                bool:false
+                bool:false,
+                valueP:'aaaaaaa'
             }
         },
         methods:{
             queryFQAMsg(){
                 let that = this;
-                let paramsUrl = new  URLSearchParams();
-				paramsUrl.append('id',1);
+                let paramsUrl =qs.stringify({
+					'is':1,
+				})
 				axios.post(url + '/muzhiplat/pc2/customer/queryFQAMsg').then(function(res){
                     hint(that.$refs,res.data.msg)
                     that.rows = res.data.rows
@@ -85,6 +91,11 @@
         },
         mounted(){
             this.queryFQAMsg()
+        },
+        filters:{
+            editPro(val){
+                return val.replace(/\r\n/g,'<br>')
+            }
         }
     }
 </script>
@@ -157,7 +168,7 @@
     }
     .main_top .list .active{
         /*color: #1196e1;*/
-        color: red;
+        color: #820c9b;
     }
     .main_top .list .ul{
         display: inline-block;
@@ -300,8 +311,6 @@
         font-size: 14px;
         color: #363636;
     }
-    .details li:hover{
-        text-shadow: 1px 1px 1px #ea73b9
-    }
+   
     .group{ min-height:300px;height:300px;overflow: hidden;border-bottom: 3px solid #f0f0f0;}
 </style>

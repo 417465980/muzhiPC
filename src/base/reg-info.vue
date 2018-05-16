@@ -3,7 +3,7 @@
        <div class="reg_pic"></div>
        <router-link to="/register">立即注册</router-link>
        <ul class="bar">
-           <li  v-for="(item,index) in regBtn" :key="index" :class="{active: curIndex === index}" @mouseover="showBg(index)" @mouseout="hideBg(index)">
+           <li  v-for="(item,index) in regBtn" :key="index" :class="{active: curIndex === index}" @mouseover="showBg(index)">
                <i class="user_spri" :class="{on: chanIndex === index}"></i>
                <span>{{item}}</span>
            </li>
@@ -24,10 +24,6 @@
             showBg(index){
                 this.curIndex = index
                 this.chanIndex = index 
-            },
-            hideBg(index){
-                this.curIndex = 0
-                this.chanIndex = 0  
             }
         }
     }

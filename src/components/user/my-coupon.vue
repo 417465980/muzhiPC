@@ -9,7 +9,8 @@
 				</div>
 				<div class="">
 					<div v-for="(itemcont,index) in couponlist" :key="index" ref="itemcont" :class="{'coupon-list':true, 'coupon-active':index=='acct'}">
-						<ul>
+						<ul v-if="!!itemcont">
+
 							<li v-for="(item,i) in itemcont" :key="i">
 								<p :class="{ canuse:index=='acct', cantuse:index == 'cantuse'||index == 'perms',  'coupon-sum':true}">￥{{item.rebate_num}}</p>
 								<div class="coupon-content">
@@ -22,6 +23,7 @@
 								</div>
 							</li>
 						</ul>
+						<img class="center-img" v-else src="static/images/mzapp.png">
 					</div>
 				</div>
 			</div>
@@ -36,6 +38,7 @@
 <script>
 	import Vue from 'vue';
 	import axios from 'axios';
+	import qs from 'qs'
 	import {url,hint,token,userdata} from '../../common/js/general'
 	export default{
 		data(){
@@ -130,33 +133,40 @@
 				return false;
 			},
 			getCoupon3(){
-				let paramsUrl =  new URLSearchParams();
 				let that = this;
-				paramsUrl.append('username',that.info.username);
-				paramsUrl.append('token',that.info.token);
-				paramsUrl.append('type',3);
-				paramsUrl.append('page',that.info.page);
-				paramsUrl.append('rows',that.info.rows);
+				let paramsUrl =qs.stringify({
+					'username':that.info.username,
+					'token':that.info.token,
+					'type':3,
+					'page':that.info.page,
+					'rows':that.info.rows,
+				})
+				
 				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl)
 			},
 			getCoupon4(){
-				let paramsUrl =  new URLSearchParams();
 				let that = this;
-				paramsUrl.append('username',that.info.username);
-				paramsUrl.append('token',that.info.token);
-				paramsUrl.append('type',4);
-				paramsUrl.append('page',that.info.page);
-				paramsUrl.append('rows',that.info.rows);
+				let paramsUrl =qs.stringify({
+					'username':that.info.username,
+					'token':that.info.token,
+					'type':4,
+					'page':that.info.page,
+					'rows':that.info.rows,
+				})
+			
+		
 				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl)
 			},
 			getCoupon5(){
-				let paramsUrl =  new URLSearchParams();
 				let that = this;
-				paramsUrl.append('username',that.info.username);
-				paramsUrl.append('token',that.info.token);
-				paramsUrl.append('type',5);
-				paramsUrl.append('page',that.info.page);
-				paramsUrl.append('rows',that.info.rows);
+				let paramsUrl =qs.stringify({
+					'username':that.info.username,
+					'token':that.info.token,
+					'type':5,
+					'page':that.info.page,
+					'rows':that.info.rows,
+				})
+			
 				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl)
 			},
 			couponTab(index){

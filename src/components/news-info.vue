@@ -14,7 +14,7 @@
 			<ul>
 				<li v-for="(item,index) in newList" :key="index" @click="homeNews(item)">
 					<a>{{item.adType}}</a>
-					<span>{{item.title}}</span>
+					<span class="hoveraction">{{item.title}}</span>
 				</li>
 			</ul>
 		</div>
@@ -41,14 +41,11 @@
 	.news_info{width: 300px;}
 	.news_info .active_tit .hot_icon i{ width: 24px; height: 26px;display:block;background-position: -117px -54px;margin-right: 10px;}
 	.news_info .new_content{border-top:1px solid #e9e9e9;margin-top: 10px;}
-	.news_info .new_content h2{color: #820c9b;text-align: center;line-height: 65px;cursor: pointer}
+	.news_info .new_content h2{ background: linear-gradient(to right, #716da8, #d0296e);-webkit-background-clip: text; color: transparent;line-height: 65px;cursor: pointer}
 	.news_info .new_content li{width: 300px;margin-bottom: 15px;display: flex;align-items: center;cursor: pointer}
 	.news_info .new_content li a{flex: 0 0 43; margin-right: 10px; height: 20px;width: 43px;border: 1px solid #cf387f;text-align: center;line-height: 20px;
 		color:#cf387f;font-size:12px;border-radius: 5px;
 	}
-	.news_info .new_content li span:hover{
-		color:#666;
-		text-shadow: 1px 1px 1px #b788a0;
-	}
+	
 	.news_info .new_content li span{color:#666666;font-size: 14px;flex:1; text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 </style>

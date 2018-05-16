@@ -10,11 +10,11 @@
 					<div class="clsifi_title">
 						<div class="clsifi_icon">
 							<i class="giftCen_icon"></i>
-							<span>礼包分类</span>
+							<span>&nbsp;礼包分类</span>
 						</div>
 						<div class="type_wrap">
 							<router-link :to="{path:item.path}" tag="div" class="clsifi_type clearfix"  v-for="(item,index) in giftTypeFields" :key="index" @click.native="selectGift(index)">
-								<a class="fl">
+								<a class="fl hoveraction">
 									{{item.type}}
 									<b v-show="giftCurIndex === index"><i></i><i></i></b>
 								</a>

@@ -116,8 +116,8 @@
 	}
 	.slide-pages li {
 		display: inline-block;
-		width: 20px;
-		height:20px;
+		width: 10px;
+		height:10px;
 		border-radius: 50%;
 		margin-right:10px; 
 		cursor: pointer;

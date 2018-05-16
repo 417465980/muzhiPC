@@ -14,7 +14,7 @@
 				</div>
 				<div class="type_wrap">
 					<router-link   v-for="(item,index) in gmTypeFields" :to="{path:item.path}"  class="clsifi_type clearfix"  :key="index" @click.native="selectGame(index)">
-						<a class="fl">
+						<a class="fl hoveraction" >
 							{{item.type}}
 							<b v-show="curIndex === index"><i></i><i></i></b>
 						</a>

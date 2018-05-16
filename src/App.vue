@@ -11,6 +11,7 @@
 <script>
 import Head from 'base/head'
 import Foot from 'base/Foot'
+import 'babel-polyfill'
 export default {
   	components:{
   		Head,

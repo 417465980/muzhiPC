@@ -3,10 +3,10 @@
 		<ul class="clearfix">
 			<li v-for="(item,index) in allList" :key="index">
 				<div class="listIcon fl">
-					<router-link :to="'/game/'+item.id" tag="p"><img :src="'http://game.91muzhi.com/muzhiplat'+item.icon" /></router-link>
+					<router-link :to="'/game/'+item.id" tag="p"><img v-lazy="'http://game.91muzhi.com/muzhiplat'+item.character" /></router-link>
 				</div>
 				<div class="listTitle fl">
-					<router-link :to="'/game/'+item.id" tag="p">{{item.name}}</router-link>
+					<router-link :to="'/game/'+item.id" tag="p" class="hoveraction">{{item.name}}</router-link>
 					<span>类型：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;大小{{item.appSize}}M</span>
 					<p class="introduce">简介：{{item.introduction}}</p>
 					<div class="clearfix">

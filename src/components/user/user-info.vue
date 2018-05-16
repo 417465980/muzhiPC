@@ -19,16 +19,17 @@
             <ul class="clearfix ">
                 <li :class="{gift:true,giftnone1:gift == 2}">
                     <i class="user_spri"></i>
-                    <p><a>礼包：</a><span>{{userdata.giftSum}}</span></p>
+                    <p><a>礼包：</a><span>{{userdata.giftSum||0}}</span></p>
                 </li>
                 <li :class="{lj:true,giftnone2:gift == 3}">
                     <i class="user_spri"></i>
-                    <p><a>礼劵：</a><span>{{userdata.couponSum}}</span></p>
+                    <p><a>礼劵：</a><span>{{userdata.couponSum||0}}</span></p>
                 </li>
-                <li :class="{muzhi_money:true,giftnone3:gift == 4}">
-                    <i class="user_spri"></i>
-                    <p><a>拇指币：</a><span>{{userdata.mzAccount}}</span></p>
-                </li>
+                <router-link to="/myWallet" tag="li" :class="{muzhi_money:true,giftnone3:gift == 4}">
+                  <i class="user_spri"></i>
+                  <p><a>拇指币：</a><span>{{userdata.mzAccount||0}}</span></p>
+                </router-link>
+          
             </ul>
         </div>
 	</div>
@@ -66,6 +67,9 @@ export default {
     height:97px;
     overflow: hidden;
     display inline-block
+    img 
+      max-height 100%
+      max-width none
 .g-userinfo 
   vertical-align: top;
   display: inline-block;
@@ -95,8 +99,8 @@ export default {
   text-align: center;
   margin-top: 10px;
 
-.login_botm li a 
-  color: #746aa7;
+.login_botm li a ,.login_botm li span
+  color: #b6b6b6;
 
 .login_botm li 
   color: #af2f7d;
@@ -111,20 +115,24 @@ export default {
   margin-bottom: 3px;
 
 .login_botm .gift i 
-  background-position: -10px -10px;
+  background-position:-206px -108px;
 
 .login_botm .lj i 
-  background-position: -108px -10px;
+  background-position: -10px -108px;
 
 .login_botm .muzhi_money i 
-  background-position: -108px -108px;
+  background-position: -206px -10px;
 
 .login_botm .giftnone1 i
-  background-position: -206px -108px;
+  background-position:  -10px -10px;
 .login_botm .giftnone2 i
-  background-position: -10px -108px;
+  background-position: -108px -10px;
 .login_botm .giftnone3 i
-  background-position: -206px -10px;
+  background-position: -108px -108px;
+.login_botm .giftnone3 a,.login_botm .giftnone2 a,.login_botm .giftnone1 a
+  color:#af2f7d;
+.login_botm .giftnone3 span,.login_botm .giftnone2 span,.login_botm .giftnone1 span
+  color:#af2f7d;
 .login_botm p 
   vertical-align: middle;
   display: inline-block;
