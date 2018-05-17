@@ -17,41 +17,72 @@
 					</div>
 				</li>
 			</ul>
+			<div class="load_more" @click="addgift" v-if="hotGift.length>0&&show">
+				<span class="hoveraction">查看更多</span>
+				<a>
+					<i class="gmCen_spri"></i>
+				</a>
+			</div>
 		</div>
 	</div>
 </template>
 <script>
 	import {url,hint} from '../../common/js/general';
 	import axios from 'axios';
-	import qs from 'qs'
+	import qs from 'qs';
+	
 	export default{
 		
 		data(){
 			return{
 				hotGift:[],
-				type:[0,1,2],
+				place:['hotGift','recomGift'],
 				rows:10,
 				page:1,
-				url
+				url,
+				show:true
 			}
 		},
 		methods:{
 			findMyGifts(){
 				let that = this;
 				let paramsUrl =qs.stringify({
-					'place': that.place[2],
+					'place': that.place[1],
 					'page': that.page,
 					'rows': that.rows,
 				})
 				axios.post(url + '/muzhiplat/pc2/gift/findGiftsByType',paramsUrl).then(function(res){
+					
 					hint(that.$refs,res.data.msg)
 					that.hotGift = res.data.rows
+					
 				}).catch(function(res){
 					console.log(res)
 				})
 			},
 			receivebag(){
 				alert('请到App领取')
+			},
+			addgift(){
+				let that = this;
+				that.page = that.page+1
+				let paramsUrl =qs.stringify({
+					'place': that.place[1],
+					'page': that.page,
+					'rows': that.rows,
+				})
+				axios.post(url + '/muzhiplat/pc2/gift/findGiftsByType',paramsUrl).then(function(res){
+					if(res.data.ret){
+						res.data.msg="加载成功"
+					}
+					hint(that.$refs,res.data.msg)
+					that.hotGift= that.hotGift.concat(res.data.rows)
+					if(res.data.rows.length==0){
+						that.show = false
+					}
+				}).catch(function(res){
+					console.log(res)
+				})
 			}
 
 		},

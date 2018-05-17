@@ -1,5 +1,5 @@
 <template>
-	<div class="footer">
+	<div class="footer" ref = 'footer'>
 		<div class="min-width">
 			<p><a href="http://game.91muzhi.com/developer-resource/">商务合作</a>&nbsp;&nbsp;|&nbsp;&nbsp;防沉迷认证&nbsp;&nbsp;|&nbsp;&nbsp;<router-link tag="span" to="/index">企业官网</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;关于我们&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/mzagreement" tag="a">用户协议</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link tag="a" to="/service">客服中心</router-link ></p>
 			<p>深圳市拇指游玩科技有限公司&nbsp;&nbsp;版权所有&nbsp;&nbsp;2014ALL&nbsp;&nbsp;Rights&nbsp;&nbsp;Reserved.</p>
@@ -9,12 +9,32 @@
 	</div>
 </template>
 <script>
+
 	export default{
-		
+		data(){
+			return {}
+		},
+		mounted(){
+			//this.footpos();
+		},
+		methods:{
+			footpos(){
+				var bodyHeight = document.body.clientHeight;
+				var screenHeight = window.screen.availHeight;
+				if(bodyHeight<screenHeight){
+					
+					
+					this.$refs.footer.style.top = screenHeight-bodyHeight+255 +'px'
+				}else{
+					
+					this.$refs.footer.style.top = screenHeight+255 +'px'
+				}
+			}
+		}
 	}
 </script>
 <style scoped>
-	.footer{width: 100%;padding: 30px 0 55px;background-color:#1e2023;}
+	.footer{width: 100%;padding: 30px 0 55px;background-color:#1e2023;/* position: absolute; */ }
 	.footer div p{color: #fff;margin-top: 25px;text-align: center; }
 	.footer div p:first-child,.footer div p:last-child{font-size: 14px;}
 	.footer div p:nth-of-type(2),.footer div p:nth-of-type(3){font-size: 12px;}

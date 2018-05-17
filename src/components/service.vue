@@ -7,7 +7,7 @@
                     <span  v-for="(item, index) in fqalist" :key="index" :class="{ul:true, active:index==active }" @click="seefqa(index)">
                         
                         <i :class="item[0]"></i><br>
-                        <span class="li">{{item[1].name}}</span>
+                        <span class="li hoveraction">{{item[1].name}}</span>
                     </span>
                 </div>
                 <div v-for="item in id" :key="item" v-show="item==activenum" class="details animated" >
@@ -36,6 +36,7 @@
 </template> 
 <script>
     import axios from 'axios';
+    import qs from 'qs'
     import {url,hint} from 'common/js/general'
     export default{
         data(){
@@ -182,6 +183,7 @@
         padding-top: 10px;
         font-size: 17px;
     }
+    
     .main_top .list .ul:last-child{
         margin-right: 0px;
     }

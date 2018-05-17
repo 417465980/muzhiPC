@@ -5,7 +5,8 @@
 		</div>
 		<div class="my-gift-nav">
 			<p>&nbsp;&nbsp;充值记录</p>
-			<ul>
+
+			<ul v-if="!!rows">
 				<li><a href="javascript:;">充值订单号</a></li>
 				<li><a href="javascript:;">充值金额</a></li>
 				<li><a href="javascript:;">拇指币</a></li>
@@ -22,9 +23,11 @@
 						<li>{{item.time}}</li>
 					</ul>
 				</div>
-				
 			</div>
-			<img src="static/images/mzapp.png" class="center-img" v-else alt="">
+			<div id="roll-content" ref="rollContent" class="my-gift-box"  v-else>
+				<img src="static/images/5.png" class="center-img" alt="">
+				<p class="g6 f16 tc mt20">暂无充值记录</p>
+			</div>
 			<div id="boxout" ref="boxout" class="boxout">
 				<span ref="rollspan" @mousedown = 'rollspan' ></span>
 			</div>
@@ -51,6 +54,8 @@
 		methods:{
 			//滚动条
 			scrollDir(obj,fnEnd){
+				
+				return
 				if(obj.addEventListener){
 					obj.addEventListener('DOMMouseScroll',fn , false)
 				}

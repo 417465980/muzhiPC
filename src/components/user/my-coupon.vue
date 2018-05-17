@@ -9,7 +9,7 @@
 				</div>
 				<div class="">
 					<div v-for="(itemcont,index) in couponlist" :key="index" ref="itemcont" :class="{'coupon-list':true, 'coupon-active':index=='acct'}">
-						<ul v-if="!!itemcont">
+						<ul v-if="!!itemcont.length">
 
 							<li v-for="(item,i) in itemcont" :key="i">
 								<p :class="{ canuse:index=='acct', cantuse:index == 'cantuse'||index == 'perms',  'coupon-sum':true}">￥{{item.rebate_num}}</p>
@@ -23,7 +23,10 @@
 								</div>
 							</li>
 						</ul>
-						<img class="center-img" v-else src="static/images/mzapp.png">
+						<div v-else >
+							<img class="center-img" src="static/images/4.png">
+							<p  class="g6 f16 tc mt20">暂无礼券</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -84,6 +87,7 @@
 		},
 		methods:{
 			scrollDir(obj,fnEnd){
+				
 				if(obj.addEventListener){
 					obj.addEventListener('DOMMouseScroll',fn , false)
 				}

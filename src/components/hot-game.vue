@@ -46,7 +46,7 @@
 
 	.game_list .item_title > span{line-height: 28px;display: block;width:97px; text-overflow: ellipsis;overflow: hidden; white-space: nowrap}
 	.game_list .item_title a{ display: block; width:90px;height: 23px;text-align: center;border: 1px solid #a0a0a0;border-radius: 5px;}
-	.game_list .item_title a span{color: #666666;font-size: 14px;}
+	.game_list .item_title a span{color: #666666;font-size: 14px;line-height: 25px;}
 </style>
 
 

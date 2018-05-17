@@ -17,8 +17,8 @@ if(window.localStorage.getItem('token')){
 }
 
 
-let userdata = null||JSON.parse(window.localStorage.getItem('userdata'));
-let game = null||JSON.parse(window.localStorage.getItem('game'));
+let userdata = JSON.parse(window.localStorage.getItem('userdata'))||null;
+let game = JSON.parse(window.localStorage.getItem('game'))||null;
 userdata = Object.assign({
     accountId : null,
     auth : null,

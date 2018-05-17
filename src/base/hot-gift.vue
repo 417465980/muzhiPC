@@ -52,7 +52,7 @@
 	.game_list .item_title a i,.game_list .item_title .hotGmBtn:hover i{display: inline-block;height:16px;width:16px;margin-right: 5px;}
 	.game_list .item_title a i{background-position:-168px -46px;}
 	.game_list .item_title a span{color: #666666;font-size: 14px;}
-	.game_list .item_title .hotGmBtn{width:73px;height: 25px;line-height: 25px;}
+	.game_list .item_title .hotGmBtn{width:73px;height: 25px;}
 	.game_list .item_title .hotGmBtn:hover i{background-position:-168px -10px}
 
 </style>

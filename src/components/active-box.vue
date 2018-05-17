@@ -25,8 +25,8 @@
 							<span>剩余时间：<span v-if="type">{{item.remain}}</span></span>
 						</div>
 					</div>
-				
-					<img class="end_icon fr" src="../assets/images/endIcon.png" />
+					
+					<img class="end_icon fr" v-if="item.time<=0" src="../assets/images/endIcon.png" />
 				</div>
 			</li>
 		</ul>
@@ -89,6 +89,7 @@
 								
 								
 								this.activeList[i].remain  = this.remainTime(this.activeList[i].endDate,time)
+								this.activeList[i].time  =time
 								
 							}
 							//this.activeList = this.activeList
@@ -156,7 +157,7 @@
 	.acBox .acIcon span{font-size: 20px;}
 	.acBox .acIcon:before,.acBox .acIcon:after{left: 65px;}
 	.acBox .acIcon:before{top:56px;}
-	.acBox .acIcon:after{top: 55px;}
+	.acBox .acIcon:after{top: 56px;}
 	.acBox ul li{width: 385px;float:left;margin-bottom: 30px;}
 	.acBox ul li:nth-child(odd){margin-right: 40px;}
 	.acBox li .ac_img{width: 100%;height: 163px;margin-bottom:15px;}

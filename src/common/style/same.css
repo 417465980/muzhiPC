@@ -30,7 +30,7 @@ img{
 	width:1200px;
 	margin:0 auto;
 }
-.center-img{ margin:0 auto; display: block;}
+.center-img{ margin:60px auto 0; display: block;}
 .icon_spri{background-image: url('../../assets/images/icon_spri.png');background-repeat:no-repeat;}
 .user_spri{background-image: url('../../assets/images/user_spri.png');background-repeat:no-repeat;}
 .gmCen_spri{background-image: url('../../assets/images/gmCen_spri.png'); background-repeat: no-repeat;}
@@ -72,7 +72,7 @@ img{
 		border-bottom: 2px transparent dashed;border-left: 6px transparent dashed;border-right: 6px transparent dashed;
 	}
 .acBox .acIcon:before,.info_pro div:before{border-top: 6px solid rgba(153,153,153,0.5);}
-.acBox .acIcon:after,.info_pro div:after{border-top: 6px white solid;}
+.acBox .acIcon:after,.info_pro div:after{border-top: 6px #820c9b solid;}
 
 /*类型分类*/
 .clsifi_title .clsifi_icon span{font-size: 20px;}
@@ -91,7 +91,7 @@ img{
             border-left: 6px transparent dashed;border-right: 6px transparent dashed;
 }
 .clsifi_title .clsifi_type a i:first-child{top:1px;border-top: 6px solid rgba(153,153,153,0.5);}
-.clsifi_title .clsifi_type a i:last-child{border-top: 6px white solid;}
+.clsifi_title .clsifi_type a i:last-child{border-top: 6px #820c9b solid;}
 .clsifi_title .clsifi_type .clsifi_arrow{width: 19px;}
 .clsifi_title .clsifi_type .clsifi_arrow div{position: relative;width: 14px;height: 11px;top: 4px;left: 4px;}
 .clsifi_title .clsifi_type .clsifi_arrow i{top: -3px;border-top: 6px transparent dashed;border-right: 4px transparent dashed;border-bottom: 6px transparent dashed;}
@@ -196,15 +196,15 @@ img{
 		border-bottom: 10px #820c9b solid;
 	}
 	.gm_rank ul .hotRank_tit .addI{
-		top:2px;
+		top:1px;
 		z-index:6;
-		border-bottom: 8px #fff solid;
+		border-bottom: 10px #fff solid;
 	}
 	.router-link-active {
 		color: #820c9b;
 	}
 	.gm_rank .showRankGm .rankGmIcon i:first-child{border-bottom: 10px transparent solid;}
-	.gm_rank ul .hotRank_tit i:last-child{top: 1px;border-bottom: 10px #820c9b solid;}
+	.gm_rank ul .hotRank_tit i:last-child{top: 0px;border-bottom: 10px #820c9b solid;}
 	.gm_rank .showRankGm .rankGmIcon i:last-child{top: 1px;border-bottom: 10px transparent solid;}
 	.gm_rank .hotRank_tit span{margin-left: 15px;}
 	.gm_rank .hotRank_tit span,.showRankGm .gmRank_tit p{font-size: 16px;color:#666666;}
@@ -242,7 +242,7 @@ img{
 	.game_list .item_title a i,.game_list .item_title .hotGmBtn:hover i{display: inline-block;height:16px;width:16px;margin-right: 5px;}
 	.game_list .item_title a i{background-position:-168px -46px;}
 	.game_list .item_title a span{color: #666666;font-size: 14px;}
-	.game_list .item_title .hotGmBtn{width:73px;height: 25px;line-height: 25px;}
+	.game_list .item_title .hotGmBtn{width:73px;height: 25px;}
 	.game_list .item_title .hotGmBtn:hover i{background-position:-168px -10px}
 
 
@@ -268,7 +268,12 @@ img{
 	}
 	#app{
 		min-width:1200px;
+		position: relative;
 	}
+	.load_more{width: 115px;height:40px;margin:0 auto;text-align: center;display: flex;align-items: center;cursor: pointer}
+	.load_more a{width:35px;height: 100%;display: flex;justify-content: center;align-items: center;}
+	.load_more a i{ width: 17px; height: 17px;background-position:-56px -58px;display: block;}
+	.load_more span{color:#333;font-size:16px;line-height: 40px;}/*  background: url('../../assets/images/1.png') no-repeat center center;background-size: 100% 100%; */
 	
 	.expect{font-size: 20px;width:255px;margin: 100px auto;color: #999999;font-family:"simsun","宋体";}
 

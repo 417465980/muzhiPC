@@ -20,6 +20,13 @@
 					</div>
 				</li>
 			</ul>
+			
+		</div>
+		<div class="load_more" v-if="hotGift.length>0"><!--  @click="addgift" -->
+			<span class="hoveraction">查看更多</span>
+			<a>
+				<i class="gmCen_spri"></i>
+			</a>
 		</div>
 	</div>
 </template>
@@ -30,7 +37,7 @@
 			return{
 				hotGift:[]
 			}
-		}
+		},
 	}
 </script>
 <style scoped>

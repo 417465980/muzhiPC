@@ -37,5 +37,6 @@
 		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#6362a6, endColorstr=#d12878);/*IE<9>*/
 		-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=1, startColorstr=#6362a6, endColorstr=#d12878)";/*IE8+*/
 	}
-	.load_app .content .app_title a i{display: inline-block; background-position:-42px -103px;width: 12px; height: 12px;margin-right: 7px;}
+	.load_app .content .app_title a i{display: inline-block; background-position:-61px -101px;width: 16px; height: 16px;margin-right: 7px;}
+	.app_title a span{line-height: 34px;}
 </style>

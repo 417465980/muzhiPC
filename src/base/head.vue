@@ -114,7 +114,6 @@
 				}else{
 					window.location.href='/#/index'
 				}
-				
 				 
 			},
 			nativeSearch(){
@@ -165,7 +164,7 @@
 	.head li.muzhi div{width: 58px;height: 13px;line-height: 13px; border-right:1px solid #fff;display: inline-block;margin-left: 5px;}
 	.head li.mobile i{width: 11px; height: 21px;display: inline-block; background-position: -168px -82px;margin-right:5px;}
 	.head li.count i{width: 18px; height: 18px;background-position: -10px -112px;display: inline-block;margin-right: 5px;}
-	.count span {cursor: pointer;}
+	.count span {cursor: pointer;color:#fff;}
 	.nav,.nav ul li,.nav .log{height: 93px;}
 	.nav .log{margin-right: 10px;width: 150px;background: url('../assets/images/logo.png') no-repeat center center;}
 	.nav ul li{float: left; cursor: pointer; width: 105px;text-align: center;line-height: 93px;font-size: 16px;color: #333;position: relative;}
@@ -204,6 +203,5 @@
 		line-height:17px;
 		box-sizing: border-box;
 		cursor: pointer;
-
 	}
 </style>

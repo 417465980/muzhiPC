@@ -33,7 +33,6 @@
 						<router-view/>
 					</keep-alive>
 				</div>
-				<load-more></load-more>
 			</div>
 		</div>
 	</div>
@@ -41,12 +40,12 @@
 <script>
 	import LoadApp from 'base/load-app'
 	import GiftRank from 'base/gift-rank'
-	import LoadMore from 'base/load-more'
+	
 	export default{
 		components:{
 			LoadApp,
 			GiftRank,
-			LoadMore
+			
 		},
 		data(){
 			return{

@@ -21,19 +21,23 @@
 				</li>
 			</ul>
 		</div>
-		
+		<div class="load_more" v-if="hotGift.length>0"><!--  @click="addgift" -->
+			<span class="hoveraction">查看更多</span>
+			<a>
+				<i class="gmCen_spri"></i>
+			</a>
+		</div>
 	</div>
 </template>
 <script>
 	import expect from 'base/expect'
+	
 	export default{
-		
 		data(){
 			return{
 				hotGift:[]
 			}
-		}
-		
+		},
 	}
 </script>
 <style scoped>

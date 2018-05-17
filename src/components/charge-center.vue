@@ -123,12 +123,15 @@
 				</div>
 			</div>
 		</div>
+        <div class="hint" ref="hint">
+            <span ref="hint-content"></span>
+        </div>
     </div>
 </template>
 <script>
     import  '../common/bower_components/jquery/dist/jquery'
-    import {url, token , userdata} from '../common/js/general'
-    import axios from 'axios';
+    import {url, token , userdata,hint} from '../common/js/general'
+   
     export default{
         data(){
             return {
@@ -145,7 +148,7 @@
 
         },
         mounted(){
-          
+            var that = this;
             if(!token){
                 this.readonly = false
             }
@@ -162,7 +165,7 @@
                     visibility : "visible"
                 });
                 if ($("#other_mo").val() < 0) {
-                    alert("填写其他金额不能小于0");
+                    hint(that.$refs,"填写其他金额不能小于0");
                     return false;
                 }
             })   
@@ -196,13 +199,14 @@
                 var test = /^[1-9]\d*$/;
                 
                 if (user == '') {
-                    alert('请先登录您的账号！');
+                    hint(that.$refs,'请先登录您的账号！');
                     return false;
                 } else if (user_sure == "") {
-                    alert('充值账户不能为空！');
+                    hint(that.$refs,'充值账户不能为空！');
                     return false;
                 } else if (other_checked && other_mo.val() != '' && !test.test(other_mo.val())) {
-                    alert('金额只能为1元以上的整数');
+                    //alert('金额只能为1元以上的整数');
+                    hint(that.$refs,'金额只能为1元以上的整数')
                     return false;
                 }else return true;
 
@@ -272,7 +276,7 @@
     @import '../common/bower_components/bootstrap/dist/css/bootstrap.min.css';
     .chargeWrap{
         width: 1200px;
-        margin: 60px auto 200px;
+        margin: 60px auto ;
     }
     #mainNav{
         width: 316px;
@@ -410,7 +414,7 @@
 	        font-size: 12px;
 	        line-height: 40px;
 	        text-align: center;
-	        border: 2px solid #e4e4e4;
+	        border: 1px solid #e4e4e4;
 	        margin-right: 4px;
 	        margin-bottom: 10px;
 	        cursor: pointer;
@@ -435,7 +439,7 @@
 	    #subNav .top1 .money .center span.checked_span{
 	        width: 88px;
 	        height: 41px;
-	        border: 2px solid #912ba8;
+	        border: 1px solid #912ba8;
 	    }
 	    #subNav .top1 .money .center span.active i{
 	        display: block;
@@ -478,7 +482,8 @@
 	    #subNav .bottom p{
 	        font-size: 12px;
 	        color: #676767;
-	        line-height: 30px;
+            line-height: 30px;
+            margin:0;
 	    }
 	    #subNav .bottom p.cl{
 	        text-indent: -1.1em;

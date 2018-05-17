@@ -14,7 +14,7 @@
 					<img v-if="userdata.level" :src="'static/images/vip_'+userdata.level+'.png'" />
 					<img v-else src="static/images/vip_0.png" />
 				</div>
-				<p v-if="userdata.signature">{{userdata.signature}}</p>
+				<p v-if="userdata.signature" :title="userdata.signature">{{userdata.signature}}</p>
 				<p v-else>这个人很懒，什么也没留下</p>
 			</div>
 		</div>

@@ -1,36 +1,37 @@
 <template>
 	<div id='my-gift'>
-		<div class="my-gift-nav">
-			<ul>
-				<li><a href="javascript:;">礼包名称</a></li>
-				<li><a href="javascript:;">有效期</a></li>
-				<li><a href="javascript:;">激活码</a></li>
-				<li><a href="javascript:;">状态</a></li>
-			</ul>
-		</div>
-		<div id="roll-box" ref="rollBox">
-			<div id="roll-content" ref="rollContent" v-if="!!rows" class="my-gift-box">
-			
-
-				<div class="my-gift-list"  v-for="data in rows" :key="data.$index">
+		<div v-if="!!rows" >
+			<div class="my-gift-nav">
+				<ul>
+					<li><a href="javascript:;">礼包名称</a></li>
+					<li><a href="javascript:;">有效期</a></li>
+					<li><a href="javascript:;">激活码</a></li>
+					<li><a href="javascript:;">状态</a></li>
+				</ul>
+			</div>
+			<div id="roll-box" ref="rollBox">
+				<div id="roll-content" ref="rollContent" class="my-gift-box">
 				
-					<ul>
-						<li>《{{data.gameName}}》{{data.giftName}}</li>
-						<li>{{data.giftedate}}至{{data.giftpdate}}</li>
-						<li>{{data.giftcode}}</li>
-						<li>{{data.giftState|giftState}}</li>
-					</ul>
+
+					<div class="my-gift-list"  v-for="data in rows" :key="data.$index">
+					
+						<ul>
+							<li>《{{data.gameName}}》{{data.giftName}}</li>
+							<li>{{data.giftedate}}至{{data.giftpdate}}</li>
+							<li>{{data.giftcode}}</li>
+							<li>{{data.giftState|giftState}}</li>
+						</ul>
+					</div>
 				</div>
 				
-			
-			
-				
+				<div id="boxout" v-if="rows" ref="boxout" class="boxout">
+					<span ref="rollspan" @mousedown = 'rollspan' ></span>
+				</div>
 			</div>
-			<img src="static/images/mzapp.png" class="center-img" v-else alt="">
-			
-			<div id="boxout" v-if="rows" ref="boxout" class="boxout">
-				<span ref="rollspan" @mousedown = 'rollspan' ></span>
-			</div>
+		</div>
+		<div  v-else >
+			<img src="static/images/3.png" class="center-img" alt=""/>
+			<p class="g6 f16 tc mt20">前往app领取吧</p>
 		</div>
 		<transition>
 			<div class="hint" ref="hint">

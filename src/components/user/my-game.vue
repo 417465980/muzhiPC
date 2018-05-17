@@ -2,7 +2,7 @@
 	<div id="my-game">
 		<div class="">
 			<div class="my-game-main">
-				<ul class="my-game-list">
+				<ul class="my-game-list" v-if="!!game.length">
 					<li v-for="(item,index) in game" :key="index">
 						<div>
 							<img class="my-game-icon" :src="item.icon|addHttp" alt="">
@@ -14,25 +14,35 @@
 					</li>
 					
 				</ul>
+				<div v-else >
+					<img class="center-img" src="static/images/4.png">
+					<p class="g6 f16 tc mt20">前往游戏中心下载吧</p>
+				</div>	
 			</div>
 			<div class="subnav">&nbsp;&nbsp;精品游戏推荐</div>
-			<ul class="my-game-list">
+			<ul class="my-game-list" v-if="!!rows.length">
 				<li v-for="data in rows" :key="data.$index">
 					<div>
 						<router-link to="/"><img class="my-game-icon" :src="data.icon|addHttp" alt=""></router-link>
 						<div class="my-game-info">
 							<p>{{data.name}}</p>
 							<a :href="data.website" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
+							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a>
+						</div>
 					</div>
 				</li>
 			</ul>
-		</div>
-		<transition>
-			<div class="hint" ref="hint">
-				<span ref="hint-content"></span>
+			<div v-else >
+				<img class="center-img" src="static/images/4.png">
+				<p class="g6 f16 tc mt20">前往<router-link to="/game/all" class="g6" tag="a">游戏中心</router-link>下载吧</p>
 			</div>
-		</transition>
+			
+			<transition>
+				<div class="hint" ref="hint">
+					<span ref="hint-content"></span>
+				</div>
+			</transition>
+		</div>
 	</div>
 </template>
 <script>
@@ -47,17 +57,17 @@
 					token
 				},
 				rows:[],
-				game,
+				game:game,
 			}
 		},
 		mounted(){
+			let that = this;
 			let paramsUrl =qs.stringify({
 				'username':that.info.username,
 				'token':that.info.token
 			})
-			let that = this;
+			
 			axios.post(url+'/muzhiplat/pc2/user/findMyGame',paramsUrl).then(function(res){
-				console.log(res.data)
 				that.rows = res.data.rows
 				hint(that.$refs,res.data.msg)
 			}).catch(function(res){
