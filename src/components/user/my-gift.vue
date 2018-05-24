@@ -1,5 +1,6 @@
 <template>
 	<div id='my-gift'>
+		
 		<div v-if="!!rows" >
 			<div class="my-gift-nav">
 				<ul>
@@ -24,7 +25,7 @@
 					</div>
 				</div>
 				
-				<div id="boxout" v-if="rows" ref="boxout" class="boxout">
+				<div id="boxout" v-if="!!rows" ref="boxout" class="boxout">
 					<span ref="rollspan" @mousedown = 'rollspan' ></span>
 				</div>
 			</div>
@@ -54,11 +55,12 @@
 					username:userdata.name,
 					token
 				},
-				rows:[]
+				rows:null
 			}
 		},
 		methods:{
 			scrollDir(obj,fnEnd){
+				
 				if(obj.addEventListener){
 					obj.addEventListener('DOMMouseScroll',fn , false)
 				}
@@ -125,32 +127,36 @@
 			})
 			//自定义滚动条
 			this.$nextTick(() =>{
+
 				let ele = this.$refs
-				this.scrollDir(ele.rollContent, function(b){
-					var a =0;
-					var proB = 0;
-					if(b){
-						
-						if(ele.rollContent.offsetTop<0 ){
-							a+=30;
-							ele.rollContent.style.top = ele.rollContent.offsetTop+a+'px';
+				if(ele.rollContent){
+					this.scrollDir(ele.rollContent, function(b){
+						var a =0;
+						var proB = 0;
+						if(b){
+							
+							if(ele.rollContent.offsetTop<0 ){
+								a+=30;
+								ele.rollContent.style.top = ele.rollContent.offsetTop+a+'px';
+							}
+						}else{
+							
+							let iNow = ele.rollContent.offsetTop - (ele.rollBox.offsetHeight - ele.rollContent.offsetHeight)
+							if(iNow>0){
+								a-=30;
+								ele.rollContent.style.top = ele.rollContent.offsetTop+a+'px';
+							}
 						}
-					}else{
+						proB = (ele.rollContent.offsetTop)/(ele.rollBox.offsetHeight-ele.rollContent.offsetHeight);
 						
-						let iNow = ele.rollContent.offsetTop - (ele.rollBox.offsetHeight - ele.rollContent.offsetHeight)
-						if(iNow>0){
-							a-=30;
-							ele.rollContent.style.top = ele.rollContent.offsetTop+a+'px';
-						}
-					}
-					proB = (ele.rollContent.offsetTop)/(ele.rollBox.offsetHeight-ele.rollContent.offsetHeight);
-					
-					ele.rollspan.style.top = proB*(ele.boxout.offsetHeight - ele.rollspan.offsetHeight)+'px';
-					
-				})
-				if(parseInt(ele.rollContent.style.height)<parseInt(ele.rollBox.style.height)){
-					ele.boxout.style.display = "none"
+						ele.rollspan.style.top = proB*(ele.boxout.offsetHeight - ele.rollspan.offsetHeight)+'px';
+						
+					})
+					if(parseInt(ele.rollContent.style.height)<parseInt(ele.rollBox.style.height)){
+						ele.boxout.style.display = "none"
+					}					
 				}
+
 			})
 		},
 		filters:{

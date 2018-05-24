@@ -3,7 +3,7 @@
 		<ul class="clearfix">
 			<li v-for="(item,index) in allList" :key="index">
 				<div class="listIcon fl">
-					<router-link :to="'/game/'+item.id" tag="p"><img v-lazy="'http://game.91muzhi.com/muzhiplat'+item.character" /><span class="imgfilter"></span></router-link>
+					<router-link :to="'/game/'+item.id" tag="p"><img :src="'http://game.91muzhi.com/muzhiplat'+item.character" /><span class="imgfilter"></span></router-link>
 				</div>
 				<div class="listTitle fl">
 					<router-link :to="'/game/'+item.id" tag="p" class="hoveraction">{{item.name}}</router-link>
@@ -11,10 +11,12 @@
 					<p class="introduce" :title="item.introduction">简介：{{item.introduction}}</p>
 					<div class="clearfix">
 						<a class="getLb fl">
+							<span class="middlespan"></span>
 							<i class="gmCen_spri"></i>
 							<span @click="receivebag">礼包领取</span>
 						</a>
 						<a :href="item.downloadLink" class="gmLoad fl">
+							<span class="middlespan"></span>
 							<i class="gmCen_spri"></i>
 							<span>游戏下载</span>
 						</a>

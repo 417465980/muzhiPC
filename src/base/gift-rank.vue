@@ -29,10 +29,16 @@
 				</div>
 			</li>
 		</ul>
+		<transition>
+			<div class="hint" ref="hint">
+				<span ref="hint-content"></span>
+			</div>
+		</transition>
 	</div>
 </template>
 <script>
 	import {hotGift} from 'api/muzhi'
+	import {hint} from '../common/js/general'
 	export default{
 		data(){
 			return{
@@ -63,7 +69,7 @@
 				this.currentIndex = index
 			},
 			receivebag(){
-				alert('请到App领取')
+				hint(this.$refs,'请到App领取')
 			}
 		}
 	}

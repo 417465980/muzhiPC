@@ -35,6 +35,7 @@
 
     import axios from 'axios';
     import qs from 'qs'
+    import {mapMutations} from 'vuex'
     import {url,resPassword,regUserName,hint,userdata,token} from '../../common/js/general'
    
 	export default{
@@ -49,6 +50,7 @@
                     promptContent:'6-15位（仅限数字、英文）',
                     textActive :false
                 },//登录注册验证提示
+                
 			}
         },
         methods:{
@@ -62,16 +64,20 @@
                     })
                    
                     axios.post(url + '/muzhiplat/pc2/user/login',paramsUrl).then(function(res){
-                        
+                      // console.log(userdata)
+                     //  console.log(that.setUserName(res.data.rows.user))
+                      //that.$store.commit('setUserName')
                         hint(that.$refs,res.data.msg)
                         if(res.data.ret){
-                           
+                            that.setUserName(res.data.rows.user)
+                          //  userdata = that.setUserName(res.data.rows.user)
                             window.localStorage.setItem('userdata',JSON.stringify(res.data.rows.user))
                             window.localStorage.setItem('token',JSON.stringify(res.data.token))
                             window.localStorage.setItem('game',JSON.stringify(res.data.rows.game))
                             setTimeout(function(){
-                                window.location.reload()
-                                that.$router.push('/index');
+                                that.$router.push({
+                                    path : '/'
+                                })
                             },2000)
                         }
                     }).catch(function(res){
@@ -102,7 +108,11 @@
                 }else{
                     window.localStorage.removeItem('checked')
                 }
-            }
+            },
+            ...mapMutations({
+				setUserName: 'SET_USER_NAME'
+            })
+            
        
         },
         mounted(){
@@ -180,6 +190,7 @@
     #username ,#psd
         display inline-block 
         width 230px 
+        height 38px
         line-height 38px 
         color #999 
         font-size 14px

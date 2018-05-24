@@ -10,7 +10,8 @@
 					<div class="item_title fl">
 						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
-						<a :href="item.download" target="_blank" class="hotGmBtn">   
+						<a :href="item.download" target="_blank" class="hotGmBtn"> 
+							<span class="middlespan	"></span>  
 							<i class="icon_spri"></i>
 							<span @click="receivebag">领取</span>
 						</a>
@@ -23,6 +24,11 @@
 					<i class="gmCen_spri"></i>
 				</a>
 			</div>
+			<transition>
+				<div class="hint" ref="hint">
+					<span ref="hint-content"></span>
+				</div>
+			</transition>
 		</div>
 	</div>
 </template>
@@ -61,7 +67,7 @@
 				})
 			},
 			receivebag(){
-				alert('请到App领取')
+				hint(this.$refs,'请到App领取')
 			},
 			addgift(){
 				let that = this;

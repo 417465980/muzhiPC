@@ -2,7 +2,7 @@
   	<div class="cont_box">
     		<div class="banner clearfix">
 		    	<div class="fl">
-					<user-info v-if="showInfo"></user-info>
+					<user-info v-if="showInfo" @userExit="changeUser"></user-info>
 					<reg-info v-else></reg-info>
 				</div>
 				<div class="fr">
@@ -52,7 +52,7 @@ import  HotGame from './hot-game'
 import NewsInfo from './news-info'
 import  HotGift from 'base/hot-gift'
 import {getBanner,getGames,getNews,hotGift} from 'api/muzhi'
-import {token} from '../common/js/general'
+
 export default {
   	components:{
 		UserInfo,
@@ -67,7 +67,7 @@ export default {
   	data(){
   		return{
 			slides:[],
-			showInfo:token,
+			showInfo:false,
 			invSpeed: 4000,
 			place:'',
 			page:'',
@@ -81,16 +81,24 @@ export default {
 		}
 	},
 	created(){
+		this._checkToken()
 		this._getSlide()
 		this._getQualityGame()
 		this._getHotGames()
 		this._getHotGift()
 		this._getNews()
 	},
-  	methods:{
+	methods:{
 			// dosomethingOnslide(){
 			// 	console.log('dosomethingOnslide run!!');
 			// }
+			_checkToken(){
+				if(window.localStorage.getItem('token')){
+					this.showInfo = true
+				}else{
+					this.showInfo = false	
+				}	
+			},
 			_getSlide(){
 				getBanner().then((res) =>{
 					this.slides = res
@@ -142,8 +150,16 @@ export default {
 				this.$router.push({
 					path:`/news/${this.headlineId}`
 				})
+			},
+			changeUser(){
+				this.showInfo = false	
 			}
-		}
+		},
+		beforeRouteEnter (to,from,next){
+            next(vm => {
+				vm._checkToken();
+			})
+        }
 }
 </script>
 

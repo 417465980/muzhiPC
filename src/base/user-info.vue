@@ -20,31 +20,41 @@
 		</div>
 		<div class="login_botm">
 			<ul class="clearfix">
-				<li class="gift">
-				<i class="user_spri"></i>
-				<p><a>礼包：</a><span>{{userdata.giftSum}}</span></p>
+				<li>
+				<router-link to="/user/myGift" class="gift">
+					<i class="user_spri"></i>
+					<p><a href="javascript:;">礼包：</a><span>{{userdata.giftSum}}</span></p>
+				</router-link>
+				
 				</li>
-				<li class="lj">
-				<i class="user_spri"></i>
-				<p><a>礼劵：</a><span>{{userdata.couponSum}}</span></p>
+				<li>
+				<router-link to="/user/myCoupon" class="lj">
+					<i class="user_spri"></i>
+					<p><a href="javascript:;">礼劵：</a><span>{{userdata.couponSum}}</span></p>
+				</router-link>
+				
 				</li>
-				<li class="muzhi_money">
-				<i class="user_spri"></i>
-				<p><a>拇指币：</a><span>{{userdata.mzAccount}}</span></p>
+				<li>
+				<router-link to="/user/myWallet" class="muzhi_money">
+					<i class="user_spri"></i>
+					<p><a href="javascript:;">拇指币：</a><span>{{userdata.mzAccount}}</span></p>
+				</router-link>
 				</li>
 			</ul>
 		</div>
 		<div class="play_gm">
+
 			<div class="title">
+				<span class="middlespan"></span>
 				<i class="icon_spri"></i>
 				<span>最近玩过的游戏</span>
 			</div>
 			<ul class="clearfix">
 				<li v-for="(item,index) in game" :key="index" v-if="index<4">
-					<a>
+					<router-link :to="'game/'+item.id" >
 						<img :src="item.icon|addHttp" >
 						<p>{{item.name}}</p>
-					</a>
+					</router-link>
 				</li>
 			</ul>
 		</div>
@@ -52,15 +62,16 @@
 
 </template>
 <script>
-	import {url,token,userdata,game} from '../common/js/general'
+	import {url} from 'common/js/general'
 	export default{
 		data(){
 			return {
-				userdata,
-				game
+				userdata:'',
+				game:[]
 			}
 		},
-		mounted(){
+		created(){
+			this._getUserInfo()		
 		},
 		filters:{
 			addHttp(data){
@@ -68,9 +79,13 @@
 			}
 		},
 		methods:{
+			_getUserInfo(){
+				this.userdata = JSON.parse(window.localStorage.getItem('userdata')) 
+				this.game = JSON.parse(window.localStorage.getItem('game'))
+			},
 			signOut(){
 				 localStorage.clear();
-				 window.location.reload()
+				 this.$emit('userExit')
 			}
 		}
 	}
@@ -84,6 +99,7 @@
 	 .exit:hover{color:#820c9b;}
 	 .login_top .user_title div{display: flex;align-items: center;}
 	 .login_top .user_title span{  margin-right: 15px;
+	 line-height:20px;
     font-size: 14px;
     color: #820c9b;
     display: block;
@@ -107,7 +123,7 @@
 	 .login_botm .lj i{background-position:-108px -10px;}
 	 .login_botm .muzhi_money i{ background-position:-108px -108px;}
 	 .play_gm{padding: 10px 20px 20px;box-sizing: border-box;-webkit-box-sizing: border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box;-moz-box-sizing: border-box;}
-	.play_gm .title span{font-size: 16px;}
+	.play_gm .title span{font-size: 16px; vertical-align: middle;}
 	.play_gm ul li{float: left;text-align: center;width: 65px;margin-right: 16px;}
 	.play_gm ul li:last-child{margin-right: 0 !important;}
 	.play_gm ul li img{height: 65px;margin: 12px 0 5px;}

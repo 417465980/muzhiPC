@@ -2,17 +2,18 @@
 	<div class="gmListWrap">
 		<div class="hotGame_tit clearfix">
 			<div class="hot_icon fl">
-					<i class="icon_spri"></i>
-					<span>热门游戏</span>
+				<span class="middlespan"></span>
+				<i class="icon_spri"></i>
+				<span>热门游戏</span>
 			</div>
 			<div class="hot_more fr">
-					<router-link to="/game">+</router-link>
+					<router-link to="/game"><img src="../assets/images/more.png" alt=""></router-link>
 			</div>
 		</div>
 		<div class="game_list">
 			<ul class="clearfix">
 				<li v-for="(item,index) in hotGame" :key="index">
-					<router-link :to="'/game/'+item.id" tag="a" class="gm_icon fl"><img v-lazy="'http://game.91muzhi.com/muzhiplat'+item.icon"/></router-link>
+					<router-link :to="'/game/'+item.id" tag="a" class="gm_icon fl"><img :src="'http://game.91muzhi.com/muzhiplat'+item.icon"/></router-link>
 					<div class="item_title fl">
 						<router-link :to="'/game/'+item.id" tag="p" class="hoveraction" :title="item.name">{{item.name}}</router-link>
 						<span :title="item.type+item.appSize+'M'">{{item.type}}{{item.appSize}}M</span>
@@ -40,7 +41,7 @@
 	}
 </script>
 <style scoped>
-	.gmListWrap .hotGame_tit .hot_icon i{ width: 35px; height: 33px;display:block;background-position: -10px -10px;margin-right: 10px;}
+	.gmListWrap .hotGame_tit .hot_icon i{ width: 35px; height: 33px;display:inline-block;background-position: -10px -10px;margin-right: 10px; vertical-align: middle;}
 	.game_list ul li{margin-top: 29px;}
 	.game_list .item_title p,.game_list .item_title > span{ text-overflow: ellipsis;overflow: hidden; white-space: nowrap; cursor: pointer;}
 

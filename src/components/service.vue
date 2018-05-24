@@ -12,7 +12,7 @@
                 </div>
                 <div v-for="item in id" :key="item" v-show="item==activenum" class="details animated" >
                     <ul>
-                        <li v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" :data-proDetail="items.proDetail" @click="markfqa" class="hoveraction">{{items.proTitle}}</li>
+                        <li v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" :data-prodetail="items.proDetail" @click="markfqa" class="hoveraction">{{items.proTitle}}</li>
                     </ul>
                 </div>
             </div>
@@ -80,9 +80,16 @@
                 this.activenum = this.pp[index];
             },
             markfqa(e){
-                var e = event||e;
-                this.markfqadata.proTitle = e.target.innerText;
-                this.markfqadata.proDetail = e.target.dataset.prodetail;
+                var event = event||e;
+                var target= event.target || event.srcElement; 
+                this.markfqadata.proTitle =target.innerText;
+                if(typeof target.dataset !='undefined'){
+
+                    this.markfqadata.proDetail = target.dataset.prodetail;
+                    
+                }else{
+                    this.markfqadata.proDetail = target.getAttribute('data-prodetail');
+                }
                 this.bool =!this.bool
                
             },

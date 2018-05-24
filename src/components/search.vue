@@ -44,17 +44,17 @@
     export default{
         data(){
             return{
-                keyword:this.$route.params.keyword,
+                keyword:decodeURI(this.$route.params.keyword),
                 rows:[]
             }
         },
         methods:{
             search(keyword){
                  let that = this;
-                let paramsUrl =qs.stringify({
+                let paramsUrl =decodeURI(qs.stringify({
 					'keywords':keyword,
-				})
-               
+				}))
+                console.log(keyword)
                 axios.post(url+'/muzhiplat/pc2/game/findGameByKeywords',paramsUrl).then(function(res){
                    that.rows = res.data.rows;
                    if(res.data.rows.length > 0){
@@ -62,7 +62,6 @@
                    }else{
                        hint(that.$refs,'未能查询到游戏')
                    }
-                  
                 }).catch(function(res){
                     console.log(res)
                 })
@@ -72,10 +71,15 @@
             }
         },
         mounted(){
+            alert(2)
+            alert(this.keyword)
             this.search(this.keyword)
         },
         beforeRouteUpdate(to, from, next) {
-            this.search(to.params.keyword)
+            alert(1)
+            var key = decodeURI(to.params.keyword)
+            alert(key)
+            this.search(key)
 
         },
   

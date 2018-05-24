@@ -9,8 +9,8 @@ import 'common/style/common.css';
 import {imgload} from 'common/js/general';
 import VueLazyLoad from 'vue-lazyload';+
 Vue.use(VueLazyLoad,{
-    error:'../static/images/mzapp.png',
-    loading:'../static/images/mzapp.png'
+    error:require('../static/images/mzapp.png'),
+    loading:require('../static/images/mzapp.png')
 })
 Vue.config.productionTip = false;
 

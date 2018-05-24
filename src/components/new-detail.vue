@@ -111,9 +111,9 @@
 <style scoped>
 	.news-center .gmCen_right{width:810px;padding:10px 0 0 40px;}
 	.info_pro{height: 20px;line-height: 20px;padding: 15px 0; border-bottom: 1px solid #f0f0f0;}
-	.info_pro div{display: flex;align-items: center;position: relative;}
-	.info_pro div i{display: inline-block; width: 26px; height: 25px;background-position: -10px -58px;margin-right: 10px;}
-	.info_pro div span{font-size: 20px;}
+	.info_pro div{position: relative;}
+	.info_pro div i{display: inline-block; width: 26px; height: 25px;background-position: -10px -58px;margin-right: 10px; vertical-align: middle; }
+	.info_pro div span{font-size: 20px;vertical-align: middle;}
 	.info_pro div:before,.info_pro div:after{left: 60px;}
 	.info_pro div:before{top:36px;}
 	.info_pro div:after{top: 35px;}
@@ -122,5 +122,4 @@
 	.detail_cont .title span{font-size: 14px;color:#959595;}
 	.content{ margin:20px;}
 </style>
-
 

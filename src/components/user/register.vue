@@ -2,7 +2,7 @@
 	<div id="register" class="max-width">
         <div class="register-box">
             <div>
-                <p class="font-size-normal">拇指账号？</p>
+                <p class="font-size-normal">没有拇指账号？</p>
                 <router-link to="/login" tag="span" class="background margin-s button-normal cp">马上登录</router-link>
             </div>
             <div class="register-wrap">
@@ -81,8 +81,8 @@
                     axios.post(url + '/muzhiplat/pc2/user/register',paramsUrl).then(function(res){
                         if(res.data.msg=="注册成功"){
                             setTimeout(function(){
-                                that.$router.push('/home');
-                            },2000)
+                                that.$router.push('/login');
+                            },1000)
                             
                         }
                         if(res.data.ret){

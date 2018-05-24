@@ -9,7 +9,7 @@
 			<li v-for="(item,index) in activeList" :key="index">
 			
 				<div class="ac_img">
-					<router-link :to="'/news/'+item.id" tag="a"><img v-lazy="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /></router-link>
+					<router-link :to="'/news/'+item.id" tag="a"><img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /></router-link>
 					<!-- <img  @click="selectActive(item)" :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /> -->
 				</div>
 				<div class="ac_title clearfix">

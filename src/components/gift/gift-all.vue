@@ -11,6 +11,7 @@
 						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
 						<a href="javascript:;" class="hotGmBtn">   
+							<span class="middlespan	"></span>
 							<i class="icon_spri"></i>
 							<span @click="receivebag">领取</span>
 						</a>
@@ -67,9 +68,10 @@
 				})
 			},
 			receivebag(){
-				alert('请到App领取')
+				hint(this.$refs,'请到App领取')
 			},
 			addgift(){
+				
 				let that = this;
 				that.page =that.page+1
 				let paramsUrl =qs.stringify({
@@ -87,6 +89,7 @@
 						this.show = false
 					}
 				}).catch(function(res){
+					alert('您浏览器版本太低了，请升级浏览器')
 					console.log(res)
 				})
 			}

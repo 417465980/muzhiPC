@@ -5,7 +5,7 @@
 				<ul class="my-game-list" v-if="!!game.length">
 					<li v-for="(item,index) in game" :key="index">
 						<div>
-							<img class="my-game-icon" :src="item.icon|addHttp" alt="">
+							<img class="my-game-icon" width="80" height="80" :src="item.icon|addHttp" alt="">
 							<div class="my-game-info">
 								<p>{{item.name}}</p>
 								<a :href="item.website" terget="_blank" class="officialWeb">官网</a>

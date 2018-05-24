@@ -4,7 +4,7 @@
 		<div class="user-warp max-width">
 			<div class="user-main-left">
 				<ul class="user-main-left-box">
-					<router-link v-for="(item,index) in navMsg"  :key="index" :to="{path:item.path}" @click.native="newmsg=index"  tag="li">{{item.msg}}<span></span></router-link>
+					<router-link v-for="(item,index) in navMsg" class="hoverie9"  :key="index" :to="{path:item.path}" @click.native="newmsg=index"  tag="li">{{item.msg}}<span></span></router-link>
 				</ul>
 			</div>
 			<div class="user-main-right">
@@ -61,7 +61,7 @@
 				color:#666;
 				border-top:1px solid #e9e9e9;
 				position relative
-				
+				cursor pointer 
 			li:last-child
 				border-bottom:1px solid #e9e9e9;
 			.router-link-active

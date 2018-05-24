@@ -9,7 +9,7 @@
 				</div>
 				<div class="">
 					<div v-for="(itemcont,index) in couponlist" :key="index" ref="itemcont" :class="{'coupon-list':true, 'coupon-active':index=='acct'}">
-						<ul v-if="!!itemcont.length">
+						<ul v-if="!!itemcont">
 
 							<li v-for="(item,i) in itemcont" :key="i">
 								<p :class="{ canuse:index=='acct', cantuse:index == 'cantuse'||index == 'perms',  'coupon-sum':true}">￥{{item.rebate_num}}</p>
@@ -174,7 +174,6 @@
 				return axios.post(url+'/muzhiplat/pc2/user/findMyCoupon',paramsUrl)
 			},
 			couponTab(index){
-				console.log(this.$refs)
 				for(var i in this.$refs.item){
 					this.$refs.item[i].className = ''
 				}

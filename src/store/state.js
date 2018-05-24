@@ -1,5 +1,6 @@
 const state = {
-    newsInfo : {}
+    newsInfo : {},
+    userName:{}
 }
 
 export default state

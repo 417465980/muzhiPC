@@ -53,6 +53,7 @@
 </template>
 <script>
 import axios from 'axios';
+import qs from 'qs';
 import {url,hint,token,userdata} from '../../common/js/general'
 export default {
   data() {
@@ -83,6 +84,7 @@ export default {
 		}
 	},
 	changeInfo(){
+		let that = this;
 		let paramsUrl =qs.stringify({
 			'sex':that.info.sex,
 			'qq':that.info.qq,
@@ -92,10 +94,16 @@ export default {
 			'nickname':that.info.nickname,
 			'token':that.info.token,
 		})
-		let that = this;
+		
 		axios.post(url+'/muzhiplat/pc2/user/edit',paramsUrl).then(function(res){
-			console.log(res.data)
+			
 			hint(that.$refs,res.data.msg)
+			if(res.data.msg.indexOf('登陆超时')==-1){
+				setTimeout(()=>{
+					that.$router.push('/login')
+				},1000)
+				
+			}
 		}).catch(function(res){
 			console.log(res)
 		})

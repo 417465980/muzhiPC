@@ -127,6 +127,7 @@
         },
         filters:{
             addHttp(data){
+
                 if(data.indexOf('undefined')!=-1){
                     return data
                 }else{

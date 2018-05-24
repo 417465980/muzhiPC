@@ -17,18 +17,24 @@
         </div>
         <div class="login_botm">
             <ul class="clearfix ">
-                <li :class="{gift:true,giftnone1:gift == 2}">
+              <li>
+                <router-link  to="/user/myGift" @click.native="gift == 2" :class="{gift:true,giftnone1:gift == 2}">
                     <i class="user_spri"></i>
-                    <p><a>礼包：</a><span>{{userdata.giftSum||0}}</span></p>
-                </li>
-                <li :class="{lj:true,giftnone2:gift == 3}">
-                    <i class="user_spri"></i>
-                    <p><a>礼劵：</a><span>{{userdata.couponSum||0}}</span></p>
-                </li>
-                <router-link to="/myWallet" tag="li" :class="{muzhi_money:true,giftnone3:gift == 4}">
-                  <i class="user_spri"></i>
-                  <p><a>拇指币：</a><span>{{userdata.mzAccount||0}}</span></p>
+                    <p><a href="javascript:;">礼包：</a><span>{{userdata.giftSum||0}}</span></p>
                 </router-link>
+                </li>
+                <li>
+                  <router-link to="/user/myCoupon"  @click.native="gift == 3" :class="{lj:true,giftnone2:gift == 3}">
+                      <i class="user_spri"></i>
+                      <p><a href="javascript:;">礼劵：</a><span>{{userdata.couponSum||0}}</span></p>
+                  </router-link>
+                </li>
+                <li>
+                <router-link to="/user/myWallet" @click.native="gift ==4" :class="{muzhi_money:true,giftnone3:gift == 4}">
+                  <i class="user_spri"></i>
+                  <p><a href="javascript:;">拇指币：</a><span>{{userdata.mzAccount||0}}</span></p>
+                </router-link>
+                </li>
           
             </ul>
         </div>
@@ -105,6 +111,7 @@ export default {
 .login_botm li 
   color: #af2f7d;
   padding-right: 20px;
+  cursor pointer
 
 
 .login_botm li i 

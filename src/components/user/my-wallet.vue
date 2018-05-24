@@ -160,6 +160,8 @@
 			float right
 			background linear-gradient(left, #6461a5, #cf2878) 
 			background -webkit-linear-gradient(left, #6461a5, #cf2878) 
+			background url('../../assets/images/btn_bg.png') no-repeat center center\0
+			background-size cover\0
 			color #fff 
 			dispaly inline-block 
 			padding 10px 20px 

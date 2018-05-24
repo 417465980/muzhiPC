@@ -2,17 +2,19 @@
 	<div class="hot_active">
 		<div class="active_tit clearfix">
 			<div class="hot_icon fl">
+				<span class="middlespan"></span>
 				<i class="icon_spri"></i>
 				<span>热门活动</span>
 			</div>
 			<div class="hot_more fr">
-				<router-link to="/active">+</router-link>
+				<router-link to="/active"><img src="../assets/images/more.png" alt=""></router-link>
 			</div>
+			
 		</div>
 		<ul>
 			<li v-for="(item,index) in hotActive" :key="index" ><!-- @click="hotAc(item)" -->
 				<figure>
-					<router-link :to="'/news/'+item.id" tag="a"><img v-lazy="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
+					<router-link :to="'/news/'+item.id" tag="a"><img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
 					<!-- <img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/> -->
 					<figcaption class="hoveraction">
 						{{item.title}}
@@ -135,13 +137,12 @@
 </script>
 <style scoped>
 	.hot_active{width:100%;}
-	.hot_active .active_tit .hot_icon i{ width: 32px; height: 32px;display:block;background-position: -65px -10px;margin-right: 10px;}
+	.hot_active .active_tit .hot_icon i{ width: 32px; height: 32px;display:inline-block;background-position: -65px -10px;margin-right: 10px; vertical-align: middle;}
 	.hot_active ul{border-top:1px solid #e9e9e9;margin-top: 11px;}
 	.hot_active ul figure img{width: 100%;margin: 20px 0 10px;height: auto;}
 	.hot_active ul figure figcaption{color: #333333;font-size: 18px;}
-
 	.hot_active li .hotTimeCont{position: relative;}
-	.hot_active ul .active_time{font-size: 10px;color: #666666;}
+	.hot_active ul .active_time{font-size: 12px;color: #666666;}
 	.hot_active ul .active_time .effective,.hot_active ul .active_time .remain_time{height: 20px;display: flex;align-items: center;margin-top:5px;}
 	.hot_active ul .active_time i{display:inline-block; width:5px;height: 5px;border: 1px solid #999999;margin-right: 15px;
 			transform: rotate(45deg);-webkit-transform: rotate(45deg);-ms-transform: rotate(45deg);-moz-transform: rotate(45deg);-o-transform: rotate(45deg);

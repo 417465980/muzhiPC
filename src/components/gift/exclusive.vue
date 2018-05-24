@@ -14,6 +14,7 @@
 						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
 						<a :href="item.download" target="_blank" class="hotGmBtn">   
+							<span class="middlespan	"></span>
 							<i class="icon_spri"></i>
 							<span>领取</span>
 						</a>
