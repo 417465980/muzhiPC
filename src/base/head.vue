@@ -171,7 +171,6 @@
 			},
 			checkUser() {
 				var user = '';
-				return this.userName.name 
 				if(window.localStorage.getItem('userdata')){
 					return JSON.parse(window.localStorage.getItem('userdata')).name 
 				}else{

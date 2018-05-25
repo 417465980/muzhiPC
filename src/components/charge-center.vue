@@ -36,7 +36,7 @@
                         <span class="left"></span>
                         <span class="center" id="subBtn" data-toggle="" data-target="#myModal" >立即充值</span>
                         <input type="hidden" id="showdialog" name="showdialog" value = "0" />
-						<form method= "post" action = "http://game.91muzhi.com/muzhiplat/topup/pay" commandName = "pay" name = "payForm" id= "payForm" ref="payForm" style = "display:none">
+						<form method= "post" action = "http://119.29.201.99/dist/topup/pay" commandName = "pay" name = "payForm" id= "payForm" ref="payForm" style = "display:none">
 							<input name = "amount" id="amount" type="text" value = "">
 							<input name = "payType" id="payType" type="text" value = "">
 							<input name = "gameId" id="gameId" type="text" value = "">
@@ -68,7 +68,6 @@
                     <p class="cl">2.请务必正确的选择您所使用的卡面额，以避免引起不必要的交易失败或交易余额丢失。</p>
                     <p class="ml">如：使用100元的卡进行支付但只选择50元面额，则系统认为实际支付金额为50元，其余部分将不予退还；使用50元的卡进行支付但选择100元面额，系统仅以50元的实际金额进行充值。</p>
                     <p class="cl">3.卡号密码输入次数超限，如需再次充值，请72小时后尝试，或选择其他渠道重新提交。请您点击确认前务必核实卡号及密码，以免带来不便。请充值时务必确认好您的充值金额准确无误后再进行充值，避免输错金额导致的失误，如因未仔细确认金额造成的充值问题，我们将一律不予处理此类退款申诉。</p>
-
                 </div>
             </div>
         </div>
