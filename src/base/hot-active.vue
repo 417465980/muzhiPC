@@ -14,7 +14,7 @@
 		<ul>
 			<li v-for="(item,index) in hotActive" :key="index" ><!-- @click="hotAc(item)" -->
 				<figure>
-					<router-link :to="'/news/'+item.id" tag="a"><img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
+					<router-link :to="'/news/'+item.id" tag="a"><img  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
 					<!-- <img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/> -->
 					<figcaption class="hoveraction">
 						{{item.title}}
@@ -140,7 +140,7 @@
 	.hot_active .active_tit .hot_icon i{ width: 32px; height: 32px;display:inline-block;background-position: -65px -10px;margin-right: 10px; vertical-align: middle;}
 	.hot_active ul{border-top:1px solid #e9e9e9;margin-top: 11px;}
 	.hot_active ul figure img{width: 100%;margin: 20px 0 10px;height: auto;}
-	.hot_active ul figure figcaption{color: #333333;font-size: 18px;}
+	.hot_active ul figure figcaption{color: #333333;font-size: 18px; cursor: pointer;}
 	.hot_active li .hotTimeCont{position: relative;}
 	.hot_active ul .active_time{font-size: 12px;color: #666666;}
 	.hot_active ul .active_time .effective,.hot_active ul .active_time .remain_time{height: 20px;display: flex;align-items: center;margin-top:5px;}

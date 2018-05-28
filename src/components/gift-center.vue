@@ -55,14 +55,14 @@
 						path:'all'
 					},
 					{
-						type:'最新礼包',
+						type:'热门礼包',
 						path:'latest'
 					},
 					{
-						type:'新手礼包',
+						type:'推荐礼包',
 						path:'novice'
 					},
-					{
+			/* 		{
 						type:'专属礼包',
 						path:'exclusive'
 					},
@@ -85,7 +85,7 @@
 					{
 						type:'节日礼包',
 						path:'festival'
-					},
+					}, */
 					{
 						type:'其他',
 						path:'other'

@@ -2,7 +2,7 @@
 	<div class="gmListWrap">
 		<slot name="hotLb_Tit"></slot>
 		<div class="expect" v-if="!hotGift.length">
-            <p>无此分类游戏，敬请期待...</p>
+            <p>无此分类礼包，敬请期待...</p>
         </div>
 		<div v-else class="game_list">
 			<ul class="clearfix">

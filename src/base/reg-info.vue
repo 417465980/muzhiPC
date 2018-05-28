@@ -3,10 +3,10 @@
        <div class="reg_pic"></div>
        <router-link to="/register">立即注册</router-link>
        <ul class="bar">
-           <li  v-for="(item,index) in regBtn" :key="index" :class="{active: curIndex === index}" @mouseover="showBg(index)">
+           <router-link to="/login" tag="li" v-for="(item,index) in regBtn" :key="index" :class="{active: curIndex === index}" @mouseover.native="showBg(index)">
                <i class="user_spri" :class="{on: chanIndex === index}"></i>
                <span>{{item}}</span>
-           </li>
+           </router-link>
         </ul>
     </div>
 </template>
@@ -38,7 +38,7 @@
     .regInfo a{position: absolute;top: 20px;right: 20px;font-size: 18px; color:#666;}
     .regInfo a:hover{color:#820c9b;text-decoration: underline; }
     .regInfo .bar{position: absolute;top: 155px;}
-    .regInfo .bar li{color:#979797;position:relative; width:310px;height:50px;line-height:52px; margin-top: 20px;border: 1px solid #e9e9e9;border-radius: 5px; }
+    .regInfo .bar li{color:#979797;position:relative; width:310px;height:50px;line-height:52px; margin-top: 20px;border: 1px solid #e9e9e9;border-radius: 5px;cursor: pointer; }
     .regInfo .bar li.active{color: #fff;background-color: rgba(106,164,228,0.9)}
     .regInfo .bar li i{display: inline-block;position: absolute;top:13px;left:100px;}
     .regInfo .bar li span{font-size: 19px;margin-left:140px;}

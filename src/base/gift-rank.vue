@@ -8,7 +8,7 @@
 			<li v-for="(item,index) in giftRank" :key="index" @mouseover="rankShow(index)" @mouseout="rankHide(index)">
 				<div class="showRankGm clearfix" v-if="currentIndex === index">
 					<div class="rankGmIcon fl">
-						<img :src="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl" />
+						<img  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl" />
 						<div>
 							<span class="hotRank-index">{{index+1}}</span><i></i><i class="addI"></i><i></i>
 						</div>

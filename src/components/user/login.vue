@@ -1,5 +1,5 @@
 <template>
-	<div id="login" @keyup.enter="login">
+	<div id="login" @keyup.enter="login" ref="login">
         <div class="login">
             <div class="min-width">
                 <ul>
@@ -123,25 +123,30 @@
             }else{
                 window.localStorage.removeItem('checked')
             }
+            let height  = parseInt(getComputedStyle(this.$refs.login,null).height)
+            if(height <= document.documentElement.clientHeight -255-133){
+                 this.$refs.login.style.height = document.documentElement.clientHeight -255-133 +'px'
+            }
+
         }
 	}	
 </script>
 <style scoped lang="stylus" >
 
 .login
-    height 520px
+    height 100%
     width 100%
     min-width 1200px
-    background url('../../assets/images/loginbac.jpg') repeat ;
+    background url('../../assets/images/loginbac.jpg') repeat center top;
 .login-left-img
     width 400px
     margin-top 80px
 .login-cont-left
     float left
-    height 520px
+    height 100%
 .login-cont-right
     float right
-    height 520px
+    height 100%
     position relative
     .login-warp
         width 320px

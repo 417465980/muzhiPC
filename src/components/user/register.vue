@@ -1,5 +1,5 @@
 <template>
-	<div id="register" class="max-width">
+	<div id="register" class="max-width" ref="register">
         <div class="register-box">
             <div>
                 <p class="font-size-normal">没有拇指账号？</p>
@@ -154,6 +154,13 @@
 
         },
         mounted(){
+            console.log( )
+            let height  = parseInt(getComputedStyle(this.$refs.register,null).height)
+
+            if(height <= document.documentElement.clientHeight -255-133){
+                 this.$refs.register.style.height = document.documentElement.clientHeight -255-133 +'px'
+            }
+            
         }
         
 	}	
@@ -169,6 +176,7 @@
     .register-wrap 
         width: auto;
         vertical-align: middle;
+        padding-bottom: 100px;
         li 
             height: 56px;
             position relative
@@ -241,7 +249,7 @@
         height 50px
         line-height 50px
         border none 
-        margin 40px auto 100px
+        margin 40px auto 0
         &:active
             background #999 !important
 </style>

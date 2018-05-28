@@ -1,5 +1,5 @@
 <template>
-    <div class="search ">
+    <div class="search " ref="search">
          <keep-alive>
             <div  class="clsifi_list min-width">
                 <div v-if="rows.length == 0"  class="nonegame">
@@ -71,14 +71,14 @@
             }
         },
         mounted(){
-            alert(2)
-            alert(this.keyword)
             this.search(this.keyword)
+            let height  = parseInt(getComputedStyle(this.$refs.search,null).height)
+            if(height <= document.documentElement.clientHeight -255-133){
+                 this.$refs.search.style.height = document.documentElement.clientHeight -255-133 +'px'
+            }
         },
         beforeRouteUpdate(to, from, next) {
-            alert(1)
             var key = decodeURI(to.params.keyword)
-            alert(key)
             this.search(key)
 
         },
@@ -86,7 +86,7 @@
     }
 </script>
 <style scoped >
-.clsifi_list{margin-top: 25px;}
+.clsifi_list{padding-top: 25px;}
 .clsifi_list ul li{width: 383px;height: 160px;border: 1px solid #e6e6e6;margin-bottom: 30px;}
 .clsifi_list ul li:nth-child(odd){float: left;}
 .clsifi_list ul li:nth-child(even){float: right;}

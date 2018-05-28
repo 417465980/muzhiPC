@@ -13,7 +13,7 @@
 						<a href="javascript:;" class="hotGmBtn">   
 							<span class="middlespan	"></span>
 							<i class="icon_spri"></i>
-							<span @click="receivebag">领取</span>
+							<span @click="markfqa(item.download)">领取</span>
 						</a>
 					</div>
 				</li>
@@ -31,6 +31,23 @@
 				<span ref="hint-content"></span>
 			</div>
 		</transition>
+		<div class="markfqa" @click.stop="close" v-show="bool">
+            <transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
+                <div class="markbox">
+                    
+                        <div class="close" @click.stop="close">×</div>
+                        <div @click.prevent="close">
+                         
+							<div >
+								<p>
+									<span>请到app领取</span><br>
+									<a href="markhtml" class="markhtml">点击下载app</a>
+								</p>
+							</div>  
+                        </div>
+                </div>
+             </transition>
+        </div>
 	</div>
 </template>
 <script>
@@ -42,17 +59,18 @@
 			return{
 				hotGift:[],
 				place:['hotGift','recomGift'],
-				rows:10,
+				rows:8,
 				page:1,
 				url,
-				show:true
+				show:true,
+				bool:false,
+				markhtml:''
 			}
 		},
 		methods:{
 			findMyGifts(){
 				let that = this;
 				let paramsUrl =qs.stringify({
-					'place': that.place[0],
 					'page': that.page,
 					'rows': that.rows,
 				})
@@ -60,7 +78,7 @@
 					if(res.data.ret){
 						res.data.msg="加载成功"
 					}
-					hint(that.$refs,res.data.msg)
+					// hint(that.$refs,res.data.msg)
 					that.hotGift = res.data.rows
 					
 				}).catch(function(res){
@@ -75,7 +93,7 @@
 				let that = this;
 				that.page =that.page+1
 				let paramsUrl =qs.stringify({
-					'place': that.place[0],
+					
 					'page': that.page,
 					'rows': that.rows,
 				})
@@ -92,7 +110,14 @@
 					alert('您浏览器版本太低了，请升级浏览器')
 					console.log(res)
 				})
-			}
+			},
+			markfqa(download){
+                this.markhtml = download
+                this.bool =!this.bool
+            },
+            close(){
+                this.bool =!this.bool
+            }
 
 		},
 		mounted(){

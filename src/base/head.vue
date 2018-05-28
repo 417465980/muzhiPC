@@ -12,14 +12,14 @@
 						</router-link>
 					</li>
 					<li class="mobile fl">
-						<a href="#">
+						<a href="http://game.91muzhi.com/m/" target="_blank">
 							<span class="middlespan" ></span>
 							<i class="icon_spri"></i>
 							<span>手机版 |</span>
 						</a>
 					</li>
 					<li class="mobile fl">
-						<a href="#">
+						<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk">
 							<span class="middlespan" ></span>
 							<i class="icon_spri"></i>
 							<span>app</span>

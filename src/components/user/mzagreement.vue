@@ -165,7 +165,6 @@
 	}
 </script>
 <style scoped lang="stylus">
-@import  '../../common/style/common.css'
 .agreement 
     font-size 12px
     width 1120px

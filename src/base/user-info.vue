@@ -25,7 +25,6 @@
 					<i class="user_spri"></i>
 					<p><a href="javascript:;">礼包：</a><span>{{userdata.giftSum}}</span></p>
 				</router-link>
-				
 				</li>
 				<li>
 				<router-link to="/user/myCoupon" class="lj">

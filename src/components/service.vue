@@ -1,5 +1,5 @@
 <template>
-    <div class="topBorder">
+    <div class="topBorder" ref="service">
         <div class="service">
             <div class="main_top">
                 <h3>常见问题</h3>
@@ -18,15 +18,18 @@
             </div>
         </div>
        
-        <div class="markfqa" v-show="bool">
+        <div class="markfqa" @click.stop="close" v-show="bool">
             <transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
                 <div class="markbox">
                     
-                        <div class="close" @click="close">×</div>
-                        <h3>{{markfqadata.proTitle}}</h3>
-                        <div>
+                        <div class="close" @click.stop="close">×</div>
+                        <div @click.prevent="close">
+                           <h3>{{markfqadata.proTitle}}</h3>
+                        <div >
                             <p v-html="$options.filters.editPro(markfqadata.proDetail)"></p>
+                        </div>  
                         </div>
+                       
                 
                 </div>
              </transition>
@@ -99,6 +102,10 @@
         },
         mounted(){
             this.queryFQAMsg()
+            let height  = parseInt(getComputedStyle(this.$refs.service,null).height)
+            if(height <= document.documentElement.clientHeight -255-133){
+                 this.$refs.service.style.height = document.documentElement.clientHeight -255-133-21 +'px'
+            }
         },
         filters:{
             editPro(val){
@@ -108,55 +115,8 @@
     }
 </script>
 <style scoped>
-    @import '../common/style/animate.css';
-    .markfqa{ width:100vw;height:100vh;position: fixed;top:0;left:0;background:rgba(0,0,0,.4) ;}
-    .markbox{
-        width:600px;
-        position: absolute;
-        top:300px;
-        left:50%;
-        margin-left:-300px;
-        background:#fff;
-        border-radius: 10px;
-        border:1px solid #e9e9e9;
-    }
-    .markfqa h3{
-        margin :30px auto 0;
-        line-height : 55px;
-        font-size: 30px;
-        font-weight: normal;
-        color:#fa5e2e;
-        text-align: center;
-        border-bottom : 1px solid #e9e9e9;
-    }
-    .markbox p{
-        font-size:14px;
-        color:#333;
-        line-height :36px;
-        margin:20px 30px;
-    }
-    .close{
-        position: absolute;
-        right :0;
-        top:-40px;
-        width:30px;
-        height :30px;
-        background:rgba(255,255,255,.8);
-        border:1px solid #e9e9e9;
-        border-radius: 15px;
-        font-size:20px;
-        color:#999;
-        text-align:center;
-        line-height:30px;
-        cursor: pointer;
-        box-sizing:border-box;
-    }
-    .close:hover{
-        
-        color:#666;
-        background:#fff;
-        
-    }
+
+
     .service{
         width: 1200px;
         margin: 15px auto 0;

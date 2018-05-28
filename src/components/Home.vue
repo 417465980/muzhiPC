@@ -32,7 +32,7 @@
 									<span>热门礼包</span>
 							</div>
 							<div class="hot_more fr">
-								<router-link to="/gift">+</router-link>
+								<router-link to="/gift"><img src="../assets/images/more.png" alt=""></router-link>
 							</div>
 						</div>
 					</hot-gift>

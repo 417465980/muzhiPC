@@ -10,7 +10,7 @@
 					<div class="item_title fl">
 						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
-						<a :href="item.download" target="_blank" class="hotGmBtn"> 
+						<a href="javascript:;" target="_blank" class="hotGmBtn"> 
 							<span class="middlespan	"></span>  
 							<i class="icon_spri"></i>
 							<span @click="receivebag">领取</span>
@@ -43,7 +43,7 @@
 			return{
 				hotGift:[],
 				place:['hotGift','recomGift'],
-				rows:10,
+				rows:8,
 				page:1,
 				url,
 				show:true
@@ -53,13 +53,13 @@
 			findMyGifts(){
 				let that = this;
 				let paramsUrl =qs.stringify({
-					'place': that.place[1],
+					'place': that.place[0],
 					'page': that.page,
 					'rows': that.rows,
 				})
 				axios.post(url + '/muzhiplat/pc2/gift/findGiftsByType',paramsUrl).then(function(res){
 					
-					hint(that.$refs,res.data.msg)
+					// hint(that.$refs,res.data.msg)
 					that.hotGift = res.data.rows
 					
 				}).catch(function(res){
@@ -73,7 +73,7 @@
 				let that = this;
 				that.page = that.page+1
 				let paramsUrl =qs.stringify({
-					'place': that.place[1],
+					'place': that.place[0],
 					'page': that.page,
 					'rows': that.rows,
 				})

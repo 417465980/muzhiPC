@@ -6,6 +6,8 @@ import router from './router';
 import store from './store';
 import 'common/style/same.css';
 import 'common/style/common.css';
+import 'common/style/animate.css';
+
 import {imgload} from 'common/js/general';
 import VueLazyLoad from 'vue-lazyload';+
 Vue.use(VueLazyLoad,{

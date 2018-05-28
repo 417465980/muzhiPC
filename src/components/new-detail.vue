@@ -13,7 +13,7 @@
 						<i class="gmCen_spri"></i>
 						<span>{{rows.adType}}专题</span>
 					</div>
-					<router-link to="/news" class="fr" >+</router-link>
+					<router-link to="/news/all" class="fr" ><img src="../assets/images/more.png" alt=""></router-link>
 				</div>
 				<div class="detail_cont">
 					<div class="title">

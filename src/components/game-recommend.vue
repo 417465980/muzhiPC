@@ -7,11 +7,11 @@
 		</div>
 		<ul class="clearfix">
 			<li v-for="(item,index) in qualityGame" :key="index" @mouseover="showCode(index)" @mouseout="hideCode(index)">
-				<!-- <a :href="item.downloadLink"><img :src="item.bigImg|addHttp" /></a> -->
-				<router-link :to="'/game/'+item.id" tag="a"><img :src="url +item.bigImg" /></router-link>
+				<!-- <a :href="item.downloadLink"><img v-lazy="item.bigImg|addHttp" /></a> -->
+				<router-link :to="'/game/'+item.id" tag="a"><img v-lazy="url +item.bigImg" /></router-link>
 				<div class="load" v-if="index == isShow">
 					<div class="code">
-						<img :src="item.qrcode">
+						<img v-lazy="item.qrcode">
 					</div>
 					<div class="title">
 						<h3>{{item.name}}</h3>

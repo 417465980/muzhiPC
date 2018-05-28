@@ -81,5 +81,5 @@
 </script>
 <style scoped>
 	.news-center .gmCen_right{width:810px;padding:15px 0 0 40px;}
-	.news-center .clsifi_title .clsifi_icon i{width: 32px; height: 32px;display:block;background-position:-65px -10px;margin-right: 10px;}
+	.news-center .clsifi_title .clsifi_icon i{width: 32px; height: 32px;display:inline-block;background-position:-65px -10px;margin-right: 10px; vertical-align: middle;}
 </style>

@@ -2,6 +2,7 @@
 	<div class="new_list">
 		<ul>
 			<li class="clearfix" v-for="(item,index) in allNewsList" :key="index"  @click="selectNew(item)"> 
+
 				<div class="new_img fl">
 					<img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" />
 				</div>
@@ -10,7 +11,7 @@
 					<p>{{item.childTitle}}</p>
 				</div>
 				<div class="new_time fr">
-					<span>{{item.startDate}}</span>
+					<span>{{item.endDate}}</span>
 				</div>
 			</li>
 		</ul>
