@@ -21,7 +21,7 @@
 			<div class="news_gift clearfix">
 				<div class="fl">
 					<news-info :newList="newList">
-						<h2 @click="selectHdline">{{headlines}}</h2>
+						<p  @click="selectHdline">{{headlines}}</p>
 					</news-info>
 				</div>
 				<div class="homeGiftList fr">
@@ -42,132 +42,139 @@
 </template>
 
 <script>
-import Head from 'base/head'
-import UserInfo from 'base/user-info'
-import RegInfo from 'base/reg-info'
-import Slide from './slide'
-import GameRecommend from './game-recommend'
-import HotActive from 'base/hot-active'
-import  HotGame from './hot-game'
-import NewsInfo from './news-info'
-import  HotGift from 'base/hot-gift'
-import {getBanner,getGames,getNews,hotGift} from 'api/muzhi'
-
+import Head from "base/head";
+import UserInfo from "base/user-info";
+import RegInfo from "base/reg-info";
+import Slide from "./slide";
+import GameRecommend from "./game-recommend";
+import HotActive from "base/hot-active";
+import HotGame from "./hot-game";
+import NewsInfo from "./news-info";
+import HotGift from "base/hot-gift";
+import { getBanner, getGames, getNews, hotGift } from "api/muzhi";
+import { userdata } from "../common/js/general.js";
 export default {
-  	components:{
-		UserInfo,
-		RegInfo,
-  		Slide,
-  		GameRecommend,
-  		HotActive,
-  		HotGame,
-  		NewsInfo,
-  		HotGift
-  	},
-  	data(){
-  		return{
-			slides:[],
-			showInfo:false,
-			invSpeed: 4000,
-			place:'',
-			page:'',
-			rows:'',
-			qualityGame:[],
-			hotGame:[],
-			hotGift:[],
-			headlines:'',
-			headlineId:null,
-			newList:[]
-		}
-	},
-	created(){
-		this._checkToken()
-		this._getSlide()
-		this._getQualityGame()
-		this._getHotGames()
-		this._getHotGift()
-		this._getNews()
-	},
-	methods:{
-			// dosomethingOnslide(){
-			// 	console.log('dosomethingOnslide run!!');
-			// }
-			_checkToken(){
-				if(window.localStorage.getItem('token')){
-					this.showInfo = true
-				}else{
-					this.showInfo = false	
-				}	
-			},
-			_getSlide(){
-				getBanner().then((res) =>{
-					this.slides = res
-				})	
-			},
-			_getQualityGame(){
-				this.place = 'indexBoutique'
-				this.page = 1
-				this.rows = 4
-				getGames(this.place,this.page,this.rows).then((res) => {
-					if(res.ret === true){
-						this.qualityGame = res.rows
-					}	
-				})	
-			},
-			_getHotGames(){
-				this.place = 'gameHot'
-				this.page = ''
-				this.rows = ''
-				getGames(this.place,this.page,this.rows).then((res) => {
-					if(res.ret === true){
-						this.hotGame = res.rows
-					}	
-				})
-			},
-			_getNews(){
-				let type = 4
-				this.page = 1
-				this.rows = 9
-				getNews(type,this.page,this.rows).then((res) =>{
-					if(res.ret === true){
-						this.headlines = res.rows[0].title
-						this.headlineId = res.rows[0].id
-						this.newList = res.rows.slice(1,9)
-					}
-				})
-			},
-			_getHotGift(){
-				this.place = 'hotGift'
-				this.page = ''
-				this.rows = ''
-				hotGift(this.place,this.page,this.rows).then((res) =>{
-					if(res.ret === true){
-						this.hotGift = res.rows
-					}	
-				})	
-			},
-			selectHdline(){
-				this.$router.push({
-					path:`/news/${this.headlineId}`
-				})
-			},
-			changeUser(){
-				this.showInfo = false	
-			}
-		},
-		beforeRouteEnter (to,from,next){
-            next(vm => {
-				vm._checkToken();
-			})
+  components: {
+    UserInfo,
+    RegInfo,
+    Slide,
+    GameRecommend,
+    HotActive,
+    HotGame,
+    NewsInfo,
+    HotGift
+  },
+  data() {
+    return {
+      slides: [],
+      showInfo: false,
+      invSpeed: 4000,
+      place: "",
+      page: "",
+      rows: "",
+      qualityGame: [],
+      hotGame: [],
+      hotGift: [],
+      headlines: "",
+      headlineId: null,
+      newList: []
+    };
+  },
+  created() {
+    this._checkToken();
+    this._getSlide();
+    this._getQualityGame();
+    this._getHotGames();
+    this._getHotGift();
+    this._getNews();
+  },
+
+  methods: {
+    // dosomethingOnslide(){
+    // 	console.log('dosomethingOnslide run!!');
+    // }
+    _checkToken() {
+      if (window.localStorage.getItem("token")) {
+        this.showInfo = true;
+      } else {
+        this.showInfo = false;
+      }
+    },
+    _getSlide() {
+      getBanner().then(res => {
+        this.slides = res;
+      });
+    },
+    _getQualityGame() {
+      this.place = "indexBoutique";
+      this.page = 1;
+      this.rows = 4;
+      getGames(this.place, this.page, this.rows).then(res => {
+        if (res.ret === true) {
+          this.qualityGame = res.rows;
         }
-}
+      });
+    },
+    _getHotGames() {
+      this.place = "gameHot";
+      this.page = "";
+      this.rows = "";
+      getGames(this.place, this.page, this.rows).then(res => {
+        if (res.ret === true) {
+          this.hotGame = res.rows;
+        }
+      });
+    },
+    _getNews() {
+      let type = 4;
+      this.page = 1;
+      this.rows = 9;
+      getNews(type, this.page, this.rows).then(res => {
+        if (res.ret === true) {
+          this.headlines = res.rows[0].title;
+          this.headlineId = res.rows[0].id;
+          this.newList = res.rows.slice(1, 9);
+        }
+      });
+    },
+    _getHotGift() {
+      this.place = "hotGift";
+      this.page = "";
+      this.rows = "";
+      hotGift(this.place, this.page, this.rows).then(res => {
+        if (res.ret === true) {
+          this.hotGift = res.rows;
+        }
+      });
+    },
+    selectHdline() {
+      this.$router.push({
+        path: `/news/${this.headlineId}`
+      });
+    },
+    changeUser() {
+      this.showInfo = false;
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm._checkToken();
+    });
+  }
+};
 </script>
 
 <style scoped>
-	.homeHotActive{width: 300px;}
-	.homeGmList,.homeGiftList{width:900px;}
-	.homeGiftList .hotGift_tit{margin-bottom: 20px;}
-	
+.homeHotActive {
+  width: 300px;
+}
+.homeGmList,
+.homeGiftList {
+  width: 900px;
+}
+.homeGiftList .hotGift_tit {
+  margin-bottom: 20px;
+}
 </style>
 
 

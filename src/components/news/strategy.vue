@@ -9,8 +9,8 @@
 					<h1 class="hoveraction">{{item.title}}</h1>
 					<p>{{item.childTitle}}</p>
 				</div>
-				<div class="new_time fr">
-					<span>{{item.startDate}}</span>
+				<div class="new_time fr" v-if="item.addDate">
+					<span>{{item.addDate}}</span>
 				</div>
 			</li>
 		</ul>
@@ -23,33 +23,32 @@
 	</div>
 </template>
 <script>
-	import LoadMore from 'base/load-more'
-	import expect from 'base/expect'
-	import {mapMutations} from 'vuex'
-	import {listMixin} from 'common/js/mixin'
-	export default{
-		mixins: [listMixin],
-		components:{
-			LoadMore,
-			expect
-		},
-		data(){
-			return{
-				allNewsList:[],
-				type:2,
-				page:1,
-				rows:5,
-				total:0,
-                hasMore:false
-			}
-		},
-		methods:{
-			...mapMutations({
-				setNewsInfo: 'SET_NEWS_INFO'
-			})
-		}
-	}
+import LoadMore from "base/load-more";
+import expect from "base/expect";
+import { mapMutations } from "vuex";
+import { listMixin } from "common/js/mixin";
+export default {
+  mixins: [listMixin],
+  components: {
+    LoadMore,
+    expect
+  },
+  data() {
+    return {
+      allNewsList: [],
+      type: 2,
+      page: 1,
+      rows: 5,
+      total: 0,
+      hasMore: false
+    };
+  },
+  methods: {
+    ...mapMutations({
+      setNewsInfo: "SET_NEWS_INFO"
+    })
+  }
+};
 </script>
 <style scoped>
-	
 </style>

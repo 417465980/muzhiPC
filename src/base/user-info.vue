@@ -2,6 +2,7 @@
 	<div class="login" >
 		<div class="login_top clearfix">
 			<div class="avatars fl">
+				
 				<img v-if="userdata.mUserIcon" :src="userdata.mUserIcon|addHttp" />
 				<img v-else src="../assets/images/user_icon.png" />
 			</div>
@@ -31,7 +32,6 @@
 					<i class="user_spri"></i>
 					<p><a href="javascript:;">礼劵：</a><span>{{userdata.couponSum}}</span></p>
 				</router-link>
-				
 				</li>
 				<li>
 				<router-link to="/user/myWallet" class="muzhi_money">
@@ -52,7 +52,7 @@
 				<li v-for="(item,index) in game" :key="index" v-if="index<4">
 					<router-link :to="'game/'+item.id" >
 						<img :src="item.icon|addHttp" >
-						<p>{{item.name}}</p>
+						<p class="hoveraction">{{item.name}}</p>
 					</router-link>
 				</li>
 			</ul>
@@ -61,73 +61,187 @@
 
 </template>
 <script>
-	import {url} from 'common/js/general'
-	export default{
-		data(){
-			return {
-				userdata:'',
-				game:[]
-			}
-		},
-		created(){
-			this._getUserInfo()		
-		},
-		filters:{
-			addHttp(data){
-				return url+data
-			}
-		},
-		methods:{
-			_getUserInfo(){
-				this.userdata = JSON.parse(window.localStorage.getItem('userdata')) 
-				this.game = JSON.parse(window.localStorage.getItem('game'))
-			},
-			signOut(){
-				 localStorage.clear();
-				 this.$emit('userExit')
-			}
-		}
-	}
+import { url } from "common/js/general";
+export default {
+  data() {
+    return {
+      userdata: "",
+      game: []
+    };
+  },
+  created() {
+    this._getUserInfo();
+  },
+  filters: {
+    addHttp(data) {
+      return url + data;
+    }
+  },
+  methods: {
+    _getUserInfo() {
+      this.userdata = JSON.parse(window.localStorage.getItem("userdata"));
+      this.game = JSON.parse(window.localStorage.getItem("game"));
+    },
+    signOut() {
+      localStorage.clear();
+      if (Object.getOwnPropertyNames(this.$store.state.userName).length != 0) {
+        this.$store.state.userName = {};
+      }
+      this.userdata = null;
+      this.token = "";
+      this.$emit("userExit");
+    }
+  }
+};
 </script>
 <style scoped>
-	.login{height:398px;width: 350px;border: 1px solid #e9e9e9;}
-	 .login_top{height: 97px;margin:20px 20px 10px; }
-	 .login_top .avatars{width:103px;height:97px;overflow: hidden; margin-right: 10px;}
-	 .avatars img{max-height:100%;width:auto; max-width: none;}
-	 .login_top .exit{font-size: 15px;color: #666666;text-decoration: underline;}
-	 .exit:hover{color:#820c9b;}
-	 .login_top .user_title div{display: flex;align-items: center;}
-	 .login_top .user_title span{  margin-right: 15px;
-	 line-height:20px;
-    font-size: 14px;
-    color: #820c9b;
-    display: block;
-    width: 110px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-	white-space: nowrap;}
-	.user_title{margin-top:10px;}
-	.login_top .user_title img{ width:68px;}
-	 .login_top .user_title p{color: #b0b0b0;font-size: 14px;margin-top: 15px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width:187px;}
-	 .login_botm{border-bottom: 1px solid #e9e9e9;padding-bottom: 15px;}
-	 .login_botm .lj{position: relative;}
-	 .login_botm li{float: left;font-size: 16px;width: 33%;text-align: center;}
-	 .login_botm li a{color: #746aa7;}
-	 .login_botm li{color: #af2f7d;}
-	 .login_botm .lj:before, .login_botm .lj:after{content:'';width:1px;height:25px;background-color: #ededed;position: absolute;top: 43%;margin-top: -12px;}
-	 .login_botm .lj:before{left: 0;}
-	 .login_botm .lj:after{right: 0;}
-	 .login_botm li i{width: 78px;height: 78px;display: inline-block;margin-bottom: 3px;}
-	 .login_botm .gift i{background-position:-10px -10px;}
-	 .login_botm .lj i{background-position:-108px -10px;}
-	 .login_botm .muzhi_money i{ background-position:-108px -108px;}
-	 .play_gm{padding: 10px 20px 20px;box-sizing: border-box;-webkit-box-sizing: border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box;-moz-box-sizing: border-box;}
-	.play_gm .title span{font-size: 16px; vertical-align: middle;}
-	.play_gm ul li{float: left;text-align: center;width: 65px;margin-right: 16px;}
-	.play_gm ul li:last-child{margin-right: 0 !important;}
-	.play_gm ul li img{height: 65px;margin: 12px 0 5px;}
-	.play_gm ul li p{font-size: 12px;color:#666666;line-height: 15px;}
-	
+.login {
+  height: 398px;
+  width: 350px;
+  border: 1px solid #e9e9e9;
+}
+.login_top {
+  height: 97px;
+  margin: 20px 20px 10px;
+}
+.login_top .avatars {
+  width: 103px;
+  height: 97px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.avatars img {
+  max-height: 100%;
+  width: auto;
+  max-width: none;
+}
+.login_top .exit {
+  font-size: 15px;
+  color: #666666;
+  text-decoration: underline;
+}
+.exit:hover {
+  color: #820c9b;
+}
+.login_top .user_title div {
+  display: flex;
+  align-items: center;
+}
+.login_top .user_title span {
+  margin-right: 15px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #820c9b;
+  display: block;
+  width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.user_title {
+  margin-top: 10px;
+}
+.login_top .user_title img {
+  width: 68px;
+}
+.login_top .user_title p {
+  color: #b0b0b0;
+  font-size: 14px;
+  margin-top: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 187px;
+}
+.login_botm {
+  border-bottom: 1px solid #e9e9e9;
+  padding-bottom: 15px;
+}
+.login_botm .lj {
+  position: relative;
+}
+.login_botm li {
+  float: left;
+  font-size: 16px;
+  width: 33%;
+  text-align: center;
+}
+.login_botm li a {
+  color: #746aa7;
+}
+.login_botm li {
+  color: #af2f7d;
+}
+.login_botm .lj:before {
+  content: "";
+  width: 1px;
+  height: 25px;
+  background-color: #ededed;
+  position: absolute;
+  /* top: 43%; */
+  margin-top: 27px;
+}
+
+.login_botm .lj:after {
+  content: "";
+  width: 1px;
+  height: 25px;
+  background-color: #ededed;
+  position: absolute;
+  /* top: 43%; */
+  margin-top: -80px;
+}
+.login_botm .lj:before {
+  left: -18px;
+}
+.login_botm .lj:after {
+  right: -58px;
+}
+.login_botm li i {
+  width: 78px;
+  height: 78px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+.login_botm .gift i {
+  background-position: -10px -10px;
+}
+.login_botm .lj i {
+  background-position: -108px -10px;
+}
+.login_botm .muzhi_money i {
+  background-position: -108px -108px;
+}
+.play_gm {
+  padding: 10px 20px 20px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.play_gm .title span {
+  font-size: 16px;
+  vertical-align: middle;
+}
+.play_gm ul li {
+  float: left;
+  text-align: center;
+  width: 65px;
+  margin-right: 16px;
+}
+.play_gm ul li:last-child {
+  margin-right: 0 !important;
+}
+.play_gm ul li img {
+  height: 65px;
+  margin: 12px 0 5px;
+}
+.play_gm ul li p {
+  font-size: 12px;
+  color: #666666;
+  line-height: 15px;
+}
 </style>
 
 
