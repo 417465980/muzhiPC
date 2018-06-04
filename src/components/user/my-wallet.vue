@@ -34,22 +34,29 @@ import { url, hint, userdata, token } from "../../common/js/general";
 export default {
   data() {
     return {
-      info: {
-        username: userdata.name,
-        token
-      },
-      rows: null,
+      rows: [],
       mzAccount: userdata.mzAccount
     };
   },
-  methods: {},
+  computed: {
+    token() {
+      return this.$store.state.token.length > 0
+        ? this.$store.state.token
+        : token;
+    },
+    username() {
+      return this.$store.state.userName.id
+        ? this.$store.state.userName.name
+        : userdata.name;
+    }
+  },
   mounted() {
     //查看充值记录
 
     let that = this;
     let paramsUrl = qs.stringify({
-      username: that.info.username,
-      token: that.info.token
+      username: that.username,
+      token: that.token
     });
     axios
       .post(url + "/muzhiplat/pc2/user/findMyRecharge", paramsUrl)

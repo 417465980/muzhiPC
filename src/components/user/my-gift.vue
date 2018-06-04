@@ -1,7 +1,6 @@
 <template>
 	<div id='my-gift'>
-	
-		<div v-if="!!rows" >
+		<div v-if="!!rows.length" >
 			<div class="my-gift-nav">
 				<ul>
 					<li><a href="javascript:;">礼包名称</a></li>
@@ -40,20 +39,27 @@ import { url, hint, token, userdata } from "../../common/js/general";
 export default {
   data() {
     return {
-      info: {
-        username: userdata.name,
-        token
-      },
-      rows: null
+      rows: []
     };
   },
-  methods: {},
+  computed: {
+    token() {
+      return this.$store.state.token.length > 0
+        ? this.$store.state.token
+        : token;
+    },
+    username() {
+      return this.$store.state.userName.id
+        ? this.$store.state.userName.name
+        : userdata.name;
+    }
+  },
   mounted() {
     //获取礼包
     let that = this;
     let paramsUrl = qs.stringify({
-      username: that.info.username,
-      token: that.info.token
+      username: that.username,
+      token: that.token
     });
 
     axios

@@ -46,90 +46,124 @@
 	</div>
 </template>
 <script>
-	import axios from 'axios';
-	import qs from 'qs'
-	import {url,hint,token,userdata,game} from '../../common/js/general'
-	export default{
-		data(){
-			return {
-				info:{
-					username:userdata.name,
-					token
-				},
-				rows:[],
-				game:game,
-			}
-		},
-		mounted(){
-			let that = this;
-			let paramsUrl =qs.stringify({
-				'username':that.info.username,
-				'token':that.info.token
-			})
-			
-			axios.post(url+'/muzhiplat/pc2/user/findMyGame',paramsUrl).then(function(res){
-				that.rows = res.data.rows
-				hint(that.$refs,res.data.msg)
-			}).catch(function(res){
-				console.log(res)
-			})
-		},
-		filters:{
-			addHttp(data){
-				return url+data
-			}
-		}
-	}	
+import axios from "axios";
+import qs from "qs";
+import { url, hint, token, userdata, game } from "../../common/js/general";
+export default {
+  data() {
+    return {
+      rows: []
+    };
+  },
+  computed: {
+    game() {
+      return this.$store.state.game.length > 0 ? this.$store.state.game : game;
+    },
+    token() {
+      return this.$store.state.token.length > 0
+        ? this.$store.state.token
+        : token;
+    },
+    username() {
+      return this.$store.state.userName.id
+        ? this.$store.state.userName.name
+        : userdata.name;
+    }
+  },
+  mounted() {
+    let that = this;
+    let paramsUrl = qs.stringify({
+      username: that.username,
+      token: that.token
+    });
+
+    axios
+      .post(url + "/muzhiplat/pc2/user/findMyGame", paramsUrl)
+      .then(function(res) {
+        that.rows = res.data.rows;
+        hint(that.$refs, res.data.msg);
+      })
+      .catch(function(res) {
+        console.log(res);
+      });
+  },
+  filters: {
+    addHttp(data) {
+      return url + data;
+    }
+  }
+};
 </script>
 <style scoped lang="stylus">
-.subnav
-	font-size 20px
-	color #723083
-	line-height 22px
-	&:before
-		content ''
-		vertical-align top
-		display inline-block
-		width 3px
-		height 22px
-		background #723083
+.subnav {
+	font-size: 20px;
+	color: #723083;
+	line-height: 22px;
 
-.my-game-main	
-	margin 35px 0
-.my-game-list
-	li
-		display inline-block
-		width 230px
-		margin 25px 0
-	li+li
-		margin-left 50px
-	li:nth-of-type(3n-2)
-		margin-left 0
-.my-game-icon
-	width 80px
-	float left
-.my-game-info
-	margin-left 90px
-	p
-		text-align left 
-		line-height 1
-		padding 14px 0
-		font-size 16px
-		color #333
-	a
-		display inline-block 
-		width 64px
-		height 32px
-		border-radius 6px
-		text-align center
-		font-size 14px
-		line-height 32px
-		color #666
-		border 1px solid #999 
-		background #fff
-		cursor pointer
-		&:hover
+	&:before {
+		content: '';
+		vertical-align: top;
+		display: inline-block;
+		width: 3px;
+		height: 22px;
+		background: #723083;
+	}
+}
+
+.my-game-main {
+	margin: 35px 0;
+}
+
+.my-game-list {
+	li {
+		display: inline-block;
+		width: 230px;
+		margin: 25px 0;
+	}
+
+	li+li {
+		margin-left: 50px;
+	}
+
+	li:nth-of-type(3n-2) {
+		margin-left: 0;
+	}
+}
+
+.my-game-icon {
+	width: 80px;
+	float: left;
+}
+
+.my-game-info {
+	margin-left: 90px;
+
+	p {
+		text-align: left;
+		line-height: 1;
+		padding: 14px 0;
+		font-size: 16px;
+		color: #333;
+	}
+
+	a {
+		display: inline-block;
+		width: 64px;
+		height: 32px;
+		border-radius: 6px;
+		text-align: center;
+		font-size: 14px;
+		line-height: 32px;
+		color: #666;
+		border: 1px solid #999;
+		background: #fff;
+		cursor: pointer;
+
+		&:hover {
 			background: linear-gradient(left, #6461a5, #cf2878);
 			background: -webkit-linear-gradient(left, #6461a5, #cf2878);
 			color: #fff;
+		}
+	}
+}
 </style>

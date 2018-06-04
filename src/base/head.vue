@@ -74,10 +74,10 @@ export default {
   data() {
     return {
       keyword: "还珠格格",
-      userdata,
-      token,
       searchKeyword: [],
-      show: false
+      show: false,
+      userdata,
+      token
     };
   },
   methods: {
@@ -122,12 +122,55 @@ export default {
       var that = this;
 
       if (Object.getOwnPropertyNames(that.$store.state.userName).length != 0) {
-        this.$store.state.userName = {};
+        this.$store.state.userName = {
+          accountId: null,
+          auth: null,
+          backgroundImg: null,
+          bindstatus: null,
+          birthDay: null,
+          certificationStatus: null,
+          consignee: null,
+          contactNo: null,
+          couponSum: null,
+          email: null,
+          gender: null,
+          giftSum: null,
+          goldAccount: null,
+          id: null,
+          identityCard: null,
+          level: null,
+          mUserIcon: null,
+          mzAccount: null,
+          name: null,
+          nickName: null,
+          onlyAccount: null,
+          phoneNum: null,
+          point: null,
+          psd: null,
+          qq: null,
+          realName: null,
+          receivedAddress: null,
+          recentLoginAddr: null,
+          recentLoginIp: null,
+          recentLoginTime: null,
+          signInToday: null,
+          signInWhatDay: null,
+          signature: null,
+          upgradePoint: null,
+          wx: null
+        };
       }
-
-      this.userdata = null;
-      this.token = "";
-
+      this.$store.state.token = "";
+      this.$store.state.game = [];
+      window.localStorage.setItem(
+        "userdata",
+        JSON.stringify(this.$store.state.userName)
+      );
+      window.localStorage.setItem(
+        "token",
+        JSON.stringify(this.$store.state.token)
+      );
+      window.localStorage.setItem("game", "[]");
       var ahref = window.location.href;
       if (ahref.indexOf("index") != -1) {
         // window.location.reload();
@@ -192,11 +235,11 @@ export default {
     },
     ...mapGetters(["userName"]),
     name() {
-      if (JSON.stringify(this.$store.state.userName) != "{}") {
+      if (this.$store.state.userName.id) {
         return this.$store.state.userName.name;
       }
-      if (userdata.name) {
-        return userdata.name;
+      if (JSON.parse(window.localStorage.getItem("userdata")).name) {
+        return JSON.parse(window.localStorage.getItem("userdata")).name;
       }
       return false;
     }

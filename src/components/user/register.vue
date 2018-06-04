@@ -86,9 +86,46 @@ export default {
           .post(url + "/muzhiplat/pc2/user/register", paramsUrl)
           .then(function(res) {
             if (res.data.msg == "注册成功") {
-              setTimeout(function() {
+              if (that.userInput.prompt) {
+                let paramsUrl = qs.stringify({
+                  username: that.username,
+                  password: that.password
+                });
+
+                axios
+                  .post(url + "/muzhiplat/pc2/user/login", paramsUrl)
+                  .then(function(res) {
+                    hint(that.$refs, res.data.msg);
+                    if (res.data.ret) {
+                      that.$store.state.userName = res.data.rows.user;
+                      that.$store.state.token = res.data.token;
+                      that.$store.state.game = res.data.rows.game;
+                      window.localStorage.setItem(
+                        "userdata",
+                        JSON.stringify(res.data.rows.user)
+                      );
+
+                      window.localStorage.setItem(
+                        "token",
+                        JSON.stringify(res.data.token)
+                      );
+                      window.localStorage.setItem(
+                        "game",
+                        JSON.stringify(res.data.rows.game)
+                      );
+
+                      setTimeout(function() {
+                        that.$router.push({
+                          path: "/"
+                        });
+                      }, 1000);
+                    }
+                  })
+                  .catch(function(res) {});
+              }
+              /*  setTimeout(function() {
                 that.$router.push("/login");
-              }, 2000);
+              }, 2000); */
             }
             if (res.data.ret) {
               hint(that.$refs, res.data.msg);

@@ -147,7 +147,7 @@ export default {
       $refs: this.$refs,
       userdata,
       readonly: "readonly",
-      name: userdata.name,
+      name: this.$store.state.userName.name || userdata.name,
       bool: false,
       markhtml: "",
       wxpay: {}

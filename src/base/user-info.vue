@@ -3,19 +3,19 @@
 		<div class="login_top clearfix">
 			<div class="avatars fl">
 				
-				<img v-if="userdata.mUserIcon" :src="userdata.mUserIcon|addHttp" />
+				<img v-if="user.mUserIcon" :src="user.mUserIcon|addHttp" />
 				<img v-else src="../assets/images/user_icon.png" />
 			</div>
 			<a href="javascript:;" class="exit fr " @click="signOut">退出</a>
 			<div class="user_title fl">
 				<div>
-					<span v-if="userdata.nickName!='undefined'">{{userdata.nickName}}</span>
+					<span v-if="user.nickName!='undefined'">{{user.nickName}}</span>
 					<span v-else>请设置你的昵称</span>
 					
-					<img v-if="userdata.level" :src="'static/images/vip_'+userdata.level+'.png'" />
+					<img v-if="user.level" :src="'static/images/vip_'+user.level+'.png'" />
 					<img v-else src="static/images/vip_0.png" />
 				</div>
-				<p v-if="userdata.signature" :title="userdata.signature">{{userdata.signature}}</p>
+				<p v-if="user.signature" :title="user.signature">{{user.signature}}</p>
 				<p v-else>这个人很懒，什么也没留下</p>
 			</div>
 		</div>
@@ -24,19 +24,19 @@
 				<li>
 				<router-link to="/user/myGift" class="gift">
 					<i class="user_spri"></i>
-					<p><a href="javascript:;">礼包：</a><span>{{userdata.giftSum}}</span></p>
+					<p><a href="javascript:;">礼包：</a><span>{{user.giftSum}}</span></p>
 				</router-link>
 				</li>
 				<li>
 				<router-link to="/user/myCoupon" class="lj">
 					<i class="user_spri"></i>
-					<p><a href="javascript:;">礼劵：</a><span>{{userdata.couponSum}}</span></p>
+					<p><a href="javascript:;">礼劵：</a><span>{{user.couponSum}}</span></p>
 				</router-link>
 				</li>
 				<li>
 				<router-link to="/user/myWallet" class="muzhi_money">
 					<i class="user_spri"></i>
-					<p><a href="javascript:;">拇指币：</a><span>{{userdata.mzAccount}}</span></p>
+					<p><a href="javascript:;">拇指币：</a><span>{{user.mzAccount}}</span></p>
 				</router-link>
 				</li>
 			</ul>
@@ -61,12 +61,14 @@
 
 </template>
 <script>
-import { url } from "common/js/general";
+import { url, userdata, token } from "common/js/general";
 export default {
   data() {
     return {
-      userdata: "",
-      game: []
+      //userdata: this.$store.state.userName || userdata,
+      game: [],
+      userdata,
+      token
     };
   },
   created() {
@@ -79,17 +81,67 @@ export default {
   },
   methods: {
     _getUserInfo() {
-      this.userdata = JSON.parse(window.localStorage.getItem("userdata"));
       this.game = JSON.parse(window.localStorage.getItem("game"));
     },
     signOut() {
       localStorage.clear();
-      if (Object.getOwnPropertyNames(this.$store.state.userName).length != 0) {
-        this.$store.state.userName = {};
-      }
-      this.userdata = null;
-      this.token = "";
+      this.$store.state.userName = {
+        accountId: null,
+        auth: null,
+        backgroundImg: null,
+        bindstatus: null,
+        birthDay: null,
+        certificationStatus: null,
+        consignee: null,
+        contactNo: null,
+        couponSum: null,
+        email: null,
+        gender: null,
+        giftSum: null,
+        goldAccount: null,
+        id: null,
+        identityCard: null,
+        level: null,
+        mUserIcon: null,
+        mzAccount: null,
+        name: null,
+        nickName: null,
+        onlyAccount: null,
+        phoneNum: null,
+        point: null,
+        psd: null,
+        qq: null,
+        realName: null,
+        receivedAddress: null,
+        recentLoginAddr: null,
+        recentLoginIp: null,
+        recentLoginTime: null,
+        signInToday: null,
+        signInWhatDay: null,
+        signature: null,
+        upgradePoint: null,
+        wx: null
+      };
+
+      this.$store.state.token = "";
+      this.$store.state.game = [];
+      window.localStorage.setItem(
+        "userdata",
+        JSON.stringify(this.$store.state.userName)
+      );
+      window.localStorage.setItem(
+        "token",
+        JSON.stringify(this.$store.state.token)
+      );
+      window.localStorage.setItem("game", "[]");
       this.$emit("userExit");
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.userName.id
+        ? this.$store.state.userName
+        : this.userdata;
     }
   }
 };

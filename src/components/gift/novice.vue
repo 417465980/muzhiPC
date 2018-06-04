@@ -35,9 +35,9 @@
 					<div @click.prevent="close">
 						<div class="mark-content">
 							<p>
-								<span class="f14 lh24">请到拇指游戏宝领取</span><br>
+								<span class="f18 lh24">请到拇指游戏宝领取</span><br>
 								<img class="receive" src="../../assets/images/2.png" alt="">
-								<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml">马上下载</a>
+								<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml downbtn">马上下载</a>
 							</p>
 						</div>  
 					</div>

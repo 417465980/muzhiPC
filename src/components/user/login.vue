@@ -49,7 +49,7 @@ export default {
       username: "",
       password: "",
       type: "password",
-      checked: localStorage.checked || false,
+      checked: localStorage.checked || true,
       userInput: {
         prompt: false,
         promptContent: "6-15位（仅限数字、英文）",
@@ -74,6 +74,8 @@ export default {
             hint(that.$refs, res.data.msg);
             if (res.data.ret) {
               that.$store.state.userName = res.data.rows.user;
+              that.$store.state.token = res.data.token;
+              that.$store.state.game = res.data.rows.game;
               window.localStorage.setItem(
                 "userdata",
                 JSON.stringify(res.data.rows.user)
@@ -92,7 +94,7 @@ export default {
                 that.$router.push({
                   path: "/"
                 });
-              }, 2000);
+              }, 1000);
             }
           })
           .catch(function(res) {});

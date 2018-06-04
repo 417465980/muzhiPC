@@ -60,13 +60,15 @@ export default {
     return {
       readonly: true,
       info: {
-        username: userdata.name,
-        sex: userdata.gender,
-        qq: userdata.qq,
-        wx: userdata.wx,
-        phone: userdata.phoneNum,
-        address: userdata.receivedAddress,
-        nickname: userdata.nickName,
+        username: this.$store.state.userName.name || userdata.name,
+        sex: this.$store.state.userName.gender || userdata.gender,
+        qq: this.$store.state.userName.qq || userdata.qq,
+        wx: this.$store.state.userName.wx || userdata.wx,
+        phone: this.$store.state.userName.phoneNum || userdata.phoneNum,
+        address:
+          this.$store.state.userName.receivedAddress ||
+          userdata.receivedAddress,
+        nickname: this.$store.state.userName.nickName || userdata.nickName,
         token
       },
       recentLoginIpAddr: userdata.recentLoginAddr,
@@ -108,8 +110,7 @@ export default {
           console.log(res);
         });
     }
-  },
-  mounted() {}
+  }
 };
 </script>
 <style scoped lang="stylus">

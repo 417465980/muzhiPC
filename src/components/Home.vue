@@ -2,7 +2,7 @@
   	<div class="cont_box">
     		<div class="banner clearfix">
 		    	<div class="fl">
-					<user-info v-if="showInfo" @userExit="changeUser"></user-info>
+					<user-info v-if="user.id"></user-info>
 					<reg-info v-else></reg-info>
 				</div>
 				<div class="fr">
@@ -77,7 +77,8 @@ export default {
       hotGift: [],
       headlines: "",
       headlineId: null,
-      newList: []
+      newList: [],
+      userdata
     };
   },
   created() {
@@ -88,7 +89,13 @@ export default {
     this._getHotGift();
     this._getNews();
   },
-
+  computed: {
+    user() {
+      return this.$store.state.userName.id
+        ? this.$store.state.userName
+        : JSON.parse(window.localStorage.getItem("userdata"));
+    }
+  },
   methods: {
     // dosomethingOnslide(){
     // 	console.log('dosomethingOnslide run!!');
