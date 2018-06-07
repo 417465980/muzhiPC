@@ -39,7 +39,7 @@ const state = {
   },
   token: '',
   game: [],
-
+  show: false
 }
 
 export default state

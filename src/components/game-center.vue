@@ -1,8 +1,7 @@
 <template>
 	<div class="cont_box gm_center clearfix">
 		<div class="gmCen_left fl">
-			
-			<user-info v-if="showInfo"></user-info>
+			<user-info v-if="user.id"></user-info>
 			<reg-info v-else></reg-info>
 			<game-rank></game-rank>
 		</div>
@@ -92,22 +91,18 @@ export default {
   methods: {
     selectGame(index) {
       this.curIndex = index;
-    },
-    _checkToken() {
-      if (window.localStorage.getItem("token")) {
-        this.showInfo = true;
-      } else {
-        this.showInfo = false;
-      }
     }
   },
-  created() {
-    this._checkToken();
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm._checkToken();
-    });
+  computed: {
+    user() {
+      if (this.$store.state.userName.id) {
+        return this.$store.state.userName;
+      }
+      if (window.localStorage.getItem("userdata")) {
+        return JSON.parse(window.localStorage.getItem("userdata"));
+      }
+      return false;
+    }
   }
 };
 </script>

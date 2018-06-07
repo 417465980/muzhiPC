@@ -53,7 +53,7 @@ export default {
     return {
       hotGift: [],
       place: ["hotGift", "recomGift"],
-      rows: 8,
+      rows: 16,
       page: 1,
       url,
       show: true,
@@ -86,7 +86,7 @@ export default {
       let paramsUrl = qs.stringify({
         place: that.place[0],
         page: that.page,
-        rows: that.rows
+        rows: 8
       });
       axios
         .post(url + "/muzhiplat/pc2/gift/findGiftsByType", paramsUrl)

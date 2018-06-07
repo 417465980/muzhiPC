@@ -10,7 +10,7 @@
 				<li>
 					<label class="accout-label" for="nickname">昵称</label>
 					<input id='nickname' placeholder="请设置您的昵称" type="text" v-if="info.nickname!='undefined'" v-model="info.nickname" :readonly="readonly">
-					<input id='nickname' placeholder="请设置您的昵称" type="text" v-else value="请设置您的昵称" :readonly="readonly"></li>
+					<input id='nickname' placeholder="请设置您的昵称" type="text" v-else  :readonly="readonly"></li>
 				<li>
 					<p class="accout-label">性别</p>
 					<label for="men">

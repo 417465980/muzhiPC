@@ -59,7 +59,7 @@ export default {
     return {
       hotGift: [],
       place: ["hotGift", "recomGift"],
-      rows: 8,
+      rows: 16,
       page: 1,
       url,
       show: true,
@@ -95,7 +95,7 @@ export default {
       that.page = that.page + 1;
       let paramsUrl = qs.stringify({
         page: that.page,
-        rows: that.rows
+        rows: 8
       });
       axios
         .post(url + "/muzhiplat/pc2/gift/findGiftsByType", paramsUrl)
@@ -110,7 +110,6 @@ export default {
           }
         })
         .catch(function(res) {
-          alert("您浏览器版本太低了，请升级浏览器");
           console.log(res);
         });
     },

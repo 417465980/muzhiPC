@@ -1,14 +1,14 @@
 <template>
 	<div class="slide-show" @mouseover="clearInv" @mouseout="runInv">
 	    <div class="slide-img" v-for="(item,index) in slides" :key="index">
-	      <a :href="slides[nowIndex].jumpUrl" target="_blank">
+	      <router-link :to="'/game/detail'" target="_blank">
 	      	<transition name="slide-trans">
 	          <img v-if="isShow" :src="'http://game.91muzhi.com/muzhiplat'+slides[nowIndex].imgUrl">
 	        </transition>
 	        <transition name="slide-trans-old">
 	          <img v-if="!isShow" :src="'http://game.91muzhi.com/muzhiplat'+slides[nowIndex].imgUrl">
 	        </transition>
-	      </a>
+	      </router-link>
 	    </div>
 	    <ul class="slide-pages">
 	      <li v-for="(item, index) in slides" :key="index" @click="goto(index)" :class="{on:index === nowIndex}"></li>

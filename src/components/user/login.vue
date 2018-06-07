@@ -55,7 +55,7 @@ export default {
         promptContent: "6-15位（仅限数字、英文）",
         textActive: false
       }, //登录注册验证提示
-      userdata
+      userdata: JSON.parse(window.localStorage.getItem("userdata"))
     };
   },
   methods: {
@@ -130,7 +130,7 @@ export default {
   mounted() {
     if (this.checked) {
       window.localStorage.setItem("checked", "checked");
-      this.username = userdata.name;
+      //this.username = JSON.parse(window.localStorage.getItem("userdata")).name;
     } else {
       window.localStorage.removeItem("checked");
     }

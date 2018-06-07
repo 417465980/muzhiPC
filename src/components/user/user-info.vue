@@ -7,9 +7,8 @@
                   <img v-else src="../../assets/images/user_icon.png" alt="">
                 </div>
                 <div class="g-userinfo">
-                    <p class="user-truename" v-if="userdata.realName">{{userdata.realName}}</p>
-                    <p class="user-truename" v-else-if="userdata.nickName">{{userdata.nickName=='undefined'?'请设置您的昵称':userdata.nickName}}</p>
-                    <p class="user-truename" v-else >请设置昵称</p><br>
+                    <p class="user-truename" v-if="userdata.nickName.indexOf('undefined')==-1">{{userdata.nickName}}</p>
+                    <p class="user-truename" v-else ><router-link to="/user/account">请设置昵称</router-link></p><br>
                     <p class="username"><span>用户名：</span><span v-if="userdata.name">{{userdata.name}}</span><span v-else>请设置用户名</span></p><br>
                     <p class="user-trade"><img :src="'static/images/vip_'+userdata.level+'.png'" alt=""></p>
                 </div>
@@ -18,38 +17,36 @@
         <div class="login_botm">
             <ul class="clearfix ">
               <li>
-                <router-link  to="/user/myGift" @click.native="gift == 2" :class="{gift:true,giftnone1:gift == 2}">
+                <router-link  to="/user/myGift"  :class="{gift:true}">
                     <i class="user_spri"></i>
                     <p><a href="javascript:;">礼包：</a><span>{{userdata.giftSum||0}}</span></p>
                 </router-link>
-                </li>
-                <li>
-                  <router-link to="/user/myCoupon"  @click.native="gift == 3" :class="{lj:true,giftnone2:gift == 3}">
+              </li>
+              <li>
+                  <router-link  to="/user/myCoupon"  :class="{lj:true}">
                       <i class="user_spri"></i>
                       <p><a href="javascript:;">礼劵：</a><span>{{userdata.couponSum||0}}</span></p>
                   </router-link>
-                </li>
-                <li>
-                <router-link to="/user/myWallet" @click.native="gift ==4" :class="{muzhi_money:true,giftnone3:gift == 4}">
+                  </li>
+              <li>
+                <router-link to="/user/myWallet" :class="{muzhi_money:true}">
                   <i class="user_spri"></i>
                   <p><a href="javascript:;">拇指币：</a><span>{{userdata.mzAccount||0}}</span></p>
                 </router-link>
                 </li>
-          
             </ul>
         </div>
 	</div>
 </template>
 <script>
-import { url, userdata, token } from "../../common/js/general";
+import { url, userdata, token } from "common/js/general";
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {
-      // userdata: this.$store.state.userName || userdata
-    };
+    return {};
   },
-  props: ["gift"],
+
+  methods: {},
   filters: {
     addHttp(data) {
       return url + data;
@@ -107,6 +104,10 @@ export default {
   padding-top: 10px;
 }
 
+.user-truename a {
+  color: #820c9b;
+}
+
 .username {
   font-size: 18px;
   line-height: 42px;
@@ -154,23 +155,27 @@ export default {
   background-position: -206px -10px;
 }
 
-.login_botm .giftnone1 i {
+.login_botm li:nth-of-type(1) .router-link-active i {
   background-position: -10px -10px;
 }
 
-.login_botm .giftnone2 i {
+.login_botm li:nth-of-type(2) .router-link-active i {
   background-position: -108px -10px;
 }
 
-.login_botm .giftnone3 i {
+.login_botm li:nth-of-type(3) .router-link-active i {
   background-position: -108px -108px;
 }
 
-.login_botm .giftnone3 a, .login_botm .giftnone2 a, .login_botm .giftnone1 a {
+.login_botm .router-link-active {
+  background: #fff;
+}
+
+.login_botm .router-link-active a {
   color: #af2f7d;
 }
 
-.login_botm .giftnone3 span, .login_botm .giftnone2 span, .login_botm .giftnone1 span {
+.login_botm .router-link-active span {
   color: #af2f7d;
 }
 

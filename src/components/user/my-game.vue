@@ -2,7 +2,7 @@
 	<div id="my-game">
 		<div class="">
 			<div class="my-game-main">
-				<ul class="my-game-list" v-if="!!game.length">
+				<ul class="my-game-list" v-if="!!game">
 					<li v-for="(item,index) in game" :key="index">
 						<div>
 							<img class="my-game-icon" width="80" height="80" :src="item.icon|addHttp" alt="">
@@ -20,7 +20,7 @@
 				</div>	
 			</div>
 			<div class="subnav">&nbsp;&nbsp;精品游戏推荐</div>
-			<ul class="my-game-list" v-if="!!rows.length">
+			<ul class="my-game-list" v-if="!!rows">
 				<li v-for="data in rows" :key="data.$index">
 					<div>
 						<router-link to="/"><img class="my-game-icon" :src="data.icon|addHttp" alt=""></router-link>
@@ -37,18 +37,14 @@
 				<p class="g6 f16 tc mt20">前往<router-link to="/game/all" class="g6" tag="a">游戏中心</router-link>下载吧</p>
 			</div>
 			
-			<transition>
-				<div class="hint" ref="hint">
-					<span ref="hint-content"></span>
-				</div>
-			</transition>
+		
 		</div>
 	</div>
 </template>
 <script>
 import axios from "axios";
 import qs from "qs";
-import { url, hint, token, userdata, game } from "../../common/js/general";
+import { url, token, userdata, game } from "../../common/js/general";
 export default {
   data() {
     return {
@@ -81,7 +77,9 @@ export default {
       .post(url + "/muzhiplat/pc2/user/findMyGame", paramsUrl)
       .then(function(res) {
         that.rows = res.data.rows;
-        hint(that.$refs, res.data.msg);
+        if (res.data.ret) {
+          res.data.msg = "获取成功";
+        }
       })
       .catch(function(res) {
         console.log(res);

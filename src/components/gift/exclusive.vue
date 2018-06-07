@@ -32,15 +32,14 @@
 	</div>
 </template>
 <script>
-	import expect from 'base/expect'
-	export default{
-		data(){
-			return{
-				hotGift:[]
-			}
-		},
-	}
+import expect from "base/expect";
+export default {
+  data() {
+    return {
+      hotGift: []
+    };
+  }
+};
 </script>
 <style scoped>
-	
 </style>

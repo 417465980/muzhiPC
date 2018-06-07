@@ -2,6 +2,7 @@
 	<div>
 		<div class="head gradient">
 			<div class="content">
+
 				<ul class="clearfix">
 					
 					<li class="muzhi fl">
@@ -19,7 +20,7 @@
 						</a>
 					</li>
 					<li class="mobile fl">
-						<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk">
+						<a href="http://game.91muzhi.com/yyb/pc/">
 							<span class="middlespan" ></span>
 							<i class="icon_spri"></i>
 							<span>app</span>
@@ -238,7 +239,7 @@ export default {
       if (this.$store.state.userName.id) {
         return this.$store.state.userName.name;
       }
-      if (JSON.parse(window.localStorage.getItem("userdata")).name) {
+      if (window.localStorage.getItem("userdata")) {
         return JSON.parse(window.localStorage.getItem("userdata")).name;
       }
       return false;

@@ -38,14 +38,18 @@ export function hotGift(place, page, rows) {
 }
 
 export function getNews(type, page, rows) {
-  const url = DOMAIN + 'news/findNewsByType'
-  const data = {
+
+  let url = DOMAIN + 'news/findNewsByType';
+  let data = {
+    type,
     page,
     rows
   }
+
   return axios.get(url, {
     params: data
   }).then((res) => {
+
     return Promise.resolve(res.data)
   })
 }

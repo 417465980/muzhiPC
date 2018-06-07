@@ -1,32 +1,30 @@
 <template>
 	<div id='my-gift'>
-		<div v-if="!!rows.length" >
+		<div v-if="!!rows" >
 			<div class="my-gift-nav">
 				<ul>
 					<li><a href="javascript:;">礼包名称</a></li>
 					<li><a href="javascript:;">有效期</a></li>
 					<li><a href="javascript:;">激活码</a></li>
-					<li><a href="javascript:;">状态</a></li>
+					<!-- <li><a href="javascript:;">状态</a></li> -->
 				</ul>
 			</div>
-			<div class="my-gift-list"  v-for="data in rows" :key="data.$index">
-				<ul>
-					<li>《{{data.gameName}}》{{data.giftName}}</li>
-					<li>{{data.giftedate}}至{{data.giftpdate}}</li>
-					<li>{{data.giftcode}}</li>
-					<li>{{data.giftState|giftState}}</li>
-				</ul>
+			<div class="contscroll">
+				<div class="my-gift-list"  v-for="data in rows" :key="data.$index">
+					<ul>
+						<li>《{{data.gameName}}》{{data.giftName}}</li>
+						<li>{{data.giftedate}}至{{data.giftpdate}}</li>
+						<li>{{data.giftcode|toUpperCase}}</li>
+						<!-- <li>{{data.giftState|giftState}}</li> -->
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div  v-else >
 			<img src="static/images/3.png" class="center-img" alt=""/>
 			<p class="g6 f16 tc mt20">前往app领取吧</p>
 		</div>
-		<transition>
-			<div class="hint" ref="hint">
-				<span ref="hint-content"></span>
-			</div>
-		</transition>
+
 		<!-- <div class="paging" id="page"></div> -->
 	</div>
 </template>
@@ -34,7 +32,7 @@
 import Vue from "vue";
 import axios from "axios";
 import qs from "qs";
-import { url, hint, token, userdata } from "../../common/js/general";
+import { url, token, userdata } from "../../common/js/general";
 
 export default {
   data() {
@@ -65,8 +63,10 @@ export default {
     axios
       .post(url + "/muzhiplat/pc2/user/findMyGifts", paramsUrl)
       .then(function(res) {
+        if (res.data.ret) {
+          res.data.msg = "获取成功";
+        }
         that.rows = res.data.rows;
-        hint(that.$refs, res.data.msg);
       })
       .catch(function(res) {
         console.log(res);
@@ -79,6 +79,9 @@ export default {
       } else {
         return "已使用";
       }
+    },
+    toUpperCase(data) {
+      return data.toUpperCase();
     }
   }
 };
@@ -117,7 +120,7 @@ export default {
 
 .my-gift-nav li {
 	display: inline-block;
-	width: 25%;
+	width: 33%;
 
 	a {
 		display: inline-block;
@@ -138,11 +141,16 @@ export default {
 
 	li {
 		display: inline-block;
-		width: 25%;
+		width: 33%;
 		font-size: 14px;
 		color: #666;
 		padding: 18px 0;
 		line-height: 1;
 	}
+}
+
+.contscroll {
+	max-height: 600px;
+	overflow-y: scroll;
 }
 </style>

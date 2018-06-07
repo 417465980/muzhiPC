@@ -40,7 +40,6 @@
 			</div>                             
 		</div>
 </template>
-
 <script>
 import Head from "base/head";
 import UserInfo from "base/user-info";
@@ -52,7 +51,7 @@ import HotGame from "./hot-game";
 import NewsInfo from "./news-info";
 import HotGift from "base/hot-gift";
 import { getBanner, getGames, getNews, hotGift } from "api/muzhi";
-import { userdata } from "../common/js/general.js";
+import { userdata } from "common/js/general.js";
 export default {
   components: {
     UserInfo,
@@ -81,6 +80,9 @@ export default {
       userdata
     };
   },
+  mounted() {
+    this.$store.state.show = true;
+  },
   created() {
     this._checkToken();
     this._getSlide();
@@ -91,9 +93,13 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.userName.id
-        ? this.$store.state.userName
-        : JSON.parse(window.localStorage.getItem("userdata"));
+      if (this.$store.state.userName.id) {
+        return this.$store.state.userName;
+      }
+      if (window.localStorage.getItem("userdata")) {
+        return JSON.parse(window.localStorage.getItem("userdata"));
+      }
+      return false;
     }
   },
   methods: {
@@ -125,7 +131,7 @@ export default {
     _getHotGames() {
       this.place = "gameHot";
       this.page = "";
-      this.rows = "";
+      this.rows = 12;
       getGames(this.place, this.page, this.rows).then(res => {
         if (res.ret === true) {
           this.hotGame = res.rows;
@@ -147,8 +153,8 @@ export default {
     _getHotGift() {
       this.place = "hotGift";
       this.page = "";
-      this.rows = "";
-      hotGift(this.place, this.page, this.rows).then(res => {
+      this.rows = 12;
+      hotGift(this.place, this.page, 12).then(res => {
         if (res.ret === true) {
           this.hotGift = res.rows;
         }
@@ -162,15 +168,9 @@ export default {
     changeUser() {
       this.showInfo = false;
     }
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm._checkToken();
-    });
   }
 };
 </script>
-
 <style scoped>
 .homeHotActive {
   width: 300px;

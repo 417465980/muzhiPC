@@ -17,7 +17,8 @@
                 <div class="top1">
                     <div class="account">
                         <span class="left">充值账号：</span>
-                        <input type="text" placeholder="请填写你的用户名" name="name" v-model='name' class="input_txt" id="user" :readonly="readonly" />
+                        
+                        <input type="text" placeholder="请填写你的用户名" name="name" v-model='user.name' class="input_txt" id="user" :readonly="readonly" />
                         <a id="change" href="javascript:;" @click="readonly=!readonly;" @blur="readonly=false;">更换</a></div>
                     <div class="position">
                         <span class="left">充值到：</span>
@@ -131,6 +132,9 @@
                 </div>
             </div>
         </div>
+        <div class="hint" ref="hint">
+            <span class="hint-content"></span>
+        </div>
     </div>
 </template>
 <script>
@@ -147,10 +151,10 @@ export default {
       $refs: this.$refs,
       userdata,
       readonly: "readonly",
-      name: this.$store.state.userName.name || userdata.name,
       bool: false,
       markhtml: "",
-      wxpay: {}
+      wxpay: {},
+      timer: null
     };
   },
   methods: {
@@ -160,6 +164,17 @@ export default {
     },
     close() {
       this.bool = !this.bool;
+    }
+  },
+  computed: {
+    user() {
+      if (this.$store.state.userName.id) {
+        return this.$store.state.userName;
+      }
+      if (window.localStorage.getItem("userdata")) {
+        return JSON.parse(window.localStorage.getItem("userdata"));
+      }
+      return {};
     }
   },
   mounted() {
@@ -184,7 +199,13 @@ export default {
         return false;
       }
     });
-
+    function hint(data) {
+      $(".hint").fadeIn();
+      $(".hint-content").text(data);
+      setTimeout(function() {
+        $(".hint").fadeOut();
+      }, 1000);
+    }
     timing(5);
     function timing(sen) {
       var getMin = sen - 1;
@@ -203,7 +224,8 @@ export default {
         }
         if (getMin < 0) {
           clearInterval(timer);
-          that.close();
+          //that.close();
+          $(".markfqa").fadeOut();
           that.wxpay = {};
         }
         getSen--;
@@ -230,7 +252,29 @@ export default {
         }
       }
     }
-
+    var timerhand = null;
+    clearInterval(timerhand);
+    var handler = function() {
+      if (Object.keys(that.wxpay).length > 0) {
+        var out_trade_no = wxpay.tradeNo;
+        $.post(
+          "http://gm.91muzhi.com:8080/sdk/payOrderSearch/getMzPayOrderStatus.do?out_trade_no=" +
+            out_trade_no,
+          function(data) {
+            if (data.msg == "1") {
+              if (
+                !!that.$store.state.userName.id ||
+                !!JSON.parse(window.localStorage.getItem("userdata")).id
+              ) {
+              }
+              clearInterval(timerhand);
+            }
+          },
+          "json"
+        );
+      }
+    };
+    timerhand = setInterval(handler, 5000);
     function sub() {
       var user = userdata.name; //`${sessionScope.user.name}`;
       var user_sure = $("#user").val();
@@ -240,10 +284,10 @@ export default {
       var test = /^[1-9]\d*$/;
 
       if (user == "") {
-        hint(that.$refs, "请先登录您的账号！");
+        hint("请先登录您的账号！");
         return false;
       } else if (user_sure == "") {
-        hint(that.$refs, "充值账户不能为空！");
+        hint("充值账户不能为空！");
         return false;
       } else if (
         other_checked &&
@@ -251,7 +295,7 @@ export default {
         !test.test(other_mo.val())
       ) {
         //alert('金额只能为1元以上的整数');
-        hint(that.$refs, "金额只能为1元以上的整数");
+        hint("金额只能为1元以上的整数");
         return false;
       } else return true;
     }
@@ -314,6 +358,8 @@ export default {
                 that.markfqa();
                 that.wxpay = data.rows;
               }
+            } else {
+              hint(data.msg);
             }
           },
           error() {}

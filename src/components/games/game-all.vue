@@ -37,9 +37,9 @@
 					<div @click.prevent="close">
 						<div class="mark-content">
 							<p>
-								<span class="f20 lh24">请到app领取</span><br>
-								<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml">点击下载app</a>
-								<!-- <a :href="markhtml" class="markhtml">点击下载app</a> -->
+								<span class="f18 lh24">请到拇指游戏宝领取</span><br>
+								<img class="receive" src="../../assets/images/2.png" alt="">
+								<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml downbtn">马上下载</a>
 							</p>
 						</div>  
 					</div>
@@ -49,38 +49,37 @@
 	</div>
 </template>
 <script>
-    import LoadMore from 'base/load-more'
-    import expect from 'base/expect'
-	import {gameListMixin} from 'common/js/mixin'
-    export default{
-        mixins: [gameListMixin],
-		components:{
-            LoadMore,
-            expect
-        },
-        data(){
-			return{
-                allList:[],
-                type:'',
-                page:1,
-                rows:10,
-                total:0,
-                hasMore:false,
-				bool:false,
-				markhtml:''
-            }
-		},
-		methods:{
-			markfqa(download){
-                this.markhtml = download
-                this.bool =!this.bool
-            },
-            close(){
-                this.bool =!this.bool
-            }
-		}
+import LoadMore from "base/load-more";
+import expect from "base/expect";
+import { gameListMixin } from "common/js/mixin";
+export default {
+  mixins: [gameListMixin],
+  components: {
+    LoadMore,
+    expect
+  },
+  data() {
+    return {
+      allList: [],
+      type: "",
+      page: 1,
+      rows: 10,
+      total: 0,
+      hasMore: false,
+      bool: false,
+      markhtml: ""
+    };
+  },
+  methods: {
+    markfqa(download) {
+      this.markhtml = download;
+      this.bool = !this.bool;
+    },
+    close() {
+      this.bool = !this.bool;
     }
+  }
+};
 </script>
 <style scoped type="stylus">
-
 </style>

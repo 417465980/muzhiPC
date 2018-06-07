@@ -1,7 +1,7 @@
 <template>
 	<div id="user">
 		
-		<user-info :gift="newmsg" v-if="userdata.id"></user-info>
+		<user-info  v-if="userdata.id"></user-info>
 		<reg-info v-else></reg-info>
 		<div class="user-warp max-width">
 			<div class="user-main-left">
@@ -10,14 +10,16 @@
 				</ul>
 			</div>
 			<div class="user-main-right">
+				<keep-alive>
 				<router-view></router-view>
+				</keep-alive>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
 import UserInfo from "./user-info";
-import { userdata } from "../../common/js/general.js";
+import { userdata } from "common/js/general.js";
 export default {
   data() {
     return {
@@ -43,8 +45,7 @@ export default {
           path: "myWallet",
           msg: "我的钱包"
         }
-      ],
-      newmsg: ""
+      ]
     };
   },
   components: {

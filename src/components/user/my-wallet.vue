@@ -6,14 +6,14 @@
 		<div class="my-gift-nav">
 			<p>&nbsp;&nbsp;充值记录</p>
 			
-			<ul v-if="!!rows.length">
+			<ul v-if="!!rows">
 				<li><a href="javascript:;">充值订单号</a></li>
 				<li><a href="javascript:;">充值金额</a></li>
 				<li><a href="javascript:;">拇指币</a></li>
 				<li><a href="javascript:;">充值时间</a></li>
 			</ul>
 		</div>
-		<div class="my-gift-list" v-if="!!rows.length" v-for="(item, index) in rows" :key="index" >
+		<div class="my-gift-list" v-if="!!rows" v-for="(item, index) in rows" :key="index" >
 			<ul>
 				<li>{{item.thirPayId}}</li>
 				<li>￥{{item.channelNo}}</li>
@@ -21,7 +21,7 @@
 				<li>{{item.time}}</li>
 			</ul>
 		</div>
-		<div  class="my-gift-box"  v-if="!rows.length">
+		<div  class="my-gift-box"  v-if="!rows">
 			<img src="static/images/5.png" class="center-img" alt="">
 			<p class="g6 f16 tc mt20">暂无充值记录</p>
 		</div>
@@ -40,9 +40,7 @@ export default {
   },
   computed: {
     token() {
-      return this.$store.state.token.length > 0
-        ? this.$store.state.token
-        : token;
+      return this.$store.state.token ? this.$store.state.token : token;
     },
     username() {
       return this.$store.state.userName.id
@@ -61,6 +59,9 @@ export default {
     axios
       .post(url + "/muzhiplat/pc2/user/findMyRecharge", paramsUrl)
       .then(function(res) {
+        if (res.data.ret) {
+          res.data.msg = "获取成功";
+        }
         that.rows = res.data.rows;
         hint(that.$refs, res.data.msg);
       })

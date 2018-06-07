@@ -10,8 +10,7 @@
 			<div class="user_title fl">
 				<div>
 					<span v-if="user.nickName!='undefined'">{{user.nickName}}</span>
-					<span v-else>请设置你的昵称</span>
-					
+					<router-link to="/user/account" tag="span" v-else>请设置你的昵称</router-link>
 					<img v-if="user.level" :src="'static/images/vip_'+user.level+'.png'" />
 					<img v-else src="static/images/vip_0.png" />
 				</div>
@@ -51,14 +50,13 @@
 			<ul class="clearfix">
 				<li v-for="(item,index) in game" :key="index" v-if="index<4">
 					<router-link :to="'game/'+item.id" >
-						<img :src="item.icon|addHttp" >
-						<p class="hoveraction">{{item.name}}</p>
+						<img :title="item.name" :src="item.icon|addHttp" >
+						<p :title="item.name" class="hoveraction">{{item.name}}</p>
 					</router-link>
 				</li>
 			</ul>
 		</div>
 	</div>
-
 </template>
 <script>
 import { url, userdata, token } from "common/js/general";
@@ -293,6 +291,9 @@ export default {
   font-size: 12px;
   color: #666666;
   line-height: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
 
