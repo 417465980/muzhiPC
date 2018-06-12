@@ -36,7 +36,6 @@
 import RegInfo from "base/reg-info";
 import UserInfo from "base/user-info";
 import GameRank from "base/game-rank";
-import { token } from "common/js/general";
 import { mapState } from "vuex";
 export default {
   components: {

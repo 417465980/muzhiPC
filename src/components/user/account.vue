@@ -44,7 +44,6 @@
 				<input @click="changeInfo" type="button" value="提交">
 			</div>
 		</div>
-	{{userdata}}
 		<transition>
 			<div class="hint" ref="hint">
 				<span ref="hint-content"></span>
