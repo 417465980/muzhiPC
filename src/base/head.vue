@@ -2,7 +2,7 @@
 	<div>
 		<div class="head gradient">
 			<div class="content">
-
+        
 				<ul class="clearfix">
 					
 					<li class="muzhi fl">
@@ -69,16 +69,14 @@
 </template>
 <script>
 import axios from "axios";
-import { mapGetters } from "vuex";
-import { hint, url, userdata, token } from "../common/js/general";
+import { mapGetters, mapState } from "vuex";
+import { hint, url } from "../common/js/general";
 export default {
   data() {
     return {
       keyword: "还珠格格",
       searchKeyword: [],
-      show: false,
-      userdata,
-      token
+      show: false
     };
   },
   methods: {
@@ -120,58 +118,46 @@ export default {
     },
     signOut() {
       localStorage.clear();
-      var that = this;
-
-      if (Object.getOwnPropertyNames(that.$store.state.userName).length != 0) {
-        this.$store.state.userName = {
-          accountId: null,
-          auth: null,
-          backgroundImg: null,
-          bindstatus: null,
-          birthDay: null,
-          certificationStatus: null,
-          consignee: null,
-          contactNo: null,
-          couponSum: null,
-          email: null,
-          gender: null,
-          giftSum: null,
-          goldAccount: null,
-          id: null,
-          identityCard: null,
-          level: null,
-          mUserIcon: null,
-          mzAccount: null,
-          name: null,
-          nickName: null,
-          onlyAccount: null,
-          phoneNum: null,
-          point: null,
-          psd: null,
-          qq: null,
-          realName: null,
-          receivedAddress: null,
-          recentLoginAddr: null,
-          recentLoginIp: null,
-          recentLoginTime: null,
-          signInToday: null,
-          signInWhatDay: null,
-          signature: null,
-          upgradePoint: null,
-          wx: null
-        };
-      }
+      this.$store.state.userdata = {
+        accountId: null,
+        auth: null,
+        backgroundImg: null,
+        bindstatus: null,
+        birthDay: null,
+        certificationStatus: null,
+        consignee: null,
+        contactNo: null,
+        couponSum: null,
+        email: null,
+        gender: null,
+        giftSum: null,
+        goldAccount: null,
+        id: null,
+        identityCard: null,
+        level: null,
+        mUserIcon: null,
+        mzAccount: null,
+        name: null,
+        nickName: null,
+        onlyAccount: null,
+        phoneNum: null,
+        point: null,
+        psd: null,
+        qq: null,
+        realName: null,
+        receivedAddress: null,
+        recentLoginAddr: null,
+        recentLoginIp: null,
+        recentLoginTime: null,
+        signInToday: null,
+        signInWhatDay: null,
+        signature: null,
+        upgradePoint: null,
+        wx: null
+      };
       this.$store.state.token = "";
       this.$store.state.game = [];
-      window.localStorage.setItem(
-        "userdata",
-        JSON.stringify(this.$store.state.userName)
-      );
-      window.localStorage.setItem(
-        "token",
-        JSON.stringify(this.$store.state.token)
-      );
-      window.localStorage.setItem("game", "[]");
+      var that = this;
       var ahref = window.location.href;
       if (ahref.indexOf("index") != -1) {
         // window.location.reload();
@@ -209,7 +195,7 @@ export default {
     if (!window.localStorage.getItem("searchKeyword")) {
       this.show = false;
     }
-    if (window.localStorage.getItem("token") || this.checkUser != "") {
+    if (this.token || this.checkUser != "") {
       this.changeStatus = false;
     } else {
       this.changeStatus = true;
@@ -227,23 +213,20 @@ export default {
       return this.searchKeyword;
     },
     checkUser() {
-      var user = "";
-      if (window.localStorage.getItem("userdata")) {
-        return JSON.parse(window.localStorage.getItem("userdata")).name;
+      if (this.userdata.id) {
+        return this.userdata.name;
       } else {
         return (this.changeStatus = true);
       }
     },
     ...mapGetters(["userName"]),
     name() {
-      if (this.$store.state.userName.id) {
-        return this.$store.state.userName.name;
-      }
-      if (window.localStorage.getItem("userdata")) {
-        return JSON.parse(window.localStorage.getItem("userdata")).name;
+      if (this.userdata.id) {
+        return this.userdata.name;
       }
       return false;
-    }
+    },
+    ...mapState(["userdata", "token", "game"])
   }
 };
 </script>

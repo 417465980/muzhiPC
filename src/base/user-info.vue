@@ -2,19 +2,18 @@
 	<div class="login" >
 		<div class="login_top clearfix">
 			<div class="avatars fl">
-				
-				<img v-if="user.mUserIcon" :src="user.mUserIcon|addHttp" />
+				<img v-if="userdata.mUserIcon" :src="userdata.mUserIcon|addHttp" />
 				<img v-else src="../assets/images/user_icon.png" />
 			</div>
 			<a href="javascript:;" class="exit fr " @click="signOut">退出</a>
 			<div class="user_title fl">
 				<div>
-					<span v-if="user.nickName!='undefined'">{{user.nickName}}</span>
+					<span v-if="userdata.nickName!='undefined'">{{userdata.nickName}}</span>
 					<router-link to="/user/account" tag="span" v-else>请设置你的昵称</router-link>
-					<img v-if="user.level" :src="'static/images/vip_'+user.level+'.png'" />
+					<img v-if="userdata.level" :src="'static/images/vip_'+userdata.level+'.png'" />
 					<img v-else src="static/images/vip_0.png" />
 				</div>
-				<p v-if="user.signature" :title="user.signature">{{user.signature}}</p>
+				<p v-if="userdata.signature" :title="userdata.signature">{{userdata.signature}}</p>
 				<p v-else>这个人很懒，什么也没留下</p>
 			</div>
 		</div>
@@ -23,19 +22,19 @@
 				<li>
 				<router-link to="/user/myGift" class="gift">
 					<i class="user_spri"></i>
-					<p><a href="javascript:;">礼包：</a><span>{{user.giftSum}}</span></p>
+					<p><a href="javascript:;">礼包：</a><span>{{userdata.giftSum}}</span></p>
 				</router-link>
 				</li>
 				<li>
 				<router-link to="/user/myCoupon" class="lj">
 					<i class="user_spri"></i>
-					<p><a href="javascript:;">礼劵：</a><span>{{user.couponSum}}</span></p>
+					<p><a href="javascript:;">礼劵：</a><span>{{userdata.couponSum}}</span></p>
 				</router-link>
 				</li>
 				<li>
 				<router-link to="/user/myWallet" class="muzhi_money">
 					<i class="user_spri"></i>
-					<p><a href="javascript:;">拇指币：</a><span>{{user.mzAccount}}</span></p>
+					<p><a href="javascript:;">拇指币：</a><span>{{userdata.mzAccount}}</span></p>
 				</router-link>
 				</li>
 			</ul>
@@ -49,7 +48,8 @@
 			</div>
 			<ul class="clearfix">
 				<li v-for="(item,index) in game" :key="index" v-if="index<4">
-					<router-link :to="'game/'+item.id" >
+          
+					<router-link :to="'/game/'+item.id" >
 						<img :title="item.name" :src="item.icon|addHttp" >
 						<p :title="item.name" class="hoveraction">{{item.name}}</p>
 					</router-link>
@@ -59,18 +59,11 @@
 	</div>
 </template>
 <script>
-import { url, userdata, token } from "common/js/general";
+import { url } from "common/js/general";
+import { mapState } from "vuex";
 export default {
   data() {
-    return {
-      //userdata: this.$store.state.userName || userdata,
-      game: [],
-      userdata,
-      token
-    };
-  },
-  created() {
-    this._getUserInfo();
+    return {};
   },
   filters: {
     addHttp(data) {
@@ -78,12 +71,9 @@ export default {
     }
   },
   methods: {
-    _getUserInfo() {
-      this.game = JSON.parse(window.localStorage.getItem("game"));
-    },
     signOut() {
       localStorage.clear();
-      this.$store.state.userName = {
+      this.$store.state.userdata = {
         accountId: null,
         auth: null,
         backgroundImg: null,
@@ -120,27 +110,13 @@ export default {
         upgradePoint: null,
         wx: null
       };
-
       this.$store.state.token = "";
       this.$store.state.game = [];
-      window.localStorage.setItem(
-        "userdata",
-        JSON.stringify(this.$store.state.userName)
-      );
-      window.localStorage.setItem(
-        "token",
-        JSON.stringify(this.$store.state.token)
-      );
-      window.localStorage.setItem("game", "[]");
       this.$emit("userExit");
     }
   },
   computed: {
-    user() {
-      return this.$store.state.userName.id
-        ? this.$store.state.userName
-        : this.userdata;
-    }
+    ...mapState(["userdata", "token", "game"])
   }
 };
 </script>

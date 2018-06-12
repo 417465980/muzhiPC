@@ -1,19 +1,19 @@
 <template>
 	<div id="wallet">
 		<div class="my-wallet">
-			<p >拇指币余额：<span>{{mzAccount}}</span><router-link  to="/charge">立即充值</router-link></p>
+			<p >拇指币余额：<span>{{userdata.mzAccount}}</span><router-link  to="/charge">立即充值</router-link></p>
 		</div>
 		<div class="my-gift-nav">
 			<p>&nbsp;&nbsp;充值记录</p>
 			
-			<ul v-if="!!rows">
+			<ul v-if="rows.length">
 				<li><a href="javascript:;">充值订单号</a></li>
 				<li><a href="javascript:;">充值金额</a></li>
 				<li><a href="javascript:;">拇指币</a></li>
 				<li><a href="javascript:;">充值时间</a></li>
 			</ul>
 		</div>
-		<div class="my-gift-list" v-if="!!rows" v-for="(item, index) in rows" :key="index" >
+		<div class="my-gift-list" v-if="!!rows.length" v-for="(item, index) in rows" :key="index" >
 			<ul>
 				<li>{{item.thirPayId}}</li>
 				<li>￥{{item.channelNo}}</li>
@@ -21,7 +21,7 @@
 				<li>{{item.time}}</li>
 			</ul>
 		</div>
-		<div  class="my-gift-box"  v-if="!rows">
+		<div  class="my-gift-box"  v-if="!rows.length">
 			<img src="static/images/5.png" class="center-img" alt="">
 			<p class="g6 f16 tc mt20">暂无充值记录</p>
 		</div>
@@ -30,30 +30,23 @@
 <script>
 import axios from "axios";
 import qs from "qs";
-import { url, hint, userdata, token } from "../../common/js/general";
+import { url, hint } from "../../common/js/general";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-      rows: [],
-      mzAccount: userdata.mzAccount
+      rows: []
     };
   },
   computed: {
-    token() {
-      return this.$store.state.token ? this.$store.state.token : token;
-    },
-    username() {
-      return this.$store.state.userName.id
-        ? this.$store.state.userName.name
-        : userdata.name;
-    }
+    ...mapState(["userdata", "token"])
   },
   mounted() {
     //查看充值记录
 
     let that = this;
     let paramsUrl = qs.stringify({
-      username: that.username,
+      username: that.userdata.name,
       token: that.token
     });
     axios

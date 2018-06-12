@@ -74,7 +74,7 @@
           <transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
               <div class="markbox markbox-gift">
 				<div class="close" @click.stop="close">×</div>
-				<div @click.prevent="close">
+				<div @click.stop="function(){return false}">
 					<div class="mark-content">
 						<p>
 						<span class="f18 lh24">请到拇指游戏宝领取</span><br>

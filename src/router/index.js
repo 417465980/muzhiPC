@@ -217,6 +217,12 @@ const Account = (resolve) => {
     resolve(module);
   });
 };
+const Authen = (resolve) => {
+  import ('@/components/user/authen').then((module) => {
+    resolve(module);
+  });
+};
+
 // import MyGame from "components/user/my-game";
 const MyGame = (resolve) => {
   import ('@/components/user/my-game').then((module) => {
@@ -461,7 +467,11 @@ export default new Router({
         {
           path: "account",
           component: Account
+        }, {
+          path: "authen",
+          component: Authen
         }
+
       ]
     },
     {

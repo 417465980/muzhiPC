@@ -19,7 +19,7 @@
 </template>
 <script>
 import UserInfo from "./user-info";
-import { userdata } from "common/js/general.js";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -44,6 +44,10 @@ export default {
         {
           path: "myWallet",
           msg: "我的钱包"
+        },
+        {
+          path: "authen",
+          msg: "实名认证"
         }
       ]
     };
@@ -52,11 +56,7 @@ export default {
     UserInfo
   },
   computed: {
-    userdata() {
-      return this.$store.state.userName.id
-        ? this.$store.state.userName
-        : userdata;
-    }
+    ...mapState(["userdata"])
   }
 };
 </script>

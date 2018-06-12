@@ -97,14 +97,13 @@ export default {
                   .then(function(res) {
                     hint(that.$refs, res.data.msg);
                     if (res.data.ret) {
-                      that.$store.state.userName = res.data.rows.user;
+                      that.$store.state.userdata = res.data.rows.user;
                       that.$store.state.token = res.data.token;
                       that.$store.state.game = res.data.rows.game;
                       window.localStorage.setItem(
                         "userdata",
                         JSON.stringify(res.data.rows.user)
                       );
-
                       window.localStorage.setItem(
                         "token",
                         JSON.stringify(res.data.token)
@@ -123,9 +122,6 @@ export default {
                   })
                   .catch(function(res) {});
               }
-              /*  setTimeout(function() {
-                that.$router.push("/login");
-              }, 2000); */
             }
             if (res.data.ret) {
               hint(that.$refs, res.data.msg);

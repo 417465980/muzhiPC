@@ -18,7 +18,7 @@
                     <div class="account">
                         <span class="left">充值账号：</span>
                         
-                        <input type="text" placeholder="请填写你的用户名" name="name" v-model='user.name' class="input_txt" id="user" :readonly="readonly" />
+                        <input type="text" placeholder="请填写你的用户名" name="name" v-model='userdata.name' class="input_txt" id="user" :readonly="readonly" />
                         <a id="change" href="javascript:;" @click="readonly=!readonly;" @blur="readonly=false;">更换</a></div>
                     <div class="position">
                         <span class="left">充值到：</span>
@@ -121,12 +121,11 @@
                             <div class="title">
                                 <span class="color1 ml16" style="font-size:15px;">商品名称：
                                     <label class="orange">{{wxpay.body}}</label></span>
-                                </br>
+                                <br>
                                 <span class="color1 ml16" style="font-size:15px;">订单金额：
                                     <label class="orange">{{parseInt(wxpay.body)}}</label>元</span></div>
                             <div class="scan">
                                 <img :src="wxpay.codeImg" /></div>
-                       
                         </div>
                     </div>
                 </div>
@@ -139,8 +138,9 @@
 </template>
 <script>
 import "common/bower_components/jquery/dist/jquery";
-import { url, token, userdata, hint } from "common/js/general";
-
+import crypto from "crypto";
+import { url, hint } from "common/js/general";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -149,37 +149,51 @@ export default {
       packetId: 100299001,
       amount: 100,
       $refs: this.$refs,
-      userdata,
       readonly: "readonly",
       bool: false,
       markhtml: "",
       wxpay: {},
-      timer: null
+      timer: null,
+      findCertification: {
+        username: this.$store.state.userdata.name,
+        accountId: this.$store.state.userdata.accountId,
+        token: this.$store.state.token
+      }
     };
   },
   methods: {
-    markfqa(download) {
-      this.markhtml = download;
+    markfqa() {
       this.bool = !this.bool;
     },
     close() {
+      var that = this;
       this.bool = !this.bool;
+      clearInterval(that.timer);
+      $.post(
+        //页面后退后 页面打开默认
+        url + "/muzhiplat/pc2/user/findCertification",
+        that.findCertification,
+        function(res) {
+          if (!res.ret) {
+            hint("登录已过期，建议重新登录");
+          } else {
+            that.$store.state.userdata.mzAccount = res.rows.muzhiBalance;
+            window.localStorage.setItem(
+              "userdata",
+              JSON.stringify(that.userdata)
+            );
+          }
+        }
+      );
     }
   },
   computed: {
-    user() {
-      if (this.$store.state.userName.id) {
-        return this.$store.state.userName;
-      }
-      if (window.localStorage.getItem("userdata")) {
-        return JSON.parse(window.localStorage.getItem("userdata"));
-      }
-      return {};
-    }
+    ...mapState(["userdata", "token", "game"])
   },
   mounted() {
     var that = this;
-    if (!token) {
+    var amount = 1;
+    if (!this.token) {
       this.readonly = false;
     }
     $("#other_mo").focus(function() {
@@ -206,14 +220,14 @@ export default {
         $(".hint").fadeOut();
       }, 1000);
     }
-    timing(5);
+
     function timing(sen) {
       var getMin = sen - 1;
       var getSen = 59;
-      var timer = null;
-      clearInterval(timer);
+
+      clearInterval(that.timer);
       //一秒执行一次
-      timer = setInterval(function() {
+      that.timer = setInterval(function() {
         var oMin = that.$refs.min;
         var oSen = that.$refs.sen;
         oMin.innerHTML = getMin;
@@ -223,9 +237,10 @@ export default {
           getMin--;
         }
         if (getMin < 0) {
-          clearInterval(timer);
-          //that.close();
+          clearInterval(that.timer);
+          clearInterval(timerhand);
           $(".markfqa").fadeOut();
+          that.markfqa();
           that.wxpay = {};
         }
         getSen--;
@@ -243,7 +258,6 @@ export default {
 
       var num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
       for (var i = 0; i < num.length; i++) {
-        // alert(num[i]);
         if (vd != num[i]) {
           var ob3 = document.getElementById("zf" + num[i]);
           var ob4 = document.getElementById("me" + num[i]);
@@ -256,17 +270,33 @@ export default {
     clearInterval(timerhand);
     var handler = function() {
       if (Object.keys(that.wxpay).length > 0) {
-        var out_trade_no = wxpay.tradeNo;
+        var out_trade_no = that.wxpay.tradeNo;
         $.post(
           "http://gm.91muzhi.com:8080/sdk/payOrderSearch/getMzPayOrderStatus.do?out_trade_no=" +
             out_trade_no,
           function(data) {
             if (data.msg == "1") {
-              if (
-                !!that.$store.state.userName.id ||
-                !!JSON.parse(window.localStorage.getItem("userdata")).id
-              ) {
+              if (that.userdata.id) {
+                that.$store.state.userdata.mzAccount += amount;
               }
+
+              $.post(
+                //请求返回充值成功后
+                url + "/muzhiplat/pc2/user/findCertification",
+                that.findCertification,
+                function(res) {
+                  if (!res.ret) {
+                    hint("请重新登录");
+                  } else {
+                    that.$store.state.userdata.mzAccount =
+                      res.rows.muzhiBalance;
+                    window.localStorage.setItem(
+                      "userdata",
+                      JSON.stringify(that.userdata)
+                    );
+                  }
+                }
+              );
               clearInterval(timerhand);
             }
           },
@@ -274,15 +304,32 @@ export default {
         );
       }
     };
-    timerhand = setInterval(handler, 5000);
+
+    $.post(
+      //页面后退后 页面打开默认
+      url + "/muzhiplat/pc2/user/findCertification",
+      that.findCertification,
+      function(res) {
+        if (!res.ret) {
+          hint("登录已过期，请重新登录");
+        } else {
+          that.$store.state.userdata.mzAccount = res.rows.muzhiBalance;
+          window.localStorage.setItem(
+            "userdata",
+            JSON.stringify(that.userdata)
+          );
+        }
+      }
+    );
+
+    timerhand = setInterval(handler, 3000);
     function sub() {
-      var user = userdata.name; //`${sessionScope.user.name}`;
+      var user = that.userdata.name; //`${sessionScope.userdata.name}`;
       var user_sure = $("#user").val();
       var other_mo = $("#other_mo");
       var other_checked = other_mo.parent().hasClass("checked_span");
 
       var test = /^[1-9]\d*$/;
-
       if (user == "") {
         hint("请先登录您的账号！");
         return false;
@@ -294,36 +341,23 @@ export default {
         other_mo.val() != "" &&
         !test.test(other_mo.val())
       ) {
-        //alert('金额只能为1元以上的整数');
         hint("金额只能为1元以上的整数");
         return false;
       } else return true;
     }
     $("#subBtn").click(function() {
       if (sub()) {
-        var status = userdata.certificationStatus; //`${sessionScope.user.certificationStatus}`;
-        if (!status && status == "4") {
-          if ($("#showdialog").val() == "0") {
-            //弹框
-            $("#subBtn").attr("data-toggle", "modal");
-
-            $("#showdialog").val("1");
-            return;
-          } else {
-            $("#subBtn").attr("data-toggle", "");
-          }
-        } else {
-          $("#subBtn").attr("data-toggle", "");
-        }
-
-        var amount = 1;
         var inputmoney = $("#inputmoney").find("span");
         $.each(inputmoney, function(index, value) {
           if ($(value).hasClass("checked_span")) {
             amount = $(this).find("input")[0].value;
           }
         });
-
+        /* 
+        if (that.userdata.certificationStatus != 1) {
+          hint("未完成实名认证不能充值");
+          return false;
+        } */
         var pay = $("#mainNav").find("div");
         var payType = "";
         $.each(pay, function(index, value) {
@@ -349,12 +383,11 @@ export default {
           },
           dateType: "json",
           success(data) {
-            console.log(data);
-
             if (data.ret) {
               if (payType == "alipay") {
                 window.location.href = data.rows.jumpUrl;
               } else if (payType == "wftwxpay") {
+                timing(5);
                 that.markfqa();
                 that.wxpay = data.rows;
               }

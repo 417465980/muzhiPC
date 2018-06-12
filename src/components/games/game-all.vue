@@ -10,10 +10,10 @@
 					<span>类型：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;大小{{item.appSize}}M</span>
 					<p class="introduce" :title="item.introduction">简介：{{item.introduction}}</p>
 					<div class="clearfix">
-						<a class="getLb fl" href="javascript:;">
+						<a class="getLb fl" href="javascript:;"  @click="markfqa(item.downloadLink)">
 							<span class="middlespan"></span>
 							<i class="gmCen_spri"></i>
-							<span @click="markfqa(item.downloadLink)">礼包领取</span>
+							<span>礼包领取</span>
 						</a>
 						<a :href="item.downloadLink" class="gmLoad fl">
 							<span class="middlespan"></span>
@@ -34,11 +34,11 @@
             <transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
                 <div class="markbox markbox-gift">
 					<div class="close" @click.stop="close">×</div>
-					<div @click.prevent="close">
+					<div @click.stop="function(){return false}">
 						<div class="mark-content">
 							<p>
 								<span class="f18 lh24">请到拇指游戏宝领取</span><br>
-								<img class="receive" src="../../assets/images/2.png" alt="">
+                  <a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk"><img class="receive" src="../../assets/images/2.png" alt=""></a>
 								<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml downbtn">马上下载</a>
 							</p>
 						</div>  

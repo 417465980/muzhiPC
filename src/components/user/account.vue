@@ -5,45 +5,46 @@
 		<div class="account-wrap">
 			<ul>
 				<li>
-					<label class="accout-label" for="username">用户名</label>
-					<input id="username" placeholder="用户名" type="text" name="username" v-model="info.username" :readonly="readonly"></li>
+					<label class="accout-label" for="userdata">用户名</label>
+					<input id="userdata" placeholder="用户名" type="text" name="username" v-model="userdata.name" :readonly="readonly"></li>
 				<li>
 					<label class="accout-label" for="nickname">昵称</label>
-					<input id='nickname' placeholder="请设置您的昵称" type="text" v-if="info.nickname!='undefined'" v-model="info.nickname" :readonly="readonly">
+					<input id='nickname' placeholder="请设置您的昵称" type="text" v-if="userdata.nickname!='undefined'" v-model="userdata.nickname" :readonly="readonly">
 					<input id='nickname' placeholder="请设置您的昵称" type="text" v-else  :readonly="readonly"></li>
 				<li>
 					<p class="accout-label">性别</p>
 					<label for="men">
-						<input type="radio" id="men" value="0" v-model="info.sex"  :disabled="readonly" name="sex">男</label>&nbsp;&nbsp;
+						<input type="radio" id="men" value="0" v-model="userdata.gender"  :disabled="readonly" name="sex">男</label>&nbsp;&nbsp;
 					<label for="women">
-						<input type="radio" id="women" value="1" v-model="info.sex" :disabled="readonly" name="sex">女</label>
+						<input type="radio" id="women" value="1" v-model="userdata.gender" :disabled="readonly" name="sex">女</label>
 				</li>
 				<li>
 					<label class="accout-label" for="">实名认证状态</label>
-					<span class="font-s-color333">未认证</span></li>
+					<span class="font-s-color333">{{userdata.certificationStatus|certificationStatus}}</span></li>
 				<li>
 					<label class="accout-label" for="">QQ</label>
-					<input type="text"  v-model="info.qq" placeholder="请输入常用QQ号" :readonly="readonly"></li>
+					<input type="text"  v-model="userdata.qq" placeholder="请输入常用QQ号" :readonly="readonly"></li>
 				<li>
 					<label class="accout-label" for="">微信</label>
-					<input type="text"  v-model="info.wx" placeholder="请输入您的微信号" :readonly="readonly"></li>
+					<input type="text"  v-model="userdata.wx" placeholder="请输入您的微信号" :readonly="readonly"></li>
 				<li>
 					<label class="accout-label" for="">联系电话</label>
-					<input type="text"  v-model="info.phone" placeholder="请输入您的联系电话" :readonly="readonly"></li>
+					<input type="text"  v-model="userdata.contactNo" placeholder="请输入您的联系电话" :readonly="readonly"></li>
 				<li>
 					<label class="accout-label" for="">地址</label>
-					<input type="text"  v-model="info.address" placeholder="请输入您的地址" :readonly="readonly"></li>
+					<input type="text"  v-model="userdata.receivedAddress" placeholder="请输入您的地址" :readonly="readonly"></li>
 				<li>
 					<label class="accout-label" for="">上次登录</label>
-					<span class="font-s-color333">{{recentLoginTime}}</span></li>
+					<span class="font-s-color333">{{userdata.recentLoginTime}}</span></li>
 				<li>
 					<label class="accout-label" for="">最近登录IP</label>
-					<span class="font-s-color333">{{recentLoginIpAddr}}</span></li>
+					<span class="font-s-color333">{{userdata.recentLoginAddr}}</span></li>
 			</ul>
 			<div v-show="!readonly" :class="{'accout-submit':true}">
 				<input @click="changeInfo" type="button" value="提交">
 			</div>
 		</div>
+	{{userdata}}
 		<transition>
 			<div class="hint" ref="hint">
 				<span ref="hint-content"></span>
@@ -54,26 +55,29 @@
 <script>
 import axios from "axios";
 import qs from "qs";
-import { url, hint, token, userdata } from "../../common/js/general";
+import { url, hint } from "common/js/general";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-      readonly: true,
-      info: {
-        username: this.$store.state.userName.name || userdata.name,
-        sex: this.$store.state.userName.gender || userdata.gender,
-        qq: this.$store.state.userName.qq || userdata.qq,
-        wx: this.$store.state.userName.wx || userdata.wx,
-        phone: this.$store.state.userName.phoneNum || userdata.phoneNum,
-        address:
-          this.$store.state.userName.receivedAddress ||
-          userdata.receivedAddress,
-        nickname: this.$store.state.userName.nickName || userdata.nickName,
-        token
-      },
-      recentLoginIpAddr: userdata.recentLoginAddr,
-      recentLoginTime: userdata.recentLoginTime
+      readonly: true
     };
+  },
+  computed: {
+    ...mapState(["userdata", "token"])
+  },
+  filters: {
+    certificationStatus(data) {
+      if (data === 0) {
+        return "系统升级中";
+      } else if (data === 1) {
+        return "已认证";
+      } else if (data === 3) {
+        return "认证中";
+      } else {
+        return "未认证";
+      }
+    }
   },
   methods: {
     editable() {
@@ -87,13 +91,13 @@ export default {
     changeInfo() {
       let that = this;
       let paramsUrl = qs.stringify({
-        sex: that.info.sex,
-        qq: that.info.qq,
-        wx: that.info.wx,
-        phone: that.info.phone,
-        address: that.info.address,
-        nickname: that.info.nickname,
-        token: that.info.token
+        sex: that.userdata.sex,
+        qq: that.userdata.qq,
+        wx: that.userdata.wx,
+        phone: that.userdata.phone,
+        address: that.userdata.address,
+        nickname: that.userdata.nickname,
+        token: that.token
       });
 
       axios
@@ -208,7 +212,7 @@ input[type='radio']:checked {
 			box-sizing: border-box;
 		}
 
-		&:hover input[type='text'] {
+		&:hover input[type='text']:not([readonly='readonly']) {
 			box-shadow: inset 0 0 1px #820c9b;
 		}
 	}

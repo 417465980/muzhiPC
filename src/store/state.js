@@ -1,6 +1,7 @@
 const state = {
+
   newsInfo: {},
-  userName: {
+  userdata: JSON.parse(window.localStorage.getItem('userdata')) || {
     accountId: null,
     auth: null,
     backgroundImg: null,
@@ -37,8 +38,10 @@ const state = {
     upgradePoint: null,
     wx: null,
   },
-  token: '',
-  game: [],
+  token: window.localStorage.getItem('token') || '',
+
+  game: JSON.parse(window.localStorage.getItem('game')) || [],
+
   show: false
 }
 

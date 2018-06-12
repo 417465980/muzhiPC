@@ -77,7 +77,6 @@ export default {
               arr.push(this.count[i]);
             }
             this.count = arr;
-
             var now = new Date();
             for (var i = 0; i < this.activeList.length; i++) {
               var end = new Date(this.activeList[i].endDate.replace(/-/g, "/"));

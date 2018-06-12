@@ -14,7 +14,7 @@
 						</div>
 					</div>
 					<div class="gmRank_tit fl">
-						<router-link to="" class="hoveraction" @click.native="markfqa(item.download)">{{item.gameName}}</router-link>
+						<a href="javascript:;" class="hoveraction" @click="markfqa(item.download)">{{item.gameName}}</a>
 						<span>{{item.giftName}}</span>
 					</div>
 					<div class="rankGmBtn fr">
@@ -38,11 +38,11 @@
           <transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
               <div class="markbox markbox-gift">
 				<div class="close" @click.stop="close">×</div>
-				<div @click.prevent="close">
+				<div @click.stop="function(){return false}">
 					<div class="mark-content">
 						<p>
 						<span class="f18 lh24">请到拇指游戏宝领取</span><br>
-						<img class="receive" src="../assets/images/2.png" alt="">
+                  <a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk"><img class="receive" src="../assets/images/2.png" alt=""></a>
 						<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml downbtn">马上下载</a>
 						</p>
 					</div>  

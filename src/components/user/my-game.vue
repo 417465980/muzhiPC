@@ -44,7 +44,8 @@
 <script>
 import axios from "axios";
 import qs from "qs";
-import { url, token, userdata, game } from "../../common/js/general";
+import { url } from "../../common/js/general";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -52,24 +53,12 @@ export default {
     };
   },
   computed: {
-    game() {
-      return this.$store.state.game.length > 0 ? this.$store.state.game : game;
-    },
-    token() {
-      return this.$store.state.token.length > 0
-        ? this.$store.state.token
-        : token;
-    },
-    username() {
-      return this.$store.state.userName.id
-        ? this.$store.state.userName.name
-        : userdata.name;
-    }
+    ...mapState(["userdata", "token", "game"])
   },
   mounted() {
     let that = this;
     let paramsUrl = qs.stringify({
-      username: that.username,
+      username: that.userdata.name,
       token: that.token
     });
 

@@ -2,7 +2,7 @@
   	<div class="cont_box">
     		<div class="banner clearfix">
 		    	<div class="fl">
-					<user-info v-if="user.id"></user-info>
+					<user-info v-if="userdata.id"></user-info>
 					<reg-info v-else></reg-info>
 				</div>
 				<div class="fr">
@@ -51,7 +51,7 @@ import HotGame from "./hot-game";
 import NewsInfo from "./news-info";
 import HotGift from "base/hot-gift";
 import { getBanner, getGames, getNews, hotGift } from "api/muzhi";
-import { userdata } from "common/js/general.js";
+import { mapState } from "vuex";
 export default {
   components: {
     UserInfo,
@@ -76,8 +76,7 @@ export default {
       hotGift: [],
       headlines: "",
       headlineId: null,
-      newList: [],
-      userdata
+      newList: []
     };
   },
   mounted() {
@@ -92,15 +91,7 @@ export default {
     this._getNews();
   },
   computed: {
-    user() {
-      if (this.$store.state.userName.id) {
-        return this.$store.state.userName;
-      }
-      if (window.localStorage.getItem("userdata")) {
-        return JSON.parse(window.localStorage.getItem("userdata"));
-      }
-      return false;
-    }
+    ...mapState(["userdata", "show"])
   },
   methods: {
     // dosomethingOnslide(){

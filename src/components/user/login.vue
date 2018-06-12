@@ -33,15 +33,8 @@
 <script>
 import axios from "axios";
 import qs from "qs";
-import { mapMutations } from "vuex";
-import {
-  url,
-  resPassword,
-  regUserName,
-  hint,
-  userdata,
-  token
-} from "../../common/js/general";
+import { mapMutations, mapState } from "vuex";
+import { url, resPassword, regUserName, hint } from "../../common/js/general";
 
 export default {
   data() {
@@ -54,8 +47,7 @@ export default {
         prompt: false,
         promptContent: "6-15位（仅限数字、英文）",
         textActive: false
-      }, //登录注册验证提示
-      userdata: JSON.parse(window.localStorage.getItem("userdata"))
+      } //登录注册验证提示
     };
   },
   methods: {
@@ -67,20 +59,19 @@ export default {
           username: this.username,
           password: this.password
         });
-
         axios
           .post(url + "/muzhiplat/pc2/user/login", paramsUrl)
           .then(function(res) {
             hint(that.$refs, res.data.msg);
             if (res.data.ret) {
-              that.$store.state.userName = res.data.rows.user;
+              that.$store.state.userdata = res.data.rows.user;
               that.$store.state.token = res.data.token;
               that.$store.state.game = res.data.rows.game;
               window.localStorage.setItem(
                 "userdata",
                 JSON.stringify(res.data.rows.user)
               );
-
+              console.log(that.userdata);
               window.localStorage.setItem(
                 "token",
                 JSON.stringify(res.data.token)
@@ -139,6 +130,9 @@ export default {
       this.$refs.login.style.height =
         document.documentElement.clientHeight - 296 - 133 + "px";
     }
+  },
+  computed: {
+    ...mapState(["userdata", "token", "game"])
   }
 };
 </script>

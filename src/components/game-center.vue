@@ -1,7 +1,7 @@
 <template>
 	<div class="cont_box gm_center clearfix">
 		<div class="gmCen_left fl">
-			<user-info v-if="user.id"></user-info>
+			<user-info v-if="userdata.id"></user-info>
 			<reg-info v-else></reg-info>
 			<game-rank></game-rank>
 		</div>
@@ -37,6 +37,7 @@ import RegInfo from "base/reg-info";
 import UserInfo from "base/user-info";
 import GameRank from "base/game-rank";
 import { token } from "common/js/general";
+import { mapState } from "vuex";
 export default {
   components: {
     UserInfo,
@@ -94,15 +95,7 @@ export default {
     }
   },
   computed: {
-    user() {
-      if (this.$store.state.userName.id) {
-        return this.$store.state.userName;
-      }
-      if (window.localStorage.getItem("userdata")) {
-        return JSON.parse(window.localStorage.getItem("userdata"));
-      }
-      return false;
-    }
+    ...mapState(["userdata"])
   }
 };
 </script>

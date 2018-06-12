@@ -39,8 +39,8 @@
 	</div>
 </template>
 <script>
-import { url, userdata, token } from "common/js/general";
-import { mapGetters } from "vuex";
+import { url } from "common/js/general";
+import { mapState } from "vuex";
 export default {
   data() {
     return {};
@@ -53,11 +53,7 @@ export default {
     }
   },
   computed: {
-    userdata() {
-      return this.$store.state.userName.id
-        ? this.$store.state.userName
-        : userdata;
-    }
+    ...mapState(["userdata"])
   }
 };
 </script>

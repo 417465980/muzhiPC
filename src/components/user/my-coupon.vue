@@ -8,7 +8,8 @@
 			</div>
 			<div class="">
 				<div v-for="(itemcont,index) in couponlist" :key="index" ref="itemcont" :class="{'coupon-list':true, 'coupon-active':index=='acct'}">
-					<ul v-if="!!itemcont">
+					
+					<ul v-if="!!itemcont.length">
 
 						<li v-for="(item,i) in itemcont" :key="i">
 							<p :class="{ canuse:index=='acct', cantuse:index == 'cantuse'||index == 'perms',  'coupon-sum':true}">￥{{item.rebate_num}}</p>
@@ -41,7 +42,8 @@
 import Vue from "vue";
 import axios from "axios";
 import qs from "qs";
-import { url, hint, token, userdata } from "../../common/js/general";
+import { url, hint } from "../../common/js/general";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -87,22 +89,13 @@ export default {
     };
   },
   computed: {
-    token() {
-      return this.$store.state.token.length > 0
-        ? this.$store.state.token
-        : token;
-    },
-    username() {
-      return this.$store.state.userName.id
-        ? this.$store.state.userName.name
-        : userdata.name;
-    }
+    ...mapState(["userdata", "token"])
   },
   methods: {
     getCoupon3() {
       let that = this;
       let paramsUrl = qs.stringify({
-        username: that.username,
+        username: that.userdata.name,
         token: that.token,
         type: 3,
         page: that.info.page,
@@ -114,7 +107,7 @@ export default {
     getCoupon4() {
       let that = this;
       let paramsUrl = qs.stringify({
-        username: that.username,
+        username: that.userdata.name,
         token: that.token,
         type: 4,
         page: that.info.page,
@@ -126,7 +119,7 @@ export default {
     getCoupon5() {
       let that = this;
       let paramsUrl = qs.stringify({
-        username: that.username,
+        username: that.userdata.name,
         token: that.token,
         type: 5,
         page: that.info.page,

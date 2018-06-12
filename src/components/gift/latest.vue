@@ -10,10 +10,10 @@
 					<div class="item_title fl">
 						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
-						<a href="javascript:;" target="_blank" class="hotGmBtn"> 
+						<a href="javascript:;"  @click="markfqa(item.download)" class="hotGmBtn"> 
 							<span class="middlespan	"></span>  
 							<i class="icon_spri"></i>
-							<span @click="markfqa(item.download)">领取</span>
+							<span>领取</span>
 						</a>
 					</div>
 				</li>
@@ -28,11 +28,11 @@
 				<transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
 					<div class="markbox markbox-gift">
 						<div class="close" @click.stop="close">×</div>
-						<div @click.prevent="close">
+						<div @click.stop="function(){return false}">
 							<div class="mark-content">
 								<p>
 									<span class="f18 lh24">请到拇指游戏宝领取</span><br>
-									<img class="receive" src="../../assets/images/2.png" alt="">
+                  <a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk"><img class="receive" src="../../assets/images/2.png" alt=""></a>
 									<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml downbtn">马上下载</a>
 								</p>
 							</div>  
