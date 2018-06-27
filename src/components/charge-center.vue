@@ -3,11 +3,11 @@
         <div class="chargeWrap clearfix">
             <div id="mainNav" class="fl tab">
                 <!--左侧主导航-->
-                <div class="Alipay active" payType="alipay">
+                <div class="Alipay active pis-hover" payType="alipay">
                     <i>
                     </i>支付宝余额支付
                     <span></span></div>
-                <div class="weChat" payType="wftwxpay">
+                <div class="weChat  pis-hover" payType="wftwxpay">
                     <i>
                     </i>微信支付
                     <span></span></div>
@@ -18,43 +18,45 @@
                     <div class="account">
                         <span class="left">充值账号：</span>
                         
-                        <input type="text" placeholder="请填写你的用户名" name="name" v-model='userdata.name' class="input_txt" id="user" :readonly="readonly" />
-                        <a id="change" href="javascript:;" @click="readonly=!readonly;" @blur="readonly=false;">更换</a></div>
+                        <input type="text" placeholder="请填写你的用户名" name="name" :value='userdata.name' class="input_txt input-hover" id="user" :readonly="readonly" />
+                        <a id="change" href="javascript:;" @click="readonly=!readonly;" @blur="readonly=false;">更换</a>
+                       
+                        </div>
                     <div class="position">
                         <span class="left">充值到：</span>
                         <span class="center">拇指币</span></div>
                     <div class="money">
                         <span class="left">充值金额：</span>
                         <span class="center tab_1" id="inputmoney">
-                            <span class="checked_span">10元
+                            <span class="checked_span  pis-hover">10元
                                 <input type="hidden" id="money" value="10" />
                                 <i></i>
                             </span>
-                            <span>30元
+                            <span class=" pis-hover">30元
                                 <input type="hidden" value="30" />
                                 <i></i>
                             </span>
-                            <span>50元
+                            <span class=" pis-hover">50元
                                 <input type="hidden" value="50" />
                                 <i></i>
                             </span>
-                            <span>100元
+                            <span class=" pis-hover">100元
                                 <input type="hidden" value="100" />
                                 <i></i>
                             </span>
-                            <span>500元
+                            <span class=" pis-hover">500元
                                 <input type="hidden" value="500" />
                                 <i></i>
                             </span>
-                            <span>1000元
+                            <span class=" pis-hover">1000元
                                 <input type="hidden" value="1000" />
                                 <i></i>
                             </span>
-                            <span>2000元
+                            <span class=" pis-hover">2000元
                                 <input type="hidden" value="2000" />
                                 <i></i>
                             </span>
-                            <span>
+                            <span class=" pis-hover">
                                 <input type="text" id="other_mo">元
                                 <i></i>
                             </span>
@@ -62,7 +64,7 @@
                     </div>
                     <div class="recharge">
                         <span class="left"></span>
-                        <span class="center" id="subBtn" data-toggle="" data-target="#myModal">立即充值</span>
+                        <span class="center pis-hover " id="subBtn" data-toggle="" data-target="#myModal">立即充值</span>
                         <input type="hidden" id="showdialog" name="showdialog" value="0" /></div>
                 </div>
                 <div class="bottom">
@@ -107,7 +109,7 @@
                 <div @click.prevent="close">
                     <div class="mark-content">
                      
-                        <div class="s-con" id="codem">
+                        <div v-if="wxpay.tradeNo" class="s-con" id="codem">
                             <div class="m26">
                                 <h3>订单提交成功，请您尽快付款！</h3>
                                 <div class="num">
@@ -127,6 +129,9 @@
                             <div class="scan">
                                 <img :src="wxpay.codeImg" /></div>
                         </div>
+                        <div v-else class="s-con" id="codem">
+                          <p class="">网络繁忙</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -140,7 +145,7 @@
 import "common/bower_components/jquery/dist/jquery";
 import crypto from "crypto";
 import { url, hint } from "common/js/general";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -185,7 +190,13 @@ export default {
           }
         }
       );
-    }
+    },
+    ...mapMutations({
+      setUserName: "SET_USER_NAME",
+      setUserdata: "SET_USERDATA",
+      setToken: "SET_TOKEN",
+      setGame: "SET_GAME"
+    })
   },
   computed: {
     ...mapState(["userdata", "token", "game"])
@@ -279,24 +290,12 @@ export default {
               if (that.userdata.id) {
                 that.$store.state.userdata.mzAccount += amount;
               }
-
-              $.post(
-                //请求返回充值成功后
-                url + "/muzhiplat/pc2/user/findCertification",
-                that.findCertification,
-                function(res) {
-                  if (!res.ret) {
-                    hint("请重新登录");
-                  } else {
-                    that.$store.state.userdata.mzAccount =
-                      res.rows.muzhiBalance;
-                    window.localStorage.setItem(
-                      "userdata",
-                      JSON.stringify(that.userdata)
-                    );
-                  }
-                }
+              window.localStorage.setItem(
+                "userdata",
+                JSON.stringify(that.userdata)
               );
+              that.setUserdata();
+
               clearInterval(timerhand);
             }
           },
@@ -310,9 +309,7 @@ export default {
       url + "/muzhiplat/pc2/user/findCertification",
       that.findCertification,
       function(res) {
-        if (!res.ret) {
-          hint("登录已过期，请重新登录");
-        } else {
+        if (res.ret) {
           that.$store.state.userdata.mzAccount = res.rows.muzhiBalance;
           window.localStorage.setItem(
             "userdata",
@@ -382,17 +379,18 @@ export default {
             amount: amount
           },
           dateType: "json",
-          success(data) {
-            if (data.ret) {
+          success(res) {
+            // if(res.msg.indexOf('denglv'))
+            if (res.ret) {
               if (payType == "alipay") {
-                window.location.href = data.rows.jumpUrl;
+                window.location.href = res.rows.jumpUrl;
               } else if (payType == "wftwxpay") {
                 timing(5);
                 that.markfqa();
-                that.wxpay = data.rows;
+                that.wxpay = res.rows;
               }
             } else {
-              hint(data.msg);
+              hint(res.msg);
             }
           },
           error() {}
@@ -470,7 +468,8 @@ export default {
 .markbox-gift {
   width: 640px;
   margin-left: -300px;
-  top: 100px;
+  top: 50%;
+  transform: translateY(-50%);
   background: #fff;
 }
 .chargeWrap {

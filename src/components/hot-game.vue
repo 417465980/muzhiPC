@@ -13,7 +13,7 @@
 		<div class="game_list">
 			<ul class="clearfix">
 				<li v-for="(item,index) in hotGame" :key="index">
-					<router-link :to="'/game/'+item.id" tag="a" class="gm_icon fl"><img  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.icon"/></router-link>
+					<router-link :to="'/game/'+item.id" tag="a" class="gm_icon fl"><img class="pis-hover"  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.icon"/></router-link>
 					<div class="item_title fl">
 						<router-link :to="'/game/'+item.id" tag="p" class="hoveraction" :title="item.name">{{item.name}}</router-link>
 						<span :title="item.type+item.appSize+'M'">{{item.type}}{{item.appSize}}M</span>

@@ -6,15 +6,15 @@
 				<span>新闻资讯</span>
 			</div>
 			<div class="hot_more fr">
-				<router-link :to="{path:'/news/all'}" tag="a"><img src="../assets/images/more.png" alt=""></router-link>
+				<router-link :to="{path:'/news/all'}" tag="a" ><img src="../assets/images/more.png" alt=""></router-link>
 			</div>
 		</div>
 		<div class="new_content">
 			<slot></slot>
 			<ul>
 				<li v-for="(item,index) in newList" :key="index" @click="homeNews(item)">
-					<a href="javascript:;" class="">{{item.adType}}</a>
-					<span class="hoveraction">{{item.title}}</span>
+					<a  href="javascript:;" class="">{{item.adType}}</a>
+					<span class="hoveraction pis-hover">{{item.title}}</span>
 				</li>
 			</ul>
 		</div>

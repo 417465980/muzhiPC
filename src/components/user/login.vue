@@ -8,15 +8,15 @@
                         <div class="login-warp">
                             <div class="login-margin">
                                 <ol>
-                                    <li><label class="username" for="username"><input type="text" value="checkedRemmber" @input="checkUser" id="username" placeholder="请输入用户名" v-model="username"></label></li>  
-                                    <li><label class="psd" for="psd"><input id="psd" :type="type" placeholder="请输入密码" v-model="password"><i class="eye" @click="changeType"></i></label></li> 
+                                    <li><label class="username input-hover" for="username"><input type="text" value="checkedRemmber" @input="checkUser" id="username" placeholder="请输入用户名" v-model="username"></label></li>  
+                                    <li><label class="psd input-hover" for="psd"><input id="psd" :type="type" placeholder="请输入密码" v-model="password"><i class="eye" @click="changeType"></i></label></li> 
                                 </ol>
                                 <div>
                                     <p class="remmberme"><input class="radioR" type="checkbox" @change="remmberme" v-model="checked"><span>记住我的两周</span></p>
-                                    <router-link to="/service" tag="span" class="forgetpsd">忘记密码?</router-link>
+                                    <router-link to="/service" tag="span" class="forgetpsd pis-hover" >忘记密码?</router-link>
                                 </div>
                                 <div><input class="background loginbtn" type="button" @click="login" value="登录" ></div>
-                                <div><p class="unregistered">还没注册拇指账户？<router-link to="/register" tag="span">立即注册&gt;&gt;</router-link></p></div>
+                                <div><p class="unregistered">还没注册拇指账户？<router-link to="/register" tag="span" class="pis-hover">立即注册&gt;&gt;</router-link></p></div>
                             </div>
                             <transition>
                                 <div class="hint" ref="hint">
@@ -64,14 +64,11 @@ export default {
           .then(function(res) {
             hint(that.$refs, res.data.msg);
             if (res.data.ret) {
-              that.$store.state.userdata = res.data.rows.user;
-              that.$store.state.token = res.data.token;
-              that.$store.state.game = res.data.rows.game;
               window.localStorage.setItem(
                 "userdata",
                 JSON.stringify(res.data.rows.user)
               );
-              console.log(that.userdata);
+
               window.localStorage.setItem(
                 "token",
                 JSON.stringify(res.data.token)
@@ -80,7 +77,9 @@ export default {
                 "game",
                 JSON.stringify(res.data.rows.game)
               );
-
+              that.setUserdata();
+              that.setToken();
+              that.setGame();
               setTimeout(function() {
                 that.$router.push({
                   path: "/"
@@ -115,7 +114,10 @@ export default {
       }
     },
     ...mapMutations({
-      setUserName: "SET_USER_NAME"
+      setUserName: "SET_USER_NAME",
+      setUserdata: "SET_USERDATA",
+      setToken: "SET_TOKEN",
+      setGame: "SET_GAME"
     })
   },
   mounted() {
@@ -223,6 +225,7 @@ export default {
         display: inline-block;
         width: 230px;
         height: 38px;
+        margin-top: 1px;
         line-height: 38px;
         color: #999;
         font-size: 14px;

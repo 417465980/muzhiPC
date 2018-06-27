@@ -64,6 +64,11 @@ export default {
         )
         .then(function(res) {
           hint(that.$refs, res.data.authenResultMsg);
+          that.userdata.certificationStatus = 3;
+          window.localStorage.setItem(
+            "userdata",
+            JSON.stringify(that.userdata)
+          );
         })
         .catch(function(res) {});
     },
@@ -141,9 +146,11 @@ export default {
       }
     }
   },
-
   computed: {
     ...mapState(["userdata", "token", "game"])
+  },
+  watch: {
+    userdata: "charge"
   }
 };
 </script>

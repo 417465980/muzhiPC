@@ -1,5 +1,4 @@
 const state = {
-
   newsInfo: {},
   userdata: JSON.parse(window.localStorage.getItem('userdata')) || {
     accountId: null,
@@ -38,11 +37,8 @@ const state = {
     upgradePoint: null,
     wx: null,
   },
-  token: window.localStorage.getItem('token') || '',
-
+  token: JSON.parse(window.localStorage.getItem('token')) || '',
   game: JSON.parse(window.localStorage.getItem('game')) || [],
-
   show: false
 }
-
 export default state

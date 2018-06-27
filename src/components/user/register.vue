@@ -2,8 +2,8 @@
 	<div id="register" class="max-width" ref="register">
         <div class="register-box">
             <div>
-                <p class="font-size-normal">没有拇指账号？</p>
-                <router-link to="/login" tag="span" class="background margin-s button-normal cp">马上登录</router-link>
+                <p class="font-size-normal">有拇指账号？</p>
+                <router-link to="/login" tag="span" class="background margin-s button-normal cp pis-hover">马上登录</router-link>
             </div>
             <div class="register-wrap">
                 <div class="mauto tl register-main">
@@ -11,21 +11,21 @@
                     <ul>
                         <li>
                             <label class="accout-label" for="username">用户名</label>
-                            <input @input="checkUser" @blur="checkname" class="input-common" placeholder="6-15位（仅限数字、英文）" type="text" v-model='username'>
+                            <input @input="checkUser" @blur="checkname" class="input-common input-hover" placeholder="6-15位（仅限数字、英文）" type="text" v-model='username'>
                             <span :class="{'text-danger':!userInput.prompt,'text-success':userInput.prompt,'text-active':userInput.textActive}">{{userInput.promptContent}}</span></li>
                         <li>
                             <label class="accout-label" for="password">密码</label>
-                            <input @input="checkPsd" class="input-common" placeholder="请输入密码" :type="type" v-model='password'>
+                            <input @input="checkPsd" class="input-common input-hover" placeholder="请输入密码" :type="type" v-model='password'>
                             <span :class="{'text-danger':!psdInput.prompt,'text-success':psdInput.prompt,'text-active':psdInput.textActive}">{{psdInput.promptContent}}</span>
                             <i class="eye" @click="changeType"></i></li>
                         <li>
                             <label class="accout-label" for="">重复密码</label>
-                            <input @input="checkPsdRepeat" class="input-common" :type="type" placeholder="请输入重复密码" v-model="passwordrepeat">
+                            <input @input="checkPsdRepeat" class="input-common input-hover" :type="type" placeholder="请输入重复密码" v-model="passwordrepeat">
                             <span :class="{'text-danger':!repeatPsdInput.prompt,'text-success':repeatPsdInput.prompt,'text-active':repeatPsdInput.textActive}">{{repeatPsdInput.promptContent}}</span>
                             <i class="eye" @click="changeType"></i></li>
                     </ul>
-                    <div><p class="unregistered tl"><input class="radioR" type="checkbox" v-model="checked">我已阅读并同意<router-link to="/mzagreement" tag="span">《拇指通行证用户服务协议》</router-link></p></div>
-                    <input class="background register-sub tc br6 f16 wh cp" ref="sub" @click="mobileDoReg" type="button" value="提交">
+                    <div><p class="unregistered tl"><input class="radioR" type="checkbox" v-model="checked">我已阅读并同意<router-link to="/mzagreement" tag="span">《拇指通行证用户服务协议》</router-link><ins style="text-decoration: none;" :class="{'text-danger':!repeatUnregistered.prompt,'text-success':repeatUnregistered.prompt,'text-active':repeatUnregistered.textActive}">{{repeatUnregistered.promptContent}}</ins></p></div>
+                    <input class="background register-sub tc br6 f16 wh cp pis-hover" ref="sub" @click="mobileDoReg" type="button" value="提交">
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
 import axios from "axios";
 import qs from "qs";
 import { url, resPassword, regUserName, hint } from "../../common/js/general";
-
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -64,13 +64,23 @@ export default {
         promptContent: "两次输入不一致",
         textActive: false
       },
-      $refs: ""
+      $refs: "",
+      repeatUnregistered: {
+        prompt: false,
+        promptContent: "",
+        textActive: false
+      }
     };
   },
   methods: {
     mobileDoReg() {
       const that = this;
-
+      if (!that.checked) {
+        that.repeatUnregistered.prompt = false;
+        that.repeatUnregistered.promptContent = "您未同意用户协议";
+      } else {
+        that.repeatUnregistered.promptContent = "";
+      }
       this.userInput.textActive = this.psdInput.textActive = this.repeatPsdInput.textActive = true;
       if (
         this.userInput.prompt &&
@@ -95,11 +105,7 @@ export default {
                 axios
                   .post(url + "/muzhiplat/pc2/user/login", paramsUrl)
                   .then(function(res) {
-                    hint(that.$refs, res.data.msg);
                     if (res.data.ret) {
-                      that.$store.state.userdata = res.data.rows.user;
-                      that.$store.state.token = res.data.token;
-                      that.$store.state.game = res.data.rows.game;
                       window.localStorage.setItem(
                         "userdata",
                         JSON.stringify(res.data.rows.user)
@@ -112,7 +118,9 @@ export default {
                         "game",
                         JSON.stringify(res.data.rows.game)
                       );
-
+                      that.setUserdata();
+                      that.setToken();
+                      that.setGame();
                       setTimeout(function() {
                         that.$router.push({
                           path: "/"
@@ -170,8 +178,9 @@ export default {
     checkname() {
       const that = this;
       if (regUserName.test(this.username)) {
-        let paramsUrl = new URLSearchParams();
-        paramsUrl.append("name", that.username);
+        let paramsUrl = qs.stringify({
+          name: that.username
+        });
         axios
           .post(url + "/newMobile/checkname", paramsUrl)
           .then(function(res) {
@@ -187,7 +196,13 @@ export default {
             console.log(res);
           });
       }
-    }
+    },
+    ...mapMutations({
+      setUserName: "SET_USER_NAME",
+      setUserdata: "SET_USERDATA",
+      setToken: "SET_TOKEN",
+      setGame: "SET_GAME"
+    })
   },
   mounted() {
     let height = parseInt(getComputedStyle(this.$refs.register, null).height);
@@ -269,9 +284,9 @@ export default {
   display: inline-block;
   position: absolute;
   right: 56px;
-  top: 1px;
+  top: 2px;
   width: 38px;
-  height: 38px;
+  height: 36px;
   background: #fff url('../../assets/images/eye.png') no-repeat center center;
   background-size: 100% auto;
   cursor: pointer;

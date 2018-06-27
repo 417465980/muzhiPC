@@ -4,8 +4,8 @@
 		<div class="game_list">
 			<ul class="clearfix">
 				<li v-for="(item,index) in hotGift" :key="index">
-					<a class="gm_icon fl">
-						<img :src="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl"/>
+					<a class="gm_icon fl" href="javascript:;">
+						<img class="pis-hover" @click="markfqa"  :src="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl"/>
 					</a>
 					<div class="item_title fl">
 						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
@@ -19,10 +19,7 @@
 				</li>
 			</ul>
 			<div class="load_more" @click="addgift" v-if="hotGift.length>0&&show">
-				<span class="hoveraction">查看更多</span>
-				<a>
-					<i class="gmCen_spri"></i>
-				</a>
+				<p></p>
 			</div>
 			<div class="markfqa" @click.stop="close" v-show="bool">
 				<transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
@@ -53,7 +50,7 @@ export default {
     return {
       hotGift: [],
       place: ["hotGift", "recomGift"],
-      rows: 16,
+      rows: 24,
       page: 1,
       url,
       show: true,
@@ -104,8 +101,7 @@ export default {
           console.log(res);
         });
     },
-    markfqa(download) {
-      this.markhtml = download;
+    markfqa() {
       this.bool = !this.bool;
     },
     close() {

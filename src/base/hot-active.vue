@@ -14,9 +14,9 @@
 		<ul>
 			<li v-for="(item,index) in hotActive" :key="index" ><!-- @click="hotAc(item)" -->
 				<figure>
-					<router-link :to="'/news/'+item.id" tag="a"><img  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
+					<router-link :to="'/news/'+item.id" tag="a" class="box-over f0"><img class="img-hover" v-lazy="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/></router-link>
 					<!-- <img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" :style="imgHeight"/> -->
-					<figcaption class="hoveraction">
+					<figcaption class="hoveraction pis-hover">
 						{{item.title}}
 					</figcaption>
 				</figure>

@@ -35,10 +35,6 @@
   font-family: Tahoma;
 }
 
-.fl {
-  font-family: Lucida Console;
-}
-
 .fs {
   font-family: '宋体';
 }
@@ -631,4 +627,72 @@ a.tdl:hover {
 .downbtn {
   width: 140px;
   height: 44px;
+}
+
+.pis-hover:hover {
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
+
+.img-hover {
+  transition: transform .5s;
+}
+
+.img-hover:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.box-over {
+  display: block;
+  overflow: hidden;
+}
+
+.img-hover-border {
+  position: relative;
+  cursor: pointer;
+}
+
+.img-hover-border:before,
+.img-hover-border:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  border: 1px solid transparent;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+}
+
+.img-hover-border:before {
+  top: 0;
+  left: 0;
+  transition: height 0.1s ease-in 0.3s, width 0.3s ease-in 0.4s, border-color 0s linear 0.7s;
+}
+
+.img-hover-border:after {
+  right: 0;
+  bottom: 0;
+  transition: height 0.1s ease-in 0s, width 0.3s ease-in 0.1s, border-color 0s linear 0.3s;
+}
+
+.img-hover-border:hover:before {
+  width: 100%;
+  height: 100%;
+  border-top-color: #4782c2;
+  border-right-color: #c6447c;
+  transition: border-color 0s ease-in 0s, width 0.3s linear 0s, height 0.1s linear 0.3s;
+}
+
+.img-hover-border:hover:after {
+  width: 100%;
+  height: 100%;
+  border-bottom-color: #c6447c;
+  border-left-color: #4782c2;
+  transition: border-color 0s linear 0.3s, width 0.3s ease-in 0.3s, height 0.1s ease-in 0.6s;
+}
+
+.input-hover:hover {
+  box-shadow: inset 0 0 1px #820c9b;
 }

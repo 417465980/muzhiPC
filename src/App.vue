@@ -6,20 +6,20 @@
       		<router-view ></router-view>
     	</keep-alive>
 	
-		<Foot v-show="$store.state.show" ></Foot>
+		<Foot v-show="show" ></Foot>
   </div>
 </template>
 
 <script>
 import Head from "base/head";
-import Foot from "base/Foot";
+// import Foot from "base/Foot";
 import support from "base/support";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import "babel-polyfill";
 export default {
   components: {
     Head,
-    Foot,
+    Foot: () => import("base/Foot"),
     support
   },
   mounted() {
@@ -27,6 +27,9 @@ export default {
   },
   methods: {
     ...mapActions(["SET_SHOW"])
+  },
+  computed: {
+    ...mapState(["show"])
   }
 };
 </script>

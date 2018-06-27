@@ -6,7 +6,7 @@
 		<div class="my-gift-nav">
 			<p>&nbsp;&nbsp;充值记录</p>
 			
-			<ul v-if="rows.length">
+			<ul v-if="!!rows.length">
 				<li><a href="javascript:;">充值订单号</a></li>
 				<li><a href="javascript:;">充值金额</a></li>
 				<li><a href="javascript:;">拇指币</a></li>
@@ -16,8 +16,8 @@
 		<div class="my-gift-list" v-if="!!rows.length" v-for="(item, index) in rows" :key="index" >
 			<ul>
 				<li>{{item.thirPayId}}</li>
-				<li>￥{{item.channelNo}}</li>
-				<li>{{item.mzAmount}}</li>
+				<li>￥{{item.amount/100}}</li>
+				<li>{{item.mzAmount/100}}</li>
 				<li>{{item.time}}</li>
 			</ul>
 		</div>
@@ -41,26 +41,39 @@ export default {
   computed: {
     ...mapState(["userdata", "token"])
   },
-  mounted() {
-    //查看充值记录
+  methods: {
+    charge() {
+      //查看充值记录
 
-    let that = this;
-    let paramsUrl = qs.stringify({
-      username: that.userdata.name,
-      token: that.token
-    });
-    axios
-      .post(url + "/muzhiplat/pc2/user/findMyRecharge", paramsUrl)
-      .then(function(res) {
-        if (res.data.ret) {
-          res.data.msg = "获取成功";
-        }
-        that.rows = res.data.rows;
-        hint(that.$refs, res.data.msg);
-      })
-      .catch(function(res) {
-        console.log(res);
+      let that = this;
+      let paramsUrl = qs.stringify({
+        username: that.userdata.name,
+        token: that.token,
+        page: 1,
+        rows: 10
       });
+      axios
+        .post(url + "/muzhiplat/pc2/user/findMyRecharge", paramsUrl)
+        .then(function(res) {
+          if (res.data.ret) {
+            res.data.msg = "获取成功";
+          }
+          if (res.data.rows) {
+            that.rows = res.data.rows;
+          }
+
+          hint(that.$refs, res.data.msg);
+        })
+        .catch(function(res) {
+          console.log(res);
+        });
+    }
+  },
+  mounted() {
+    this.charge();
+  },
+  watch: {
+    userdata: "charge"
   }
 };
 </script>
@@ -134,7 +147,7 @@ export default {
 
 	p {
 		font-size: 16px;
-		color: #820c9b;
+		color: #af2f7d;
 		text-align: left;
 		line-height: 20px;
 		vertical-align: top;
@@ -145,7 +158,7 @@ export default {
 			display: inline-block;
 			width: 3px;
 			height: 20px;
-			background: #820c9b;
+			background: #af2f7d;
 			vertical-align: top;
 		}
 	}
@@ -159,11 +172,11 @@ export default {
 		display: inline-block;
 		width: 98px;
 		height: 28px;
-		border: 1px solid #820c9b;
+		border: 1px solid #af2f7d;
 		text-align: center;
 		margin: 0 auto;
 		font-size: 16px;
-		color: #820c9b;
+		color: #af2f7d;
 		line-height: 28px;
 	}
 }

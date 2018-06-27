@@ -2,7 +2,6 @@
 	<div id="user">
 		
 		<user-info  v-if="userdata.id"></user-info>
-		<reg-info v-else></reg-info>
 		<div class="user-warp max-width">
 			<div class="user-main-left">
 				<ul class="user-main-left-box">

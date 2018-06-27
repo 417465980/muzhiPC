@@ -4,10 +4,10 @@
 			<li class="clearfix" v-for="(item,index) in allNewsList" :key="index"  @click="selectNew(item)"> 
 
 				<div class="new_img fl">
-					<img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" />
+					<img class="img-hover" :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" />
 				</div>
 				<div class="new_title fl">
-					<h1 class="hoveraction">{{item.title}}</h1>
+					<h1 class="hoveraction pis-hover">{{item.title}}</h1>
 					<p>{{item.childTitle}}</p>
 				</div>
 				<div class="new_time fr" v-if="item.addDate">

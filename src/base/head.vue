@@ -5,21 +5,21 @@
         
 				<ul class="clearfix">
 					
-					<li class="muzhi fl">
+					<li class="muzhi fl pis-hover">
 						<router-link to="/index">
 							<span class="middlespan" ></span>
 							<i class="icon_spri"></i>
 							<span>&nbsp;91muzhi |</span>
 						</router-link>
 					</li>
-					<li class="mobile fl">
+					<li class="mobile fl pis-hover">
 						<a href="http://game.91muzhi.com/m/" target="_blank">
 							<span class="middlespan" ></span>
 							<i class="icon_spri"></i>
 							<span>手机版 |</span>
 						</a>
 					</li>
-					<li class="mobile fl">
+					<li class="mobile fl pis-hover">
 						<a href="http://game.91muzhi.com/yyb/pc/">
 							<span class="middlespan" ></span>
 							<i class="icon_spri"></i>
@@ -28,13 +28,13 @@
 					</li>
           <li class="count fr" v-if="name">
 						<span class="middlespan"  ></span>
-						<router-link  to="/user" tag="span" >{{name}}</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<span @click="signOut">退出</span>
+						<router-link  to="/user" class="pis-hover" tag="span" >{{name}}</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<span class="pis-hover" @click="signOut">退出</span>
 					</li>
           
           <li class="count fr" v-else>
 						<span  class="middlespan"></span>
 						<i class="icon_spri"></i>
-						<router-link  to="/login" tag="span">登录</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/register" tag="span">注册</router-link>
+						<router-link  to="/login" tag="span" class="pis-hover">登录</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/register" tag="span" class="pis-hover">注册</router-link>
 					</li>
 				</ul>
 			</div>
@@ -55,7 +55,7 @@
 			</div>
 			<div class="search fr">
 				<span class="middlespan"></span>
-				<input type="text" @blur="defaultkeyword" @focus="clearkeyword" v-model="keyword" :placeholder="keyword">
+				<input type="text" class="input-hover" @blur="defaultkeyword" @focus="clearkeyword" v-model="keyword" :placeholder="keyword">
 				<router-link @click.native="nativeSearch" :to="{path:'/search/'+keyword}" tag="div" class="searchBtn"><i class="icon_spri"></i></router-link>
 				<transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX" >
 					<div class="searchArray" v-if="show">
@@ -339,6 +339,10 @@ export default {
 }
 .nav ul li:hover {
   color: #820c9b;
+
+  position: relative;
+  top: 1px;
+  left: 1px;
 }
 .nav .search {
   font-size: 0;

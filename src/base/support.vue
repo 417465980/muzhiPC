@@ -73,7 +73,6 @@ export default {
 }
 .links-guide p {
   font-size: 14px;
-  font-family: 宋体;
   letter-spacing: 1px;
   text-align: left;
   width: 100%;

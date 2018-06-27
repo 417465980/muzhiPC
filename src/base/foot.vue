@@ -1,7 +1,7 @@
 <template>
 	<div class="footer" ref = 'footer'>
 		<div class="min-width">
-			<p><router-link to="/developer" >商务合作</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;防沉迷认证&nbsp;&nbsp;|&nbsp;&nbsp;<router-link tag="span" to="/index">企业官网</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/about" tag="span"> 关于我们</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/mzagreement" tag="a">用户协议</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link tag="a" to="/service">客服中心</router-link ></p>
+			<p><router-link to="/developer" class="pis-hover">商务合作</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/user/authen" class="pis-hover" v-if="token">防沉迷认证</router-link><router-link to="/login" v-else  class="pis-hover">防沉迷认证</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link tag="span"  class="pis-hover" to="/index">企业官网</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/about" tag="span"  class="pis-hover"> 关于我们</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link to="/mzagreement" class="pis-hover" tag="a">用户协议</router-link>&nbsp;&nbsp;|&nbsp;&nbsp;<router-link tag="a"  class="pis-hover" to="/service">客服中心</router-link ></p>
 			<p>深圳市拇指游玩科技有限公司&nbsp;&nbsp;版权所有&nbsp;&nbsp;2014ALL&nbsp;&nbsp;Rights&nbsp;&nbsp;Reserved.</p>
 			
 			<p>网络文化经营许可证:&nbsp;&nbsp;<a target="_blank" href="http://game.91muzhi.com/assets/images/网络文化经营许可证.jpg">粤网文[2015]1169-062号</a> </p>
@@ -11,6 +11,7 @@
 	</div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {};
@@ -28,6 +29,9 @@ export default {
         this.$refs.footer.style.top = screenHeight + 255 + "px";
       }
     }
+  },
+  computed: {
+    ...mapState(["token"])
   }
 };
 </script>

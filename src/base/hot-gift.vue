@@ -4,13 +4,13 @@
 		<div class="game_list">
 			<ul class="clearfix">
 				<li v-for="(item,index) in hotGift" :key="index">
-					<a class="gm_icon fl" href="javascript:;">
-						<img :src="url+'/muzhiplat'+item.giftIconUrl"/>
+					<a class="gm_icon fl" @click="markfqa" href="javascript:;">
+						<img class="pis-hover" :src="url+'/muzhiplat'+item.giftIconUrl"/>
 					</a>
 					<div class="item_title fl">
 						<p :title="item.gameName" class="hoveraction">{{item.gameName}}</p>
 						<span :title="item.giftName">{{item.giftName}}</span>
-						<a href="javascript:;" @click="markfqa(item.download)" class="hotGmBtn">   
+						<a href="javascript:;" @click="markfqa" class="hotGmBtn">   
 							<span class="middlespan"></span>
 							<i class="icon_spri"></i>
 							<span>领取</span>
@@ -54,8 +54,7 @@ export default {
     };
   },
   methods: {
-    markfqa(download) {
-      this.markhtml = download;
+    markfqa() {
       this.bool = !this.bool;
     },
     close() {

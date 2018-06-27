@@ -6,19 +6,20 @@
 		</div>
 		<ul>
 			<li v-for="(item,index) in giftRank" :key="index" @mouseover="rankShow(index)" @mouseout="rankHide(index)">
+        <a href="javascript:;" class="hoveraction" @click="markfqa">
 				<div class="showRankGm clearfix" v-if="currentIndex === index">
-					<div class="rankGmIcon fl">
-						<img  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl" />
+					<div class="rankGmIcon fl pis-hover">
+						<img class="" v-lazy="'http://game.91muzhi.com/muzhiplat'+item.giftIconUrl" />
 						<div>
 							<span class="hotRank-index">{{index+1}}</span><i></i><i class="addI"></i><i></i>
 						</div>
 					</div>
 					<div class="gmRank_tit fl">
-						<a href="javascript:;" class="hoveraction" @click="markfqa(item.download)">{{item.gameName}}</a>
+						<a href="javascript:;" class="hoveraction" >{{item.gameName}}</a>
 						<span>{{item.giftName}}</span>
 					</div>
 					<div class="rankGmBtn fr">
-						<i class="activeCenRrankIco gmCen_spri" @click="markfqa(item.download)"></i>    
+						<i class="activeCenRrankIco gmCen_spri pis-hover"></i>    
                     </div>
 				</div>
 				<div class="hotRank_tit" v-else>
@@ -27,6 +28,7 @@
 					</div>
 					<span>{{item.gameName}}</span>
 				</div>
+        </a>
 			</li>
 		</ul>
 		<transition>
@@ -89,8 +91,7 @@ export default {
     receivebag() {
       hint(this.$refs, "请到App领取");
     },
-    markfqa(download) {
-      this.markhtml = download;
+    markfqa() {
       this.bool = !this.bool;
     },
     close() {

@@ -137,6 +137,11 @@ export default {
         this.$refs.itemcont[i].className = "coupon-list";
       }
       this.$refs.itemcont[index].className += " coupon-active";
+    },
+    acct(acct) {
+      if (acct.data.rows) {
+        this.couponlist.acct = acct.data.rows;
+      }
     }
   },
   mounted() {
@@ -145,9 +150,9 @@ export default {
     var that = this;
     axios.all([this.getCoupon3(), this.getCoupon4(), this.getCoupon5()]).then(
       axios.spread(function(acct, perms, cantuse) {
-        that.couponlist.acct = acct.data.rows;
-        that.couponlist.perms = perms.data.rows;
-        that.couponlist.cantuse = cantuse.data.rows;
+        that.acct(acct);
+        that.acct(perms);
+        that.acct(cantuse);
       })
     );
   },
@@ -203,7 +208,7 @@ export default {
 .nav-coupon {
 	width: 800px;
 	height: 40px;
-	border-bottom: 1px solid #820c9b;
+	border-bottom: 1px solid #af2f7d;
 
 	ul {
 		width: 540px;
@@ -211,7 +216,8 @@ export default {
 		margin: 0 auto;
 
 		.active {
-			border-bottom: 2px solid #820c96;
+			border-bottom: 2px solid #af2f7d;
+			color: #af2f7d;
 		}
 
 		li {

@@ -2,42 +2,56 @@
 	<div id="my-game">
 		<div class="">
 			<div class="my-game-main">
-				<ul class="my-game-list" v-if="!!game">
+				<div class="subnav">&nbsp;&nbsp;我的游戏</div>
+				<ul class="my-game-list" v-if="!!game.length">
 					<li v-for="(item,index) in game" :key="index">
 						<div>
-							<img class="my-game-icon" width="80" height="80" :src="item.icon|addHttp" alt="">
+							<img class="my-game-icon pis-hover" width="80" height="80" :src="item.icon|addHttp" alt="">
 							<div class="my-game-info">
 								<p>{{item.name}}</p>
 								<a :href="item.website" terget="_blank" class="officialWeb">官网</a>
-								<a href="javascript:;" class="gift-packbag"><i></i>礼包</a></div>
+								<a href="javascript:;" @click="markfqa" class="gift-packbag"><i></i>礼包</a></div>
 						</div>
 					</li>
-					
 				</ul>
 				<div v-else >
-					<img class="center-img" src="static/images/4.png">
-					<p class="g6 f16 tc mt20">前往游戏中心下载吧</p>
-				</div>	
+				<img class="center-img" src="static/images/4.png">
+				<p class="g6 f16 tc mt20">前往&nbsp;<router-link to="/game/all" class="g6 red" tag="a">游戏中心</router-link>下载吧</p>
+			</div>	
 			</div>
 			<div class="subnav">&nbsp;&nbsp;精品游戏推荐</div>
-			<ul class="my-game-list" v-if="!!rows">
+			<ul class="my-game-list" v-if="!!rows.length">
 				<li v-for="data in rows" :key="data.$index">
 					<div>
-						<router-link to="/"><img class="my-game-icon" :src="data.icon|addHttp" alt=""></router-link>
+						<router-link :to="'/game/'+data.id"><img class="my-game-icon pis-hover" :src="data.icon|addHttp" alt=""></router-link>
 						<div class="my-game-info">
 							<p>{{data.name}}</p>
-							<a :href="data.website" class="officialWeb">官网</a>
-							<a href="javascript:;" class="gift-packbag"><i></i>礼包</a>
+							<a :href="data.website||'javascript:;'" class="officialWeb">官网</a>
+							<a href="javascript:;"  @click="markfqa" class="gift-packbag"><i></i>礼包</a>
 						</div>
 					</div>
 				</li>
 			</ul>
 			<div v-else >
 				<img class="center-img" src="static/images/4.png">
-				<p class="g6 f16 tc mt20">前往<router-link to="/game/all" class="g6" tag="a">游戏中心</router-link>下载吧</p>
+				<p class="g6 f16 tc mt20">前往&nbsp;<router-link to="/game/all" class="g6 red" tag="a">游戏中心</router-link>下载吧</p>
 			</div>
-			
-		
+		</div>
+		<div class="markfqa " @click.stop="close" v-show="bool">
+			<transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
+				<div class="markbox markbox-gift">
+					<div class="close" @click.stop="close">×</div>
+					<div @click.stop="function(){return false}">
+						<div class="mark-content">
+							<p>
+								<span class="f18 lh24">请到拇指游戏宝领取</span><br>
+									<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk"><img class="receive" src="../../assets/images/2.png" alt=""></a>
+								<a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml downbtn">马上下载</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</transition>
 		</div>
 	</div>
 </template>
@@ -49,42 +63,58 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      rows: []
+      rows: [],
+      bool: false,
+      markhtml: ""
     };
+  },
+  methods: {
+    getgame() {
+      let that = this;
+      let paramsUrl = qs.stringify({
+        place: "gameBoutique"
+      });
+
+      axios
+        .post(url + "/muzhiplat/pc2/game/findGameByPlace", paramsUrl)
+        .then(function(res) {
+          that.rows = res.data.rows;
+          if (res.data.ret) {
+            res.data.msg = "获取成功";
+          }
+        })
+        .catch(function(res) {
+          console.log(res);
+        });
+    },
+    markfqa() {
+      this.bool = !this.bool;
+    },
+    close() {
+      this.bool = !this.bool;
+    }
   },
   computed: {
     ...mapState(["userdata", "token", "game"])
   },
   mounted() {
-    let that = this;
-    let paramsUrl = qs.stringify({
-      username: that.userdata.name,
-      token: that.token
-    });
-
-    axios
-      .post(url + "/muzhiplat/pc2/user/findMyGame", paramsUrl)
-      .then(function(res) {
-        that.rows = res.data.rows;
-        if (res.data.ret) {
-          res.data.msg = "获取成功";
-        }
-      })
-      .catch(function(res) {
-        console.log(res);
-      });
+    this.getgame();
   },
   filters: {
     addHttp(data) {
       return url + data;
     }
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    game: "getgame"
   }
 };
 </script>
 <style scoped lang="stylus">
 .subnav {
 	font-size: 20px;
-	color: #723083;
+	color: #af2f7d;
 	line-height: 22px;
 
 	&:before {
@@ -93,7 +123,7 @@ export default {
 		display: inline-block;
 		width: 3px;
 		height: 22px;
-		background: #723083;
+		background: #af2f7d;
 	}
 }
 

@@ -4,32 +4,51 @@
             <div  class="clsifi_list min-width">
                 <div v-if="rows.length == 0"  class="nonegame">
                         <img  src="../../static/images/nosearch.png" alt="">
-                        <p>未能查询到游戏.</p>
+                        <p class="g9">未能查询到游戏.</p>
                 </div>
                 <ul v-else class="clearfix">
-                    <li v-for="(item,index) in rows" :key="index">
-                        <router-link class="listIcon fl" tag="div" :to="'/game/'+item.id">
-                            <img :src="url+'/muzhiplat'+item.icon" />
-                        </router-link>
-                        <div class="listTitle fl">
-                            <router-link tag="p" :to="'/game/'+item.id">{{item.name}}</router-link>
-                            <span>类型：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;大小{{item.appSize}}M</span>
-                            <p class="introduce" :title="item.introduction">简介：{{item.introduction}}</p>
-                            <div class="clearfix">
-                                <a class="getLb fl">
-                                    <i class="gmCen_spri"></i>
-                                    <span @click="receivebag">礼包领取</span>
-                                </a>
-                                <a :href="item.downloadLink" class="gmLoad fl">
-                                    <i class="gmCen_spri"></i>
-                                    <span>游戏下载</span>
-                                </a>
-                            </div>
+              
+                    <li v-for="(item,index) in rows" :key="index" class="img-hover-border pis-hover">
+                      <div class="listIcon fl">
+                        <router-link :to="'/game/'+item.id" tag="p"><img  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.character" /><span class="imgfilter"></span></router-link>
+                      </div>
+                      <div class="listTitle fl">
+                        <router-link :to="'/game/'+item.id" tag="p" class="hoveraction">{{item.name}}</router-link>
+                        <span>类型：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;大小{{item.appSize}}M</span>
+                        <p class="introduce" :title="item.introduction">简介：{{item.introduction}}</p>
+                        <div class="clearfix">
+                          <a class="getLb fl" href="javascript:;"  @click="markfqa(item.downloadLink)">
+                            <span class="middlespan"></span>
+                            <i class="gmCen_spri"></i>
+                            <span>礼包领取</span>
+                          </a>
+                          <a :href="item.downloadLink" class="gmLoad fl">
+                            <span class="middlespan"></span>
+                            <i class="gmCen_spri"></i>
+                            <span>游戏下载</span>
+                          </a>
                         </div>
+                      </div>
                     </li>
                 </ul>
             </div>
         </keep-alive>
+        <div class="markfqa" @click.stop="close" v-show="bool">
+          <transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">
+            <div class="markbox markbox-gift">
+              <div class="close" @click.stop="close">×</div>
+              <div @click.stop="function(){return false}">
+                <div class="mark-content">
+                  <p>
+                    <span class="f18 lh24">请到拇指游戏宝领取</span><br>
+                    <a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk"><img class="receive" src="../assets/images/2.png" alt=""></a>
+                    <a href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk" class="markhtml downbtn">马上下载</a>
+                  </p>
+                </div>  
+              </div>
+            </div>
+          </transition>
+        </div>
         <transition>
 			<div class="hint" ref="hint">
 				<span ref="hint-content"></span>
@@ -47,7 +66,9 @@ export default {
     return {
       keyword: decodeURI(this.$route.params.keyword),
       rows: [],
-      url
+      url,
+      bool: false,
+      markhtml: ""
     };
   },
   methods: {
@@ -58,7 +79,6 @@ export default {
           keywords: keyword
         })
       );
-      console.log(keyword);
       axios
         .post(url + "/muzhiplat/pc2/game/findGameByKeywords", paramsUrl)
         .then(function(res) {
@@ -75,6 +95,12 @@ export default {
     },
     receivebag() {
       alert("请到App领取");
+    },
+    markfqa() {
+      this.bool = !this.bool;
+    },
+    close() {
+      this.bool = !this.bool;
     }
   },
   mounted() {
@@ -95,95 +121,8 @@ export default {
 .clsifi_list {
   padding-top: 25px;
 }
-.clsifi_list ul li {
-  width: 383px;
-  height: 160px;
-  border: 1px solid #e6e6e6;
-  margin-bottom: 30px;
-}
-.clsifi_list ul li:nth-child(odd) {
-  float: left;
-}
-.clsifi_list ul li:nth-child(even) {
-  float: right;
-}
-.clsifi_list li .listIcon {
-  height: 100%;
-  width: 90px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-right: 10px;
-  margin-left: 10px;
-  margin-top: 16px;
-}
-.clsifi_list li .listIcon img {
-  height: auto;
-  max-height: 100%;
-  max-width: 100%;
-}
-.clsifi_list li .listTitle p:first-child {
-  font-size: 16px;
-  line-height: 50px;
-}
-.clsifi_list li .listTitle span {
-  font-size: 13px;
-  color: #959595;
-}
-.clsifi_list li .listTitle .introduce {
-  width: 237px;
-  font-size: 14px;
-  color: #959595;
-  line-height: 30px;
-  margin-bottom: 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.clsifi_list li .listTitle a {
-  height: 25px;
-  width: 85px;
-  border: 1px solid #c7c7c7;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.clsifi_list li .listTitle a:first-child {
-  margin-right: 8px;
-}
-.clsifi_list .listTitle .getLb i,
-.clsifi_list .listTitle .gmLoad i {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  margin-right: 5px;
-}
-.clsifi_list .listTitle .getLb i {
-  background-position: -106px -10px;
-}
-.clsifi_list .listTitle .gmLoad i {
-  background-position: -10px -103px;
-}
-.clsifi_list .listTitle .getLb:hover i {
-  background-position: -106px -42px;
-}
-.clsifi_list .listTitle .gmLoad:hover i {
-  background-position: -42px -103px;
-}
-.clsifi_list .moreWrap {
-  margin-top: 30px;
-}
 .nonegame {
-  width: 1200px;
-  height: 200px;
-  margin: 100px auto;
   text-align: center;
-}
-.nonegame p {
-  text-align: center;
-  font-size: 20px;
-  color: #666;
-  margin-top: 10px;
+  margin-top: 200px;
 }
 </style>    

@@ -9,9 +9,9 @@
 			
 				
 					<div class="showRankGm clearfix" v-if="currentIndex === index">
-						<div class="rankGmIcon fl">
-							<router-link :to="'/game/'+item.id">
-								<img :src="'http://game.91muzhi.com/muzhiplat'+item.icon" />
+						<div class="rankGmIcon fl pis-hover">
+							<router-link :to="'/game/'+item.id" class="f0">
+								<img  :src="'http://game.91muzhi.com/muzhiplat'+item.icon" />
 								<div><span class="hotRank-index">{{index+1}}</span><i></i><i class="addI"></i><i></i></div>
 							</router-link>
 						</div>
@@ -20,7 +20,7 @@
 							<span>{{item.type}}&nbsp;|{{item.appSize}}M</span>
 						</div>
 						<div class="rankGmBtn fr">
-							<a :href="item.downloadLink" >
+							<a class="pis-hover" :href="item.downloadLink" >
 							<i class="gmCenRrankIco gmCen_spri"></i>
 							</a>
 						</div>

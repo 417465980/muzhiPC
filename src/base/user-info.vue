@@ -5,10 +5,10 @@
 				<img v-if="userdata.mUserIcon" :src="userdata.mUserIcon|addHttp" />
 				<img v-else src="../assets/images/user_icon.png" />
 			</div>
-			<a href="javascript:;" class="exit fr " @click="signOut">退出</a>
+			<a href="javascript:;" class="exit fr pis-hover" @click="signOut">退出</a>
 			<div class="user_title fl">
 				<div>
-					<span v-if="userdata.nickName!='undefined'">{{userdata.nickName}}</span>
+					<span v-if="!!userdata.nickName">{{userdata.nickName}}</span>
 					<router-link to="/user/account" tag="span" v-else>请设置你的昵称</router-link>
 					<img v-if="userdata.level" :src="'static/images/vip_'+userdata.level+'.png'" />
 					<img v-else src="static/images/vip_0.png" />
@@ -19,19 +19,19 @@
 		</div>
 		<div class="login_botm">
 			<ul class="clearfix">
-				<li>
+				<li  class="pis-hover">
 				<router-link to="/user/myGift" class="gift">
 					<i class="user_spri"></i>
-					<p><a href="javascript:;">礼包：</a><span>{{userdata.giftSum}}</span></p>
+					<p><a href="javascript:;">礼包：</a><span >{{userdata.giftSum}}</span></p>
 				</router-link>
 				</li>
-				<li>
+				<li class="pis-hover">
 				<router-link to="/user/myCoupon" class="lj">
 					<i class="user_spri"></i>
 					<p><a href="javascript:;">礼劵：</a><span>{{userdata.couponSum}}</span></p>
 				</router-link>
 				</li>
-				<li>
+				<li class="pis-hover">
 				<router-link to="/user/myWallet" class="muzhi_money">
 					<i class="user_spri"></i>
 					<p><a href="javascript:;">拇指币：</a><span>{{userdata.mzAccount}}</span></p>
@@ -50,8 +50,8 @@
 				<li v-for="(item,index) in game" :key="index" v-if="index<4">
           
 					<router-link :to="'/game/'+item.id" >
-						<img :title="item.name" :src="item.icon|addHttp" >
-						<p :title="item.name" class="hoveraction">{{item.name}}</p>
+						<img :title="item.name" class="pis-hover" :src="item.icon|addHttp" >
+						<p :title="item.name" class="hoveraction pis-hover">{{item.name}}</p>
 					</router-link>
 				</li>
 			</ul>
@@ -135,6 +135,7 @@ export default {
   height: 97px;
   overflow: hidden;
   margin-right: 10px;
+  border-radius: 6px;
 }
 .avatars img {
   max-height: 100%;

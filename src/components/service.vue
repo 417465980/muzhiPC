@@ -6,13 +6,13 @@
                 <div class="list">
                     <span  v-for="(item, index) in fqalist" :key="index" :class="{ul:true, active:index==active }" @click="seefqa(index)">
                         
-                        <i :class="item[0]"></i><br>
-                        <span class="li hoveraction">{{item[1].name}}</span>
+                        <i :class="item[0]" ></i><br>
+                        <span class="li hoveraction pis-hover">{{item[1].name}}</span>
                     </span>
                 </div>
                 <div v-for="item in id" :key="item" v-show="item==activenum" class="details animated" >
                     <ul>
-                        <li v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" :data-prodetail="items.proDetail" @click="markfqa" class="hoveraction">{{items.proTitle}}</li>
+                        <li v-for="(items, i) in rows" :key="i" v-if="item ==items.type.id" :data-prodetail="items.proDetail" @click="markfqa" class="hoveraction pis-hover">{{items.proTitle}}</li>
                     </ul>
                 </div>
             </div>

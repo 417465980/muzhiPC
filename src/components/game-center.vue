@@ -45,7 +45,6 @@ export default {
   },
   data() {
     return {
-      token,
       gmTypeFields: [
         {
           type: "全部",

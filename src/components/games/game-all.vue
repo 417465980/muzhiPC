@@ -1,7 +1,7 @@
 <template>
 	<div class="clsifi_list">
 		<ul class="clearfix">
-			<li v-for="(item,index) in allList" :key="index">
+			<li v-for="(item,index) in allList" :key="index" class="img-hover-border">
 				<div class="listIcon fl">
 					<router-link :to="'/game/'+item.id" tag="p"><img  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.character" /><span class="imgfilter"></span></router-link>
 				</div>
@@ -10,7 +10,7 @@
 					<span>类型：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;大小{{item.appSize}}M</span>
 					<p class="introduce" :title="item.introduction">简介：{{item.introduction}}</p>
 					<div class="clearfix">
-						<a class="getLb fl" href="javascript:;"  @click="markfqa(item.downloadLink)">
+						<a class="getLb fl" href="javascript:;"  @click="markfqa">
 							<span class="middlespan"></span>
 							<i class="gmCen_spri"></i>
 							<span>礼包领取</span>
@@ -71,8 +71,7 @@ export default {
     };
   },
   methods: {
-    markfqa(download) {
-      this.markhtml = download;
+    markfqa() {
       this.bool = !this.bool;
     },
     close() {

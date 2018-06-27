@@ -1,15 +1,15 @@
 <template>
 	<div id="account">
 		<div :class="{'edit':true}">
-			<a href="javascript:;" ref="editable" @click="editable">编辑</a></div>
+			<a href="javascript:;" :class="{background:!readonly}" ref="editable" @click="editable">编辑</a></div>
 		<div class="account-wrap">
 			<ul>
 				<li>
 					<label class="accout-label" for="userdata">用户名</label>
-					<input id="userdata" placeholder="用户名" type="text" name="username" v-model="userdata.name" :readonly="readonly"></li>
+					<input id="userdata" placeholder="用户名" type="text" name="username" :value="userdata.name" :readonly="readonly"></li>
 				<li>
 					<label class="accout-label" for="nickname">昵称</label>
-					<input id='nickname' placeholder="请设置您的昵称" type="text" v-if="userdata.nickname!='undefined'" v-model="userdata.nickname" :readonly="readonly">
+					<input id='nickname' placeholder="请设置您的昵称" type="text" v-if="userdata.nickName!='undefined'" v-model="userdata.nickName" :readonly="readonly">
 					<input id='nickname' placeholder="请设置您的昵称" type="text" v-else  :readonly="readonly"></li>
 				<li>
 					<p class="accout-label">性别</p>
@@ -33,12 +33,12 @@
 				<li>
 					<label class="accout-label" for="">地址</label>
 					<input type="text"  v-model="userdata.receivedAddress" placeholder="请输入您的地址" :readonly="readonly"></li>
-				<li>
+				<!-- <li>
 					<label class="accout-label" for="">上次登录</label>
 					<span class="font-s-color333">{{userdata.recentLoginTime}}</span></li>
 				<li>
 					<label class="accout-label" for="">最近登录IP</label>
-					<span class="font-s-color333">{{userdata.recentLoginAddr}}</span></li>
+					<span class="font-s-color333">{{userdata.recentLoginAddr}}</span></li> -->
 			</ul>
 			<div v-show="!readonly" :class="{'accout-submit':true}">
 				<input @click="changeInfo" type="button" value="提交">
@@ -90,24 +90,26 @@ export default {
     changeInfo() {
       let that = this;
       let paramsUrl = qs.stringify({
-        sex: that.userdata.sex,
+        sex: that.userdata.gender,
         qq: that.userdata.qq,
         wx: that.userdata.wx,
-        phone: that.userdata.phone,
-        address: that.userdata.address,
+        phone: that.userdata.phoneNum,
+        address: that.userdata.receivedAddress,
         nickname: that.userdata.nickname,
-        token: that.token
+        token: that.token,
+        username: that.userdata.name
       });
 
       axios
         .post(url + "/muzhiplat/pc2/user/edit", paramsUrl)
         .then(function(res) {
           hint(that.$refs, res.data.msg);
-          if (res.data.msg.indexOf("登陆超时") == -1) {
+          if (res.data.msg.indexOf("登陆超时") != -1) {
             setTimeout(() => {
               that.$router.push("/login");
             }, 1000);
           }
+          that.readonly = true;
         })
         .catch(function(res) {
           console.log(res);

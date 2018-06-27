@@ -59,7 +59,7 @@
                     </div>
                     <div class="swipe-wrapper">
                         <mt-swipe :auto="4000" ref="swipe">
-                            <mt-swipe-item v-for="(item, index) in screenshots" :key="index" class="slide1"><img class="swipe-img" :src="item|addHttp" alt=""></mt-swipe-item>
+                            <mt-swipe-item v-for="(item, index) in screenshots" :key="index" class="slide1 img-hover-border"><img class="swipe-img" :src="item|addHttp" alt=""></mt-swipe-item>
                         </mt-swipe>
                         <div>
                           <a class="prev swiperbtn gmCen_spri" href="javascript:;" @click='prev'></a>
@@ -115,25 +115,27 @@ export default {
     };
   },
   methods: {
-    markfqa(download) {
-      this.markhtml = download;
+    markfqa() {
       this.bool = !this.bool;
     },
     close() {
       this.bool = !this.bool;
     },
     getData() {
-      var id = window.location.href.split("/game/")[1].split("/")[0];
-      id = id == "all" ? null : id;
-      var that = this;
-      if (id) {
-        axios
-          .post(url + "/muzhiplat/pc2/game/" + id)
-          .then(function(res) {
-            that.rows = res.data.rows;
-            that.screenshots = res.data.rows.screenshots.split(",");
-          })
-          .catch(function(res) {});
+      if (window.location.href.indexOf("/game/") != -1) {
+        var id = window.location.href.split("/game/")[1].split("/")[0];
+
+        id = id == "all" ? null : id;
+        var that = this;
+        if (id) {
+          axios
+            .post(url + "/muzhiplat/pc2/game/" + id)
+            .then(function(res) {
+              that.rows = res.data.rows;
+              that.screenshots = res.data.rows.screenshots.split(",");
+            })
+            .catch(function(res) {});
+        }
       }
     },
     next() {
@@ -152,7 +154,7 @@ export default {
   },
   filters: {
     addHttp(data) {
-      if (data.indexOf("undefined") != -1) {
+      if (data && data.indexOf("undefined") != -1) {
         return data;
       } else {
         return url + data;
@@ -217,6 +219,7 @@ export default {
         display: inline-block;
         width: 116px;
         height: 116px;
+        vertical-align: middle;
     }
 }
 
@@ -274,7 +277,7 @@ export default {
         background-position: -68px -127px;
     }
 }
-
+ 
 .game-active {
     display: block;
     margin-top: 20px;
@@ -312,6 +315,7 @@ export default {
 .game-name-box {
     display: inline-block;
     margin-left: 16px;
+    vertical-align: middle;
 }
 
 .intro {

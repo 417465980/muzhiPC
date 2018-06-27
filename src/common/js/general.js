@@ -1,5 +1,3 @@
-import vue from 'vue';
-
 const url = 'http://game.91muzhi.com';
 const resPassword = /\S{6,16}/;
 const regUserName = /^[0-9a-zA-Z]{6,16}$/;
@@ -14,12 +12,9 @@ let hint = function (el, data) {
   }
 
 };
-
-
 export {
   url,
   resPassword,
   regUserName,
   hint
-
 };

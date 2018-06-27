@@ -391,9 +391,9 @@ img {
 }
 
 .clsifi_title .clsifi_type a {
-  color: #999999;
+  color: #666;
   font-size: 12px;
-  font-family: "simsun", "宋体";
+  font-family: '微软雅黑';
   position: relative;
 }
 
@@ -482,8 +482,10 @@ img {
 }
 
 .clsifi_list li .listIcon {
-  height: 100%;
+  height: 148px;
   width: 150px;
+  margin-top: 1px;
+  margin-left: 1px;
   margin-right: 10px;
   position: relative;
 }
@@ -498,7 +500,7 @@ img {
 }
 
 .clsifi_list li .listIcon img {
-  height: 150px;
+  height: 148px;
   max-height: 100%;
   max-width: 100%;
   cursor: pointer;
@@ -799,6 +801,7 @@ img {
   width: 234px;
   height: 118px;
   margin-right: 20px;
+  overflow: hidden;
 }
 
 .new_list li .new_img img {
@@ -856,7 +859,7 @@ img {
 }
 
 .game_list ul li {
-  margin-bottom: 30px;
+  margin: 30px 0;
 }
 
 .game_list .item_title p,
@@ -943,36 +946,21 @@ img {
   position: relative;
 }
 
-.load_more {
-  width: 115px;
-  height: 40px;
+.load_more p {
+  width: 180px;
+  height: 48px;
   margin: 0 auto;
-  text-align: center;
-  font-size: 0;
+  background: url("../../assets/images/btn-more.png") no-repeat;
+  background-size: 100% auto;
+  border: 1px solid #c7c9e8;
+  border-radius: 24px;
 }
 
-.load_more a {
-  width: 35px;
-  display: inline-block;
-  vertical-align: middle;
+.load_more p:hover {
+  background: url("../../assets/images/btn-more-hover.png") no-repeat;
+  background-size: 100% auto;
+  border: 1px solid #d8a4c1;
 }
-
-.load_more a i {
-  width: 17px;
-  height: 17px;
-  background-position: -56px -58px;
-  display: inline-block;
-}
-
-.load_more span {
-  color: #333;
-  font-size: 16px;
-  line-height: 40px;
-  cursor: pointer;
-  vertical-align: middle;
-}
-
-/*  background: url('../../assets/images/1.png') no-repeat center center;background-size: 100% 100%; */
 
 .expect {
   font-size: 20px;

@@ -1,6 +1,6 @@
 <template>
 	<div id='my-gift'>
-		<div v-if="!!rows" >
+		<div v-if="!!rows.length" >
 			<div class="my-gift-nav">
 				<ul>
 					<li><a href="javascript:;">礼包名称</a></li>
@@ -43,25 +43,35 @@ export default {
   computed: {
     ...mapState(["userdata", "token", "game"])
   },
-  mounted() {
-    //获取礼包
-    let that = this;
-    let paramsUrl = qs.stringify({
-      username: that.userdata.name,
-      token: that.token
-    });
-
-    axios
-      .post(url + "/muzhiplat/pc2/user/findMyGifts", paramsUrl)
-      .then(function(res) {
-        if (res.data.ret) {
-          res.data.msg = "获取成功";
-        }
-        that.rows = res.data.rows;
-      })
-      .catch(function(res) {
-        console.log(res);
+  methods: {
+    getgift() {
+      //获取礼包
+      let that = this;
+      let paramsUrl = qs.stringify({
+        username: that.userdata.name,
+        token: that.token
       });
+
+      axios
+        .post(url + "/muzhiplat/pc2/user/findMyGifts", paramsUrl)
+        .then(function(res) {
+          if (res.data.ret) {
+            res.data.msg = "获取成功";
+          }
+          if (res.data.rows) {
+            that.rows = res.data.rows;
+          }
+        })
+        .catch(function(res) {
+          console.log(res);
+        });
+    }
+  },
+  mounted() {
+    this.getgift();
+  },
+  watch: {
+    userdata: "getgift"
   },
   filters: {
     giftState(val) {
@@ -117,11 +127,11 @@ export default {
 		display: inline-block;
 		width: 98px;
 		height: 28px;
-		border: 1px solid #820c9b;
+		border: 1px solid #af2f7d;
 		text-align: center;
 		margin: 0 auto;
 		font-size: 16px;
-		color: #820c9b;
+		color: #af2f7d;
 		line-height: 28px;
 	}
 }
@@ -141,7 +151,7 @@ export default {
 }
 
 .contscroll {
-	max-height: 600px;
+	max-height: 400px;
 	overflow-y: scroll;
 }
 </style>

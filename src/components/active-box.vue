@@ -9,12 +9,12 @@
 			<li v-for="(item,index) in activeList" :key="index">
 			
 				<div class="ac_img">
-					<router-link :to="'/news/'+item.id" tag="a"><img :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /></router-link>
+					<router-link :to="'/news/'+item.id" tag="a" class="box-over"><img class="img-hover" :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /></router-link>
 					<!-- <img  @click="selectActive(item)" :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /> -->
 				</div>
 				<div class="ac_title clearfix">
 					<div class="active_time fl">
-						<p><router-link :to="'/news/'+item.id" class="hoveraction" tag="a">{{item.title}}</router-link></p>
+						<p><router-link :to="'/news/'+item.id" class="hoveraction pis-hover" tag="a">{{item.title}}</router-link></p>
 						<!-- <p  @click="selectActive(item)">{{item.title}}</p> -->
 						<div class="effective">
 							<i></i>
@@ -218,7 +218,6 @@ export default {
 .acBox li .active_time span {
   font-size: 13px;
   color: #666666;
-  font-family: simsun, "宋体";
 }
 .acBox li .active_time .effective,
 .acBox li .active_time .remain_time {

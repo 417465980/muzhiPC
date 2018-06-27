@@ -21,7 +21,7 @@
 			<div class="news_gift clearfix">
 				<div class="fl">
 					<news-info :newList="newList">
-						<p  @click="selectHdline">{{headlines}}</p>
+						<p  class="pis-hover" @click="selectHdline">{{headlines}}</p>
 					</news-info>
 				</div>
 				<div class="homeGiftList fr">
@@ -32,7 +32,7 @@
 									<span>热门礼包</span>
 							</div>
 							<div class="hot_more fr">
-								<router-link to="/gift"><img src="../assets/images/more.png" alt=""></router-link>
+								<router-link to="/gift" ><img src="../assets/images/more.png" alt=""></router-link>
 							</div>
 						</div>
 					</hot-gift>
@@ -132,12 +132,12 @@ export default {
     _getNews() {
       let type = 4;
       this.page = 1;
-      this.rows = 9;
+      this.rows = 10;
       getNews(type, this.page, this.rows).then(res => {
         if (res.ret === true) {
           this.headlines = res.rows[0].title;
           this.headlineId = res.rows[0].id;
-          this.newList = res.rows.slice(1, 9);
+          this.newList = res.rows.slice(1, 10);
         }
       });
     },

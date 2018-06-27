@@ -7,7 +7,7 @@
                   <img v-else src="../../assets/images/user_icon.png" alt="">
                 </div>
                 <div class="g-userinfo">
-                    <p class="user-truename" v-if="userdata.nickName.indexOf('undefined')==-1">{{userdata.nickName}}</p>
+                    <p class="user-truename" v-if="!!userdata.nickName">{{userdata.nickName}}</p>
                     <p class="user-truename" v-else ><router-link to="/user/account">请设置昵称</router-link></p><br>
                     <p class="username"><span>用户名：</span><span v-if="userdata.name">{{userdata.name}}</span><span v-else>请设置用户名</span></p><br>
                     <p class="user-trade"><img :src="'static/images/vip_'+userdata.level+'.png'" alt=""></p>
@@ -16,19 +16,19 @@
         </div>
         <div class="login_botm">
             <ul class="clearfix ">
-              <li>
+              <li class="pis-hover">
                 <router-link  to="/user/myGift"  :class="{gift:true}">
                     <i class="user_spri"></i>
                     <p><a href="javascript:;">礼包：</a><span>{{userdata.giftSum||0}}</span></p>
                 </router-link>
               </li>
-              <li>
+              <li class="pis-hover">
                   <router-link  to="/user/myCoupon"  :class="{lj:true}">
                       <i class="user_spri"></i>
                       <p><a href="javascript:;">礼劵：</a><span>{{userdata.couponSum||0}}</span></p>
                   </router-link>
                   </li>
-              <li>
+              <li class="pis-hover">
                 <router-link to="/user/myWallet" :class="{muzhi_money:true}">
                   <i class="user_spri"></i>
                   <p><a href="javascript:;">拇指币：</a><span>{{userdata.mzAccount||0}}</span></p>
@@ -75,7 +75,7 @@ export default {
     height: 97px;
     overflow: hidden;
     display: inline-block;
-
+    border-radius: 6px;
     img {
       max-height: 100%;
       max-width: none;
