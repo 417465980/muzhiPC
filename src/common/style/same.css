@@ -473,6 +473,10 @@ img {
   margin-bottom: 30px;
 }
 
+.clsifi_list ul li:hover .hoveraction {
+  color: #820c9b;
+}
+
 .clsifi_list ul li:nth-child(odd) {
   float: left;
 }
@@ -946,7 +950,7 @@ img {
   position: relative;
 }
 
-.load_more p {
+.load_more .more-game {
   width: 180px;
   height: 48px;
   margin: 0 auto;
@@ -956,8 +960,40 @@ img {
   border-radius: 24px;
 }
 
-.load_more p:hover {
+.load_more .more-game:hover {
   background: url("../../assets/images/btn-more-hover.png") no-repeat;
+  background-size: 100% auto;
+  border: 1px solid #d8a4c1;
+}
+
+.load_more_gift p {
+  width: 180px;
+  height: 48px;
+  margin: 0 auto;
+  background: url("../../assets/images/more-gift.png") no-repeat;
+  background-size: 100% auto;
+  border: 1px solid #c7c9e8;
+  border-radius: 24px;
+}
+
+.load_more_gift p:hover {
+  background: url("../../assets/images/more-gift-hover.png") no-repeat;
+  background-size: 100% auto;
+  border: 1px solid #d8a4c1;
+}
+
+.load_more .more-active {
+  width: 180px;
+  height: 48px;
+  margin: 0 auto;
+  background: url("../../assets/images/more-active.png") no-repeat;
+  background-size: 100% auto;
+  border: 1px solid #c7c9e8;
+  border-radius: 24px;
+}
+
+.load_more .more-active:hover {
+  background: url("../../assets/images/more-active-hover.png") no-repeat;
   background-size: 100% auto;
   border: 1px solid #d8a4c1;
 }

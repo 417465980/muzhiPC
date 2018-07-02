@@ -35,8 +35,7 @@
 				</div>
 			</li>
 		</ul>
-		
-		{{count[0]}}
+		<p v-show ="false">{{count[0]}}</p>
 	</div>
 </template>
 <script>

@@ -74,14 +74,14 @@ import { hint, url } from "../common/js/general";
 export default {
   data() {
     return {
-      keyword: "还珠格格",
+      keyword: "拇指游戏宝",
       searchKeyword: [],
       show: false
     };
   },
   methods: {
     clearkeyword() {
-      if (this.keyword == "还珠格格") {
+      if (this.keyword == "拇指游戏宝") {
         this.keyword = "";
       }
       if (!window.localStorage.getItem("searchKeyword")) {
@@ -92,7 +92,7 @@ export default {
     },
     defaultkeyword() {
       if (this.keyword == "") {
-        this.keyword = "还珠格格";
+        this.keyword = "拇指游戏宝";
       } else {
         var that = this;
         var searchKeyword = "";

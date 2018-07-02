@@ -23,7 +23,8 @@
 		</div>
 		<div  class="my-gift-box"  v-if="!rows.length">
 			<img src="static/images/5.png" class="center-img" alt="">
-			<p class="g6 f16 tc mt20">暂无充值记录</p>
+			<p class="g6 f16 tc mt20" v-if="msg.indexOf('登录超时')!=-1">登录超时</p>
+			<p class="g6 f16 tc mt20" v-else>暂无充值记录</p>
 		</div>
 	</div>
 </template>
@@ -35,7 +36,8 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      rows: []
+      rows: [],
+      msg: ""
     };
   },
   computed: {
@@ -58,6 +60,7 @@ export default {
           if (res.data.ret) {
             res.data.msg = "获取成功";
           }
+          that.msg = res.data.msg;
           if (res.data.rows) {
             that.rows = res.data.rows;
           }

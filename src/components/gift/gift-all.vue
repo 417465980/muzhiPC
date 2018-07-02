@@ -20,8 +20,8 @@
 			</ul>
 
 		</div>
-		<div class="load_more" @click="addgift" v-if="hotGift.length>0&&show">
-      <p></p>
+		<div class="load_more_gift" @click="addgift" v-if="hotGift.length>0&&show">
+      <p class="more-gift"></p>
 		</div>
 		<transition>
 			<div class="hint" ref="hint">

@@ -144,7 +144,7 @@ export default {
       this.userInput.textActive = true;
       this.userInput.prompt = regUserName.test(this.username);
       if (regUserName.test(this.username)) {
-        this.userInput.promptContent = "通过";
+        this.userInput.promptContent = "√";
       } else {
         this.userInput.promptContent = "6-15位（仅限数字、英文）";
       }
@@ -153,7 +153,7 @@ export default {
       this.psdInput.textActive = true;
       this.psdInput.prompt = resPassword.test(this.password);
       if (resPassword.test(this.password)) {
-        this.psdInput.promptContent = "通过";
+        this.psdInput.promptContent = "√";
       } else {
         this.psdInput.promptContent = "最少5位";
       }
@@ -162,7 +162,7 @@ export default {
       this.repeatPsdInput.textActive = true;
       if (this.password == this.passwordrepeat) {
         this.repeatPsdInput.prompt = true;
-        this.repeatPsdInput.promptContent = "密码输入一致";
+        this.repeatPsdInput.promptContent = "√";
       } else {
         this.repeatPsdInput.prompt = false;
         this.repeatPsdInput.promptContent = "两次密码输入不一致，请重新输入";
@@ -189,7 +189,7 @@ export default {
               that.userInput.promptContent = "该用户名已存在";
             } else if (res.data.result == -1) {
               that.userInput.prompt = true;
-              that.userInput.promptContent = "该用户名可用";
+              that.userInput.promptContent = "√";
             }
           })
           .catch(function(res) {

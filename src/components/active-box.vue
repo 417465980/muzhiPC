@@ -30,9 +30,9 @@
 				</div>
 			</li>
 		</ul>
-		{{count[0]}}
+			<p v-show ="false">{{count[0]}}</p>
 		<div class="moreWrap" v-show="hasMore === true">
-			<load-more @hasMore="activeMore"></load-more>
+			<load-more @hasMore="activeMore"><p class="more-active"></p></load-more>
 		</div>
 	</div>
 </template>
@@ -194,8 +194,9 @@ export default {
 }
 .acBox li .ac_img {
   width: 100%;
-  height: 163px;
+  height: 168px;
   margin-bottom: 15px;
+  overflow: hidden;
 }
 .acBox li .ac_img img {
   width: 100%;

@@ -8,6 +8,7 @@
 					<li><a href="javascript:;">激活码</a></li>
 					<!-- <li><a href="javascript:;">状态</a></li> -->
 				</ul>
+
 			</div>
 			<div class="contscroll">
 				<div class="my-gift-list"  v-for="data in rows" :key="data.$index">
@@ -17,12 +18,25 @@
 						<li>{{data.giftcode|toUpperCase}}</li>
 						<!-- <li>{{data.giftState|giftState}}</li> -->
 					</ul>
+
+					
 				</div>
+				
+				<el-pagination
+						@size-change="handleSizeChange"
+      			@current-change="handleCurrentChange"
+						background
+						layout="prev, pager, next"
+						:page-size = "6"
+						:total="total">
+					</el-pagination>
 			</div>
 		</div>
 		<div  v-else >
 			<img src="static/images/3.png" class="center-img" alt=""/>
-			<p class="g6 f16 tc mt20">前往app领取吧</p>
+			<p class="g6 f16 tc mt20" v-if="msg.indexOf('登录超时')!=-1">登录超时</p>
+			<p class="g6 f16 tc mt20" v-else>前往app领取吧</p>
+
 		</div>
 
 		<!-- <div class="paging" id="page"></div> -->
@@ -34,22 +48,34 @@ import axios from "axios";
 import qs from "qs";
 import { url } from "../../common/js/general";
 import { mapState } from "vuex";
+import { Pagination } from "element-ui";
+
+Vue.use(Pagination);
 export default {
   data() {
     return {
-      rows: []
+      rows: [],
+      page: 1,
+      num: 6,
+      msg: "",
+      total: 0
     };
+  },
+  components: {
+    "e-pagination": Pagination
   },
   computed: {
     ...mapState(["userdata", "token", "game"])
   },
   methods: {
-    getgift() {
+    getgift(page) {
       //获取礼包
       let that = this;
       let paramsUrl = qs.stringify({
         username: that.userdata.name,
-        token: that.token
+        token: that.token,
+        page,
+        rows: this.num
       });
 
       axios
@@ -57,7 +83,9 @@ export default {
         .then(function(res) {
           if (res.data.ret) {
             res.data.msg = "获取成功";
+            that.total = res.data.total;
           }
+          that.msg = res.data.msg;
           if (res.data.rows) {
             that.rows = res.data.rows;
           }
@@ -65,10 +93,18 @@ export default {
         .catch(function(res) {
           console.log(res);
         });
+    },
+    handleSizeChange(num) {
+      console.log(`每页 ${num} 条`);
+      this.getgift(num);
+    },
+    handleCurrentChange(num) {
+      console.log(`当前页: ${num}`);
+      this.getgift(num);
     }
   },
   mounted() {
-    this.getgift();
+    this.getgift(this.num);
   },
   watch: {
     userdata: "getgift"
@@ -151,7 +187,8 @@ export default {
 }
 
 .contscroll {
-	max-height: 400px;
-	overflow-y: scroll;
+	height: 340px;
+	overflow: hidden;
+	position: relative;
 }
 </style>

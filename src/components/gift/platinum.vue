@@ -22,7 +22,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="load_more" v-if="hotGift.length>0"><!--  @click="addgift" -->
+		<div class="load_more_gift" v-if="hotGift.length>0"><!--  @click="addgift" -->
 			<p></p>
 		</div>
 	</div>

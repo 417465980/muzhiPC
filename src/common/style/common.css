@@ -620,6 +620,12 @@ a.tdl:hover {
   background-color: #d12878;
 }
 
+input:-webkit-autofill {
+  background-color: #fff;
+  background-image: none;
+  color: #333;
+}
+
 .receive {
   width: 110px;
 }

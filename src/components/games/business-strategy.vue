@@ -25,7 +25,7 @@
 			</li>
 		</ul>
 		<div class="moreWrap" v-show="hasMore === true">
-			<load-more @hasMore="allMore"></load-more>
+			<load-more @hasMore="allMore"><p class="more-game"></p></load-more>
 		</div>
          <expect v-if="!this.allList.length">
             <p>无此分类游戏，敬请期待...</p>

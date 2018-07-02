@@ -18,8 +18,8 @@
 					</div>
 				</li>
 			</ul>
-			<div class="load_more" @click="addgift" v-if="hotGift.length>0&&show">
-				<p></p>
+			<div class="load_more_gift" @click="addgift" v-if="hotGift.length>0&&show">
+				<p class="more-gift"></p>
 			</div>
 			<div class="markfqa" @click.stop="close" v-show="bool">
 				<transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">

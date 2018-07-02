@@ -91,7 +91,7 @@
 				<div class="div">更新时间：2018-05-16</div>
 				<h5>  在获取AppId和Key后，您需要根据我们的技术文档进行整合。</h5>
 				<div class="border">
-					<h4>Android游戏SDK 版本号：3.7.6</h4>
+					<h4>Android游戏SDK 版本号：3.7.7</h4>
 					<div class="div">更新于2018年05月16日</div>
 					<p>1、修改部分界面UI布局；</p>
 					<p>2、角色接口重构；</p>
@@ -99,7 +99,7 @@
 					<p>4、修复已知bug；</p>
 					<br>
 					<br>
-					<a href="http://91muzhicom-1251304591.file.myqcloud.com/pic/SDK/android/%E6%8B%87%E6%8C%87%E6%B8%B8%E7%8E%A9%20Android%20SDK_3.7.6.zip"><span class="btn">下&nbsp;&nbsp;载</span></a>
+					<a href="http://91muzhicom-1251304591.file.myqcloud.com/pic/SDK/android/%E6%8B%87%E6%8C%87%E6%B8%B8%E7%8E%A9%20Android%20SDK_3.7.7.zip"><span class="btn">下&nbsp;&nbsp;载</span></a>
 				</div>
 				<div class="border">
 					<h4>iOS游戏SDK 版本号：4.5.4</h4>

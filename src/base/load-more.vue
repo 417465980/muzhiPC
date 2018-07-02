@@ -1,6 +1,6 @@
 <template>
 	<div class="load_more" @click="loadMore">
-		<p class=""></p>
+		<slot></slot>
 	</div>
 </template>
 <script>

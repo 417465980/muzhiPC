@@ -22,8 +22,8 @@
 				</li>
 			</ul>
 		</div>
-		<div class="load_more" v-if="hotGift.length>0"><!--  @click="addgift" -->
-			<p></p>
+		<div class="load_more_gift" v-if="hotGift.length>0"><!--  @click="addgift" -->
+			<p class="more-gift"></p>
 		</div>
 		<div class="markfqa" @click.stop="close" v-show="bool">
 			<transition enter-active-class="animated flipInX"  leave-active-class="animated flipOutX"  tag="div">

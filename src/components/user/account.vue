@@ -104,7 +104,8 @@ export default {
         .post(url + "/muzhiplat/pc2/user/edit", paramsUrl)
         .then(function(res) {
           hint(that.$refs, res.data.msg);
-          if (res.data.msg.indexOf("登陆超时") != -1) {
+
+          if (res.data.msg.indexOf("登录超时") != -1) {
             setTimeout(() => {
               that.$router.push("/login");
             }, 1000);

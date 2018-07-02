@@ -8,7 +8,7 @@
                 </div>
                 <ul v-else class="clearfix">
               
-                    <li v-for="(item,index) in rows" :key="index" class="img-hover-border pis-hover">
+                    <li v-for="(item,index) in rows" :key="index" class="img-hover-border ">
                       <div class="listIcon fl">
                         <router-link :to="'/game/'+item.id" tag="p"><img  v-lazy="'http://game.91muzhi.com/muzhiplat'+item.character" /><span class="imgfilter"></span></router-link>
                       </div>
