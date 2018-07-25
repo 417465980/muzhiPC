@@ -8,7 +8,7 @@
                         <div class="login-warp">
                             <div class="login-margin">
                                 <ol>
-                                    <li><label class="username input-hover" for="username"><input type="text" value="checkedRemmber" @input="checkUser" id="username" placeholder="请输入用户名" v-model="username"></label></li>  
+                                    <li><label class="username input-hover" for="username"><input type="text" value="checkedRemmber"  id="username" placeholder="请输入用户名" v-model="username"></label></li>  
                                     <li><label class="psd input-hover" for="psd"><input id="psd" :type="type" placeholder="请输入密码" v-model="password"><i class="eye" @click="changeType"></i></label></li> 
                                 </ol>
                                 <div>
@@ -44,7 +44,7 @@ export default {
       type: "password",
       checked: localStorage.checked || true,
       userInput: {
-        prompt: false,
+        prompt: true,
         promptContent: "6-15位（仅限数字、英文）",
         textActive: false
       } //登录注册验证提示
@@ -54,41 +54,42 @@ export default {
     login() {
       const that = this;
       this.userInput.textActive = true;
-      if (this.userInput.prompt) {
-        let paramsUrl = qs.stringify({
-          username: this.username,
-          password: this.password
-        });
-        axios
-          .post(url + "/muzhiplat/pc2/user/login", paramsUrl)
-          .then(function(res) {
-            hint(that.$refs, res.data.msg);
-            if (res.data.ret) {
-              window.localStorage.setItem(
-                "userdata",
-                JSON.stringify(res.data.rows.user)
-              );
+      let paramsUrl = qs.stringify({
+        username: this.username,
+        password: this.password
+      });
+      axios
+        .post(url + "/muzhiplat/pc2/user/login", paramsUrl)
+        .then(function(res) {
+          if (res.data.msg.indexOf("登陆成功") != -1) {
+            res.data.msg = "登录成功";
+          }
+          hint(that.$refs, res.data.msg);
+          if (res.data.ret) {
+            window.localStorage.setItem(
+              "userdata",
+              JSON.stringify(res.data.rows.user)
+            );
 
-              window.localStorage.setItem(
-                "token",
-                JSON.stringify(res.data.token)
-              );
-              window.localStorage.setItem(
-                "game",
-                JSON.stringify(res.data.rows.game)
-              );
-              that.setUserdata();
-              that.setToken();
-              that.setGame();
-              setTimeout(function() {
-                that.$router.push({
-                  path: "/"
-                });
-              }, 1000);
-            }
-          })
-          .catch(function(res) {});
-      }
+            window.localStorage.setItem(
+              "token",
+              JSON.stringify(res.data.token)
+            );
+            window.localStorage.setItem(
+              "game",
+              JSON.stringify(res.data.rows.game)
+            );
+            that.setUserdata();
+            that.setToken();
+            that.setGame();
+            setTimeout(function() {
+              that.$router.push({
+                path: "/"
+              });
+            }, 1000);
+          }
+        })
+        .catch(function(res) {});
     },
     checkUser() {
       this.userInput.textActive = true;

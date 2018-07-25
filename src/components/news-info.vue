@@ -93,7 +93,6 @@ export default {
   font-size: 18px;
   font-weight: bold;
 }
-
 .news_info .new_content li {
   width: 300px;
   margin-bottom: 15px;

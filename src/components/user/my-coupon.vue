@@ -10,19 +10,18 @@
 				<div v-for="(itemcont,index) in couponlist" :key="index" ref="itemcont" :class="{'coupon-list':true, 'coupon-active':index=='acct'}">
 					
 					<ul v-if="!!itemcont.length">
-
 						<li v-for="(item,i) in itemcont" :key="i">
 							<p :class="{ canuse:index=='acct', cantuse:index == 'cantuse'||index == 'perms',  'coupon-sum':true}">￥{{item.rebate_num}}</p>
 							<div class="coupon-content">
 								<p :class="{f16:'true', g3:'true', ellipsis:'true', permswidth:index == 'cantuse'||index == 'perms'}">{{item.remark}}</p>
-								<p class="f14 g9 " v-if="index=='acct'">有效期：{{item.start_date|dateformat}}-{{item.start_date|dateformat}}</p>
-								<p class="f14 g9 " v-if="index == 'cantuse'||index == 'perms'">{{item.start_date|dateformat}}-{{item.start_date|dateformat}}</p>
-								<a v-if="index=='acct'" href="javascript:;">下载app使用</a>
+								<p class="f14 g9 " v-if="index=='acct'">有效期：{{item.start_date|dateformat}}-{{item.end_date|dateformat}}</p>
+								<p class="f14 g9 " v-if="index == 'cantuse'||index == 'perms'">{{item.start_date|dateformat}}-{{item.end_date|dateformat}}</p>
+								<a v-if="index=='acct'" href="http://tfyxb2017-1251304591.file.myqcloud.com/mzyxb/mzyxb_mzyw.apk">下载app使用</a>
 								<div v-if="index=='perms'" class="perms" href="javascript:;">已使用</div>
 								<div v-if="index=='cantuse'" class="perms" href="javascript:;">已失效</div>
 							</div>
 						</li>
-					</ul>
+					</ul> 
 					<div v-else >
 						<img class="center-img" src="static/images/4.png">
 						<p  class="g6 f16 tc mt20">暂无礼券</p>
@@ -96,37 +95,40 @@ export default {
       let that = this;
       let paramsUrl = qs.stringify({
         username: that.userdata.name,
-        token: that.token,
-        type: 3,
-        page: that.info.page,
-        rows: that.info.rows
+        flag: 3,
+        amount: 100
       });
 
-      return axios.post(url + "/muzhiplat/pc2/user/findMyCoupon", paramsUrl);
+      return axios.post(
+        "http://gm.91muzhi.com:8088/muzhi/coupon_manage/getCoupon.do",
+        paramsUrl
+      );
     },
     getCoupon4() {
       let that = this;
       let paramsUrl = qs.stringify({
         username: that.userdata.name,
-        token: that.token,
-        type: 4,
-        page: that.info.page,
-        rows: that.info.rows
+        flag: 4,
+        amount: 0
       });
 
-      return axios.post(url + "/muzhiplat/pc2/user/findMyCoupon", paramsUrl);
+      return axios.post(
+        "http://gm.91muzhi.com:8088/muzhi/coupon_manage/getCoupon.do",
+        paramsUrl
+      );
     },
     getCoupon5() {
       let that = this;
       let paramsUrl = qs.stringify({
         username: that.userdata.name,
-        token: that.token,
-        type: 5,
-        page: that.info.page,
-        rows: that.info.rows
+        flag: 5,
+        amount: 0
       });
 
-      return axios.post(url + "/muzhiplat/pc2/user/findMyCoupon", paramsUrl);
+      return axios.post(
+        "http://gm.91muzhi.com:8088/muzhi/coupon_manage/getCoupon.do",
+        paramsUrl
+      );
     },
     couponTab(index) {
       for (var i in this.$refs.item) {
@@ -139,8 +141,8 @@ export default {
       this.$refs.itemcont[index].className += " coupon-active";
     },
     acct(acct) {
-      if (acct.data.rows) {
-        this.couponlist.acct = acct.data.rows;
+      if (acct.data.length) {
+        this.couponlist.acct = acct.data;
       }
     }
   },

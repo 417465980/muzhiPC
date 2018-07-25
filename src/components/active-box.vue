@@ -5,9 +5,10 @@
 			<span>全部活动</span>
 			
 		</div>
+    
 		<ul class="clearfix">
 			<li v-for="(item,index) in activeList" :key="index">
-			
+       
 				<div class="ac_img">
 					<router-link :to="'/news/'+item.id" tag="a" class="box-over"><img class="img-hover" :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /></router-link>
 					<!-- <img  @click="selectActive(item)" :src="'http://game.91muzhi.com/muzhiplat'+item.bigPicUrl" /> -->
@@ -18,14 +19,13 @@
 						<!-- <p  @click="selectActive(item)">{{item.title}}</p> -->
 						<div class="effective">
 							<i></i>
-							<span>活动时间：{{item.startDate}}至{{item.endDate}}</span>
+							<span>活动时间：<span :class="{'router-link-active':item.time>0}">{{item.startDate}}至{{item.endDate}}</span></span>
 						</div>
 						<div class="remain_time">
 							<i></i>
-							<span>剩余时间：<span v-if="type">{{item.remain}}</span></span>
+							<span>剩余时间：<span v-if="type" :class="{'router-link-active':item.time>0}">{{item.remain}}</span></span>
 						</div>
 					</div>
-					
 					<img class="end_icon fr" v-if="!(item.time>0)" src="../assets/images/endIcon.png" />
 				</div>
 			</li>
@@ -54,7 +54,8 @@ export default {
       hasMore: false,
       activetime: [],
       count: [],
-      timer: null
+      timer: [],
+      aaabbb: [1]
     };
   },
   mounted() {
@@ -62,42 +63,39 @@ export default {
       this._getActive();
     }, 20);
   },
+  computed: {
+    fontColor(arg) {
+      if (arg) {
+        return {
+          color: "#820c9b"
+        };
+      }
+    }
+  },
   methods: {
     _getActive() {
       getNews(this.type, this.page, this.rows).then(res => {
         if (res.ret === true) {
-          this.activeList = res.rows;
           var that = this;
-          clearInterval(this.timer);
-          //var count=[]
-          this.timer = setInterval(() => {
-            var arr = [];
-            for (var i in this.count) {
-              this.count[i] = this.count[i] + 1;
-              arr.push(this.count[i]);
-            }
-            this.count = arr;
-            var now = new Date();
-            for (var i = 0; i < this.activeList.length; i++) {
-              var end = new Date(this.activeList[i].endDate.replace(/-/g, "/"));
-
-              end.setHours(23, 59, 59, 0);
-
-              var time = parseInt((end.getTime() - now.getTime()) / 1000);
-
-              if (!(time > 0)) {
-                clearInterval(this.timer);
-              }
-              this.activeList[i].remain = this.remainTime(
-                this.activeList[i].endDate,
-                time
-              );
-              this.activeList[i].time = time;
-            }
-            //this.activeList = this.activeList
-            //console.log(count[0].remain)
-          }, 1000);
-
+          that.activeList = res.rows;
+          var time = [];
+          time.length = res.rows.length;
+          for (var i = 0; i < res.rows.length; i++) {
+            (function(i) {
+              that.timer[i] = setInterval(() => {
+                var now = new Date();
+                var end = new Date(res.rows[i].endDate.replace(/-/g, "/"));
+                end.setHours(23, 59, 59, 0);
+                time[i] = parseInt((end.getTime() - now.getTime()) / 1000);
+                var remain = that.remainTime(res.rows[i].endDate, time[i]);
+                res.rows[i].time = time[i];
+                that.$set(that.activeList[i], "remain", remain);
+                if (time[i] <= 0) {
+                  clearInterval(that.timer[i]);
+                }
+              }, 1000);
+            })(i);
+          }
           if (this.activeList.length < res.total) {
             this.hasMore = true;
           } else {
@@ -112,20 +110,27 @@ export default {
       var that = this;
       getNews(this.type, this.page, this.rows).then(res => {
         if (res.ret === true) {
-          this.activeList = this.activeList.concat(res.rows);
-          var now = new Date();
-          for (var i = 0; i < that.activeList.length; i++) {
-            var end = new Date(that.activeList[i].endDate.replace(/-/g, "/"));
+          var time = [];
+          time.length = res.rows.length;
+          for (var i = 0; i < res.rows.length; i++) {
+            (function(i) {
+              that.timer[i] = setInterval(() => {
+                var now = new Date();
+                var end = new Date(res.rows[i].endDate.replace(/-/g, "/"));
+                end.setHours(23, 59, 59, 0);
+                time[i] = parseInt((end.getTime() - now.getTime()) / 1000);
+                var remain = that.remainTime(res.rows[i].endDate, time[i]);
+                res.rows[i].time = time[i];
 
-            end.setHours(23, 59, 59, 0);
-
-            var time = parseInt((end.getTime() - now.getTime()) / 1000);
-
-            that.activeList[i].remain = that.remainTime(
-              that.activeList[i].endDate,
-              time
-            );
+                that.$set(res.rows[i], "remain", remain);
+                that.activeList = that.activeList.concat(res.rows);
+                if (time[i] <= 0) {
+                  clearInterval(that.timer[i]);
+                }
+              }, 1000);
+            })(i);
           }
+
           if (!res.rows.length || this.total + this.rows >= res.total) {
             this.hasMore = false;
           }
@@ -143,7 +148,8 @@ export default {
         var h = Math.floor((time %= 86400) / 3600);
         var m = Math.floor((time %= 3600) / 60);
         var s = parseInt(time % 60);
-        return d + " 天 " + h + " 小时 " + m + " 分 " + s + " 秒";
+        var a = d + " 天 " + h + " 小时 " + m + " 分 " + s + " 秒";
+        return a;
       } else {
         return "活动已经结束了哟";
       }
@@ -220,6 +226,9 @@ export default {
   font-size: 13px;
   color: #666666;
 }
+.acBox li .active_time .router-link-active {
+  color: #820c9b;
+}
 .acBox li .active_time .effective,
 .acBox li .active_time .remain_time {
   height: 20px;
@@ -250,3 +259,4 @@ export default {
   margin-top: 35px;
 }
 </style>
+

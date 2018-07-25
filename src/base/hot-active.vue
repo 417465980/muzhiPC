@@ -24,18 +24,17 @@
 					<div class="active_time fl">
 						<div class="effective">
 							<i></i>
-							<span>活动时间：{{item.startDate}}至{{item.endDate}}</span>
+							<span>活动时间：<span :class="{'router-link-active':item.time>0}">{{item.startDate}}至{{item.endDate}}</span></span>
 						</div>
 						<div class="remain_time">
 							<i></i>
-							<span>剩余时间：{{item.remain}}</span>
+							<span>剩余时间：<span :class="{'router-link-active':item.time>0}">{{item.remain}}</span></span>
 						</div>
 					</div>                                                                                 
 					<img class="end_icon fr" src="../assets/images/endIcon.png" :style="endIconW" v-show="isEnd[index]"/>
 				</div>
 			</li>
 		</ul>
-		<p v-show ="false">{{count[0]}}</p>
 	</div>
 </template>
 <script>
@@ -46,8 +45,7 @@ export default {
     return {
       hotActive: [],
       isEnd: [],
-      timer: null,
-      count: []
+      timer: []
     };
   },
   computed: {
@@ -90,29 +88,31 @@ export default {
       getNews(type, page, rows).then(res => {
         if (res.ret === true) {
           this.hotActive = res.rows;
-          clearInterval(this.timer);
-          this.timer = setInterval(() => {
-            var arr = [];
-            for (var i in this.count) {
-              this.count[i] = this.count[i] + 1;
-              arr.push(this.count[i]);
-            }
-            this.count = arr;
-            var now = new Date();
-            for (var i = 0; i < this.hotActive.length; i++) {
-              var end = new Date(this.hotActive[i].endDate.replace(/-/g, "/"));
-              end.setHours(23, 59, 59, 0);
-              var time = parseInt((end.getTime() - now.getTime()) / 1000);
-              this.hotActive[i].remain = this.remainTime(time);
-
-              if (time > 0) {
-                this.isEnd[i] = false;
-              } else {
-                clearInterval(this.timer);
-                this.isEnd[i] = true;
-              }
-            }
-          }, 1000);
+          var time = [];
+          time.length = res.rows.length;
+          var that = this;
+          for (var i = 0; i < res.rows.length; i++) {
+            (function(i) {
+              that.timer[i] = setInterval(() => {
+                var now = new Date();
+                var end = new Date(res.rows[i].endDate.replace(/-/g, "/"));
+                end.setHours(23, 59, 59, 0);
+                time[i] = parseInt((end.getTime() - now.getTime()) / 1000);
+                res.rows[i].time = time[i];
+                that.$set(
+                  that.hotActive[i],
+                  "remain",
+                  that.remainTime(res.rows[i].endDate, time[i])
+                );
+                if (time[i] > 0) {
+                  that.isEnd[i] = false;
+                } else {
+                  clearInterval(that.timer);
+                  that.isEnd[i] = true;
+                }
+              }, 1000);
+            })(i);
+          }
         }
       });
     },
@@ -121,7 +121,8 @@ export default {
         path: `/news/${item.id}`
       });
     },
-    remainTime(time) {
+    remainTime(endDate, time) {
+      console.log(time);
       if (time >= 0) {
         var d = Math.floor(time / 86400);
         var h = Math.floor((time %= 86400) / 3600);
