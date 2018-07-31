@@ -18,11 +18,11 @@
 						<p><router-link :to="'/news/'+item.id" class="hoveraction pis-hover" tag="a">{{item.title}}</router-link></p>
 						<!-- <p  @click="selectActive(item)">{{item.title}}</p> -->
 						<div class="effective">
-							<i></i>
+							<i :class="{'border-remain':item.time>0}"></i>
 							<span>活动时间：<span :class="{'router-link-active':item.time>0}">{{item.startDate}}至{{item.endDate}}</span></span>
 						</div>
 						<div class="remain_time">
-							<i></i>
+							<i :class="{'border-remain':item.time>0}"></i>
 							<span>剩余时间：<span v-if="type" :class="{'router-link-active':item.time>0}">{{item.remain}}</span></span>
 						</div>
 					</div>
@@ -247,6 +247,9 @@ export default {
   -ms-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+}
+.acBox li .active_time .border-remain {
+  border: 1px solid #820c9b;
 }
 .acBox li .ac_title {
   position: relative;

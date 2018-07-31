@@ -111,6 +111,10 @@ export default {
                         JSON.stringify(res.data.rows.user)
                       );
                       window.localStorage.setItem(
+                        "userData",
+                        JSON.stringify(res.data.rows.user)
+                      );
+                      window.localStorage.setItem(
                         "token",
                         JSON.stringify(res.data.token)
                       );

@@ -27,7 +27,7 @@
       			@current-change="handleCurrentChange"
 						background
 						layout="prev, pager, next"
-						:page-size = "6"
+						:page-size = "1"
 						:total="total">
 					</el-pagination>
 			</div>
@@ -70,6 +70,7 @@ export default {
   methods: {
     getgift(page) {
       //获取礼包
+
       let that = this;
       let paramsUrl = qs.stringify({
         username: that.userdata.name,
@@ -95,16 +96,14 @@ export default {
         });
     },
     handleSizeChange(num) {
-      console.log(`每页 ${num} 条`);
       this.getgift(num);
     },
     handleCurrentChange(num) {
-      console.log(`当前页: ${num}`);
       this.getgift(num);
     }
   },
   mounted() {
-    this.getgift(this.num);
+    this.getgift(this.page);
   },
   watch: {
     userdata: "getgift"
@@ -190,5 +189,9 @@ export default {
 	height: 340px;
 	overflow: hidden;
 	position: relative;
+}
+
+.el-pagination .is-background .el-pager li {
+	color: #999;
 }
 </style>

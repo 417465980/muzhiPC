@@ -23,11 +23,11 @@
 				<div class="hotTimeCont clearfix">
 					<div class="active_time fl">
 						<div class="effective">
-							<i></i>
+							<i :class="{'border-remain':item.time>0}"></i>
 							<span>活动时间：<span :class="{'router-link-active':item.time>0}">{{item.startDate}}至{{item.endDate}}</span></span>
 						</div>
 						<div class="remain_time">
-							<i></i>
+							<i :class="{'border-remain':item.time>0}"></i>
 							<span>剩余时间：<span :class="{'router-link-active':item.time>0}">{{item.remain}}</span></span>
 						</div>
 					</div>                                                                                 
@@ -122,7 +122,6 @@ export default {
       });
     },
     remainTime(endDate, time) {
-      console.log(time);
       if (time >= 0) {
         var d = Math.floor(time / 86400);
         var h = Math.floor((time %= 86400) / 3600);
@@ -187,6 +186,9 @@ export default {
   -ms-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+}
+.hot_active ul .active_time .border-remain {
+  border: 1px solid #820c9b;
 }
 .hot_active ul .end_icon {
   margin-top: 5px;
